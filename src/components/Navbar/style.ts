@@ -7,6 +7,8 @@ export const NavbarContainer = styled.div`
   background-color: #2b2a33;
   height: 10%;
   width: 100%;
+  position: fixed;
+  z-index: 1001;
 `;
 
 export const NavbarContentWrapper = styled.div`
@@ -32,7 +34,7 @@ export const NavBarProjectNameLogoContainer = styled.div`
     color: white;
 
     :hover {
-        color: #287fc2;
+      color: #287fc2;
     }
   }
 `;
@@ -49,4 +51,9 @@ export const LoginLogoutProfileContainer = styled.div`
   justify-content: center;
   align-items: center;
   width: 30%;
+
+  h2 {
+    cursor: pointer;
+    color: white;
+  }
 `;
