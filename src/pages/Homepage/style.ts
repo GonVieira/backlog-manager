@@ -3,17 +3,19 @@ import styled from "styled-components";
 export const HomepageContainer = styled.div`
   display: flex;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
   background-color: #171e22;
   height: 200%;
   width: 100%;
   padding-top: 4%;
+  flex-direction: column;
 `;
 
 export const BackGroundImageDiv = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
   width: 100%;
   height: 40%;
   background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
@@ -84,3 +86,37 @@ export const LogInButtonContainer = styled.div`
   width: 40%;
   padding: 0.5rem;
 `;
+
+export const PopularGamesSection = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 75%;
+  height: 60%;
+`
+
+export const PopularGamesSectionTextDiv = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  height: 20%;
+
+  h2 {
+    color: white;
+    font-size: 2rem;
+  }
+`
+
+export const PopularGamesContentContainer = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  height: 80%;
+
+  
+`
+
+

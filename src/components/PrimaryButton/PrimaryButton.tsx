@@ -4,11 +4,12 @@ import { StyledBtnText, StyledButton } from "./style";
 interface ButtonInfoProp {
   buttonText: string;
   onClickFunction?: () => void;
+  color?: string;
 }
 
-const PrimaryButton = ({ buttonText, onClickFunction }: ButtonInfoProp) => {
+const PrimaryButton = ({ buttonText, onClickFunction, color }: ButtonInfoProp) => {
   return (
-    <StyledButton onClick={onClickFunction}>
+    <StyledButton color={color} onClick={onClickFunction}>
       <StyledBtnText>{buttonText}</StyledBtnText>
     </StyledButton>
   );

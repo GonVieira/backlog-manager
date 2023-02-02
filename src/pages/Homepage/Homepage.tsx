@@ -6,6 +6,9 @@ import {
   HomepageContainer,
   HomepageContentWrapper,
   LogInButtonContainer,
+  PopularGamesContentContainer,
+  PopularGamesSection,
+  PopularGamesSectionTextDiv,
   ProjectCoolPhraseConainer,
   ProjectNameTitleConainer,
   RegisterButtonContainer,
@@ -37,7 +40,7 @@ const Homepage = () => {
           </ProjectCoolPhraseConainer>
           <ButtonsContainer>
             <RegisterButtonContainer>
-              <PrimaryButton buttonText={"Join Us"} />
+              <PrimaryButton color="#171e22" buttonText={"Join Us"} />
             </RegisterButtonContainer>
             <LogInButtonContainer>
               <PrimaryButton buttonText={"Log in"} />
@@ -45,6 +48,15 @@ const Homepage = () => {
           </ButtonsContainer>
         </HomepageContentWrapper>
       </BackGroundImageDiv>
+
+      <PopularGamesSection>
+        <PopularGamesSectionTextDiv>
+          <h2>What's hot right now?</h2>
+        </PopularGamesSectionTextDiv>
+        <PopularGamesContentContainer>
+          
+        </PopularGamesContentContainer>
+      </PopularGamesSection>
     </HomepageContainer>
   );
 };
