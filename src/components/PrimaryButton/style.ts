@@ -17,7 +17,7 @@ export const StyledButton = styled.button`
   @media (hover: hover) and (pointer: fine) {
     :hover {
       padding-right: 0.2rem;
-      background-color: ${(props) => (props.color  ? props.color : "#689af8")};
+      background-color: ${(props) => (props.color ? props.color : "#689af8")};
     }
   }
   //Tablets

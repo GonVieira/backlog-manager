@@ -1,5 +1,9 @@
 import styled from "styled-components";
 
+interface Props {
+  wallpaperUrl: string;
+}
+
 export const HomepageContainer = styled.div`
   display: flex;
   justify-content: center;
@@ -11,15 +15,17 @@ export const HomepageContainer = styled.div`
   flex-direction: column;
 `;
 
-export const BackGroundImageDiv = styled.div`
+export const BackGroundImageDiv = styled.div<Props>`
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   width: 100%;
   height: 40%;
-  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-    url(https://cdn.discordapp.com/attachments/1070077755120701540/1070078599455068160/elden-ring-keyart.png);
+  background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.5)), url(${(props) => props.wallpaperUrl});
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 `;
 
 export const HomepageContentWrapper = styled.div`
@@ -94,7 +100,7 @@ export const PopularGamesSection = styled.div`
   flex-direction: column;
   width: 75%;
   height: 60%;
-`
+`;
 
 export const PopularGamesSectionTextDiv = styled.div`
   display: flex;
@@ -104,19 +110,30 @@ export const PopularGamesSectionTextDiv = styled.div`
   height: 20%;
 
   h2 {
-    color: white;
+    color: #ffa500;
     font-size: 2rem;
   }
+`;
+
+export const PopularGamesContainer = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-gap: 20px;
+  width: 100%;
+  height: 70%;
+`;
+
+export const PopularGameContainer = styled.div`
+  width: 100%;
+  height: 100%;
+  background: white;
 `
 
-export const PopularGamesContentContainer = styled.div`
+export const BottomPageButtonContainer = styled.div`
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
   width: 100%;
-  height: 80%;
-
-  
+  height: 10%;
 `
-
-
