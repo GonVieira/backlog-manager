@@ -1,14 +1,24 @@
 import styled from "styled-components";
 
-export const SimpleGameCardContainer = styled.div`
+interface BackGroundImageProps {
+  backgroundImg: string;
+}
+
+export const SimpleGameCardContainer = styled.div<BackGroundImageProps>`
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: row;
   width: 100%;
   height: 100%;
-  padding: 0.2rem;
+  padding: 0.4rem;
   background-color: gray;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.7)),
+    url(${(props) => props.backgroundImg});
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 5px;
 `;
 
 export const GameImgContainer = styled.div`
@@ -20,11 +30,11 @@ export const GameImgContainer = styled.div`
 `;
 
 export const GameImg = styled.img`
-    width: 100%;
-    height: 95%;
-    object-fit: cover;
-`
-
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 5px;
+`;
 
 export const InfoContainer = styled.div`
   display: flex;
@@ -41,11 +51,15 @@ export const GameNameContainer = styled.div`
   align-items: center;
   width: 90%;
   height: 15%;
+
+  h2 {
+    color: white;
+  }
 `;
 
 export const GameInfoBoxesContainer = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
   width: 100%;
   height: 60%;
@@ -56,14 +70,16 @@ export const GameInfoBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 33%;
+  width: 30%;
   height: 80%;
   flex-direction: column;
   text-align: center;
+  background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.4));
+  border-radius: 5px;
 
   h2 {
     color: white;
-    height: 50%
+    height: 50%;
   }
 
   h3 {

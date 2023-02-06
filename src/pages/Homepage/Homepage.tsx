@@ -1,4 +1,5 @@
 import React, { useLayoutEffect, useState } from "react";
+import { fetchGameByName, fetchGamesByPopularity } from "../../api/gameFetch";
 import GameCardSimple from "../../components/GameCardSimple/GameCardSimple";
 import PrimaryButton from "../../components/PrimaryButton/PrimaryButton";
 import {
@@ -19,6 +20,8 @@ import {
 
 const Homepage = () => {
   const [chosenWallpaper, setChosenWallpaper] = useState("");
+  const [popularGames, setPopularGames] = useState([]);
+  const [gameTest, setGametest] = useState("");
 
   const imgBackgroundArray = [
     "https://cdn.discordapp.com/attachments/1070077755120701540/1070078599455068160/elden-ring-keyart.png",
@@ -34,10 +37,18 @@ const Homepage = () => {
     const rndInt = Math.floor(Math.random() * imgBackgroundArray.length);
     //set wallpaper number
     setChosenWallpaper(imgBackgroundArray[rndInt]);
+    fetchGamesByPopularity(9).then((data) => {
+      setPopularGames(data);
+    });
+
+    fetchGameByName("tekken-7").then((data) => {
+      setGametest(data);
+    });
+
   }, []);
 
-  console.log(chosenWallpaper);
-  //console.log(process.env.REACT_APP_RAWG_API_KEY);
+  console.log(popularGames);
+  console.log(gameTest);
 
   return (
     <HomepageContainer>
@@ -71,8 +82,83 @@ const Homepage = () => {
         <PopularGamesContainer>
           <PopularGameContainer>
             <GameCardSimple
-              image={"https://cdn.discordapp.com/attachments/1070077755120701540/1071185409259884554/2114384-box_tekkentag.png"}
-              name={"Cenas"}
+              image={
+                "https://media.rawg.io/media/games/cc5/cc576aa274780702ef93463f5410031e.jpg"
+              }
+              backgroundImage={
+                "https://media.rawg.io/media/screenshots/d67/d678c9f01b2460cfec5d955acb520d09_AsafJAb.jpg"
+              }
+              name={"Tekken 7"}
+              hours={0}
+              rating={0}
+              enjoymentRating={0}
+            ></GameCardSimple>
+          </PopularGameContainer>
+          <PopularGameContainer>
+            <GameCardSimple
+              image={
+                "https://media.rawg.io/media/games/cc5/cc576aa274780702ef93463f5410031e.jpg"
+              }
+              backgroundImage={
+                "https://media.rawg.io/media/screenshots/d67/d678c9f01b2460cfec5d955acb520d09_AsafJAb.jpg"
+              }
+              name={"Tekken 7"}
+              hours={0}
+              rating={0}
+              enjoymentRating={0}
+            ></GameCardSimple>
+          </PopularGameContainer>
+          <PopularGameContainer>
+            <GameCardSimple
+              image={
+                "https://media.rawg.io/media/games/cc5/cc576aa274780702ef93463f5410031e.jpg"
+              }
+              backgroundImage={
+                "https://media.rawg.io/media/screenshots/d67/d678c9f01b2460cfec5d955acb520d09_AsafJAb.jpg"
+              }
+              name={"Tekken 7"}
+              hours={0}
+              rating={0}
+              enjoymentRating={0}
+            ></GameCardSimple>
+          </PopularGameContainer>
+          <PopularGameContainer>
+            <GameCardSimple
+              image={
+                "https://media.rawg.io/media/games/cc5/cc576aa274780702ef93463f5410031e.jpg"
+              }
+              backgroundImage={
+                "https://media.rawg.io/media/screenshots/d67/d678c9f01b2460cfec5d955acb520d09_AsafJAb.jpg"
+              }
+              name={"Tekken 7"}
+              hours={0}
+              rating={0}
+              enjoymentRating={0}
+            ></GameCardSimple>
+          </PopularGameContainer>
+          <PopularGameContainer>
+            <GameCardSimple
+              image={
+                "https://media.rawg.io/media/games/cc5/cc576aa274780702ef93463f5410031e.jpg"
+              }
+              backgroundImage={
+                "https://media.rawg.io/media/screenshots/d67/d678c9f01b2460cfec5d955acb520d09_AsafJAb.jpg"
+              }
+              name={"Tekken 7"}
+              hours={0}
+              rating={0}
+              enjoymentRating={0}
+            ></GameCardSimple>
+          </PopularGameContainer>
+          <PopularGameContainer>
+            <GameCardSimple
+              image={
+                "https://media.rawg.io/media/games/cc5/cc576aa274780702ef93463f5410031e.jpg"
+              }
+              backgroundImage={
+                "https://media.rawg.io/media/screenshots/d67/d678c9f01b2460cfec5d955acb520d09_AsafJAb.jpg"
+              }
+              name={"Tekken 7"}
               hours={0}
               rating={0}
               enjoymentRating={0}

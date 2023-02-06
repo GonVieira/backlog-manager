@@ -12,7 +12,8 @@ import {
 } from "./style";
 
 interface GameCardSimpleProps {
-  image: any;
+  image: string;
+  backgroundImage: string;
   name: string;
   hours: number;
   rating: number;
@@ -21,13 +22,14 @@ interface GameCardSimpleProps {
 
 const GameCardSimple = ({
   image,
+  backgroundImage,
   name,
   hours,
   rating,
   enjoymentRating,
 }: GameCardSimpleProps) => {
   return (
-    <SimpleGameCardContainer>
+    <SimpleGameCardContainer backgroundImg={backgroundImage}>
       <GameImgContainer>
         <GameImg src={image} alt={name}/>
       </GameImgContainer>

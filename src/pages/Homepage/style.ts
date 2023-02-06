@@ -98,7 +98,7 @@ export const PopularGamesSection = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  width: 75%;
+  width: 85%;
   height: 60%;
 `;
 
@@ -119,7 +119,7 @@ export const PopularGamesContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr;
-  grid-gap: 20px;
+  grid-gap: 25px;
   width: 100%;
   height: 70%;
 `;
@@ -127,13 +127,12 @@ export const PopularGamesContainer = styled.div`
 export const PopularGameContainer = styled.div`
   width: 100%;
   height: 100%;
-  background: white;
 `
 
 export const BottomPageButtonContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
+  width: 50%;
   height: 10%;
 `
