@@ -1,7 +1,7 @@
 import React from "react";
 import PrimaryButton from "../PrimaryButton/PrimaryButton";
 import {
-    ButtonContainer,
+  ButtonContainer,
   GameImg,
   GameImgContainer,
   GameInfoBox,
@@ -12,47 +12,50 @@ import {
 } from "./style";
 
 interface GameCardSimpleProps {
+  id: number;
   image: string;
   backgroundImage: string;
   name: string;
   hours: number;
   rating: number;
-  enjoymentRating: number;
 }
 
 const GameCardSimple = ({
+  id,
   image,
   backgroundImage,
   name,
   hours,
   rating,
-  enjoymentRating,
 }: GameCardSimpleProps) => {
   return (
-    <SimpleGameCardContainer backgroundImg={backgroundImage}>
+    <SimpleGameCardContainer
+      onClick={() => console.log("Game ID " + id)}
+      backgroundImg={backgroundImage}
+    >
       <GameImgContainer>
-        <GameImg src={image} alt={name}/>
+        <GameImg src={image} alt={name} />
       </GameImgContainer>
       <InfoContainer>
         <GameNameContainer>
           <h2>{name}</h2>
         </GameNameContainer>
         <GameInfoBoxesContainer>
-            <GameInfoBox>
-                <h3>Time</h3>
-                <h2>{hours} hours</h2>
-            </GameInfoBox>
-            <GameInfoBox>
-                <h3>Rating</h3>
-                <h2>{rating}/10</h2>
-            </GameInfoBox>
-            <GameInfoBox>
-                <h3>Enjoyment</h3>
-                <h2>{enjoymentRating}</h2>
-            </GameInfoBox>
+          <GameInfoBox>
+            <h2>Time</h2>
+            <h2>{hours} hours</h2>
+          </GameInfoBox>
+          <GameInfoBox>
+            <h2>Rating</h2>
+            <h2>{rating}/100</h2>
+          </GameInfoBox>
+          <GameInfoBox>
+            <h2>Quality per Hour</h2>
+            <h2>{(rating / hours).toFixed(2)}</h2>
+          </GameInfoBox>
         </GameInfoBoxesContainer>
         <ButtonContainer>
-            <PrimaryButton buttonText={"Add to backlog"} />
+          <PrimaryButton buttonText={"Add to backlog"} />
         </ButtonContainer>
       </InfoContainer>
     </SimpleGameCardContainer>

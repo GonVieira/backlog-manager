@@ -5,21 +5,22 @@ const url = "https://rawg.io/api/games";
 const config = {
   headers: {
     "Content-Type": "application/json",
-    "Access-Control-Allow-Origin": "https://localhost:3000",
-    "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
-    "Authorization": `token ${process.env.REACT_APP_RAWG_API_KEY}`,
+    token: `Token ${process.env.REACT_APP_RAWG_API_KEY}`,
   },
 };
 
 export const fetchGamesByPopularity = async (limit: number) => {
   const response = await axios.get(
-    `${url}/?page_size=${limit}`,
-    config
+    `${url}?page_size=${limit}&key=${process.env.REACT_APP_RAWG_API_KEY}`
   );
-  return response.data;
+
+  return response.data.results;
 };
 
 export const fetchGameByName = async (name: string) => {
-  const response = await axios.get(`${url}/${name}`, config);
+  const response = await axios.get(
+    `${url}/${name}?key=${process.env.REACT_APP_RAWG_API_KEY}`,
+    config
+  );
   return response.data;
 };

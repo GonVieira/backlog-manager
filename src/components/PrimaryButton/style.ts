@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const StyledButton = styled.button`
   display: inline-block;
   border-radius: 4px;
-  background-color: ${(props) => (props.color  ? props.color : "#689af8")};
+  background-color: ${(props) => (props.color ? props.color : "#287fc2")};
   color: #ffffff;
   text-align: center;
   font-size: 1.3rem;
@@ -14,10 +14,11 @@ export const StyledButton = styled.button`
   margin: 5px;
   border: none;
   font-weight: bold;
+  z-index: 1001;
   @media (hover: hover) and (pointer: fine) {
     :hover {
       padding-right: 0.2rem;
-      background-color: ${(props) => (props.color ? props.color : "#689af8")};
+      background-color: ${(props) => (props.color ? props.color : "#287fc2")};
     }
   }
   //Tablets

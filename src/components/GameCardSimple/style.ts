@@ -6,26 +6,32 @@ interface BackGroundImageProps {
 
 export const SimpleGameCardContainer = styled.div<BackGroundImageProps>`
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
   flex-direction: row;
   width: 100%;
   height: 100%;
   padding: 0.4rem;
-  background-color: gray;
+  background-color: #171e22;
   background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.7)),
     url(${(props) => props.backgroundImg});
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  border-radius: 5px;
+  border-radius: 4px;
+
+  &:hover {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.6)),
+      url(${(props) => props.backgroundImg});
+    cursor: pointer;
+  }
 `;
 
 export const GameImgContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 30%;
+  width: 32%;
   height: 90%;
 `;
 
@@ -40,7 +46,7 @@ export const InfoContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 70%;
+  width: 65%;
   height: 100%;
   flex-direction: column;
 `;
@@ -54,6 +60,8 @@ export const GameNameContainer = styled.div`
 
   h2 {
     color: white;
+    font-size: 1.6rem;
+    font-weight: 800;
   }
 `;
 
@@ -71,20 +79,17 @@ export const GameInfoBox = styled.div`
   justify-content: center;
   align-items: center;
   width: 30%;
-  height: 80%;
+  height: 70%;
   flex-direction: column;
   text-align: center;
   background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.4));
   border-radius: 5px;
+  padding: 0.2rem;
 
   h2 {
     color: white;
-    height: 50%;
-  }
-
-  h3 {
-    color: white;
-    height: 50%;
+    height: 25%;
+    font-size: 1.2rem;
   }
 `;
 

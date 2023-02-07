@@ -9,7 +9,7 @@ export const HomepageContainer = styled.div`
   justify-content: center;
   align-items: center;
   background-color: #171e22;
-  height: 200%;
+  height: 250%;
   width: 100%;
   padding-top: 4%;
   flex-direction: column;
@@ -21,7 +21,7 @@ export const BackGroundImageDiv = styled.div<Props>`
   align-items: center;
   flex-direction: column;
   width: 100%;
-  height: 40%;
+  height: 30%;
   background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.5)), url(${(props) => props.wallpaperUrl});
   background-position: center;
   background-repeat: no-repeat;
@@ -99,7 +99,7 @@ export const PopularGamesSection = styled.div`
   align-items: center;
   flex-direction: column;
   width: 85%;
-  height: 60%;
+  height: 70%;
 `;
 
 export const PopularGamesSectionTextDiv = styled.div`
@@ -107,7 +107,7 @@ export const PopularGamesSectionTextDiv = styled.div`
   justify-content: flex-start;
   align-items: center;
   width: 100%;
-  height: 20%;
+  height: 15%;
 
   h2 {
     color: #ffa500;
@@ -125,6 +125,9 @@ export const PopularGamesContainer = styled.div`
 `;
 
 export const PopularGameContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100%;
   height: 100%;
 `
@@ -132,7 +135,7 @@ export const PopularGameContainer = styled.div`
 export const BottomPageButtonContainer = styled.div`
   display: flex;
   justify-content: center;
-  align-items: center;
-  width: 50%;
+  align-items: flex-end;
+  width: 30%;
   height: 10%;
 `
