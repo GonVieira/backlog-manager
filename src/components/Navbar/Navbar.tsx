@@ -6,15 +6,24 @@ import {
   NavBarProjectNameLogoContainer,
   SearchBarContainer,
 } from "./style";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
-    
+  const navigate = useNavigate();
+
   return (
     <NavbarContainer>
       <NavbarContentWrapper>
         <NavBarProjectNameLogoContainer>
           <h2
-            onClick={() => console.log("Logo clicked, redirect to homepage.")}
+            onClick={() => {
+              navigate("/");
+              window.scrollTo({
+                top: 0,
+                left: 0,
+                behavior: "smooth",
+              });
+            }}
           >
             GameBacklogManager
           </h2>

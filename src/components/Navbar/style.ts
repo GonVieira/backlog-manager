@@ -2,13 +2,13 @@ import styled from "styled-components";
 
 export const NavbarContainer = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
   background-color: #2b2a33;
   height: 10%;
   width: 100%;
   position: fixed;
-  z-index: 1001;
+  z-index: 1002;
 `;
 
 export const NavbarContentWrapper = styled.div`

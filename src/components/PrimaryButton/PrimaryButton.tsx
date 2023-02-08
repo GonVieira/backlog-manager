@@ -3,13 +3,26 @@ import { StyledBtnText, StyledButton } from "./style";
 
 interface ButtonInfoProp {
   buttonText: string;
-  onClickFunction?: () => void;
   color?: string;
+  onClick?: () => void;
+  onMouseEnter?: () => void;
+  onMouseLeave?: () => void;
 }
 
-const PrimaryButton = ({ buttonText, onClickFunction, color }: ButtonInfoProp) => {
+const PrimaryButton = ({
+  buttonText,
+  onClick,
+  color,
+  onMouseEnter,
+  onMouseLeave,
+}: ButtonInfoProp) => {
   return (
-    <StyledButton color={color} onClick={onClickFunction}>
+    <StyledButton
+      color={color}
+      onClick={onClick}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+    >
       <StyledBtnText>{buttonText}</StyledBtnText>
     </StyledButton>
   );

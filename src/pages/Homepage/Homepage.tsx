@@ -1,4 +1,5 @@
 import React, { useLayoutEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { fetchGamesByPopularity } from "../../api/gameFetch";
 import GameCardSimple from "../../components/GameCardSimple/GameCardSimple";
 import PrimaryButton from "../../components/PrimaryButton/PrimaryButton";
@@ -21,6 +22,7 @@ import {
 const Homepage = () => {
   const [chosenWallpaper, setChosenWallpaper] = useState("");
   const [popularGames, setPopularGames] = useState([]);
+  const navigate = useNavigate();
 
   const imgBackgroundArray = [
     "https://cdn.discordapp.com/attachments/1070077755120701540/1070078599455068160/elden-ring-keyart.png",
@@ -58,10 +60,17 @@ const Homepage = () => {
           </ProjectCoolPhraseConainer>
           <ButtonsContainer>
             <RegisterButtonContainer>
-              <PrimaryButton color="#171e22" buttonText={"Sign up"} />
+              <PrimaryButton
+                color="#171e22"
+                buttonText={"Sign up"}
+                onClick={() => navigate("/register")}
+              />
             </RegisterButtonContainer>
             <LogInButtonContainer>
-              <PrimaryButton buttonText={"Log in"} />
+              <PrimaryButton
+                buttonText={"Log in"}
+                onClick={() => navigate("/login")}
+              />
             </LogInButtonContainer>
           </ButtonsContainer>
         </HomepageContentWrapper>
@@ -88,7 +97,17 @@ const Homepage = () => {
           })}
         </PopularGamesContainer>
         <BottomPageButtonContainer>
-          <PrimaryButton buttonText="See more" />
+          <PrimaryButton
+            buttonText="See more"
+            onClick={() => {
+              navigate("/games");
+              window.scrollTo({
+                top: 0,
+                left: 0,
+                behavior: "smooth",
+              });
+            }}
+          />
         </BottomPageButtonContainer>
       </PopularGamesSection>
     </HomepageContainer>

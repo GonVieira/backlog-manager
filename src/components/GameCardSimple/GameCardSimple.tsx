@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import PrimaryButton from "../PrimaryButton/PrimaryButton";
 import {
   ButtonContainer,
@@ -28,9 +29,16 @@ const GameCardSimple = ({
   hours,
   rating,
 }: GameCardSimpleProps) => {
+  const [isHovering, setIsHovering] = useState(false);
+  const navigate = useNavigate();
+
   return (
     <SimpleGameCardContainer
-      onClick={() => console.log("Game ID " + id)}
+      onClick={() => {
+        if (!isHovering) {
+          navigate(`/game/${id}`);
+        }
+      }}
       backgroundImg={backgroundImage}
     >
       <GameImgContainer>
@@ -55,7 +63,16 @@ const GameCardSimple = ({
           </GameInfoBox>
         </GameInfoBoxesContainer>
         <ButtonContainer>
-          <PrimaryButton buttonText={"Add to backlog"} />
+          <PrimaryButton
+            buttonText={"Add to backlog"}
+            onMouseEnter={() => setIsHovering(true)}
+            onMouseLeave={() => setIsHovering(false)}
+            onClick={() => {
+              if (isHovering) {
+                console.log("Added to backlog!");
+              }
+            }}
+          />
         </ButtonContainer>
       </InfoContainer>
     </SimpleGameCardContainer>
