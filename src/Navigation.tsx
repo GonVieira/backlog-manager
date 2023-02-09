@@ -13,7 +13,7 @@ const Navigation = () => {
         <Route path="/" element={<App />}>
           <Route index element={<Homepage />} />
           <Route path="/games" element={<GameListPage />} />
-          <Route path="/game/:id" element={<GameDetailsPage />} />
+          <Route path="/game/:slug" element={<GameDetailsPage />} />
           <Route path="/login" element={<LoginPage type="login" />} />
           <Route path="/register" element={<LoginPage type="register" />} />
         </Route>

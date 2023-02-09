@@ -34,14 +34,14 @@ const Homepage = () => {
   ];
 
   useLayoutEffect(() => {
-    //get random number
     const rndInt = Math.floor(Math.random() * imgBackgroundArray.length);
-    //set wallpaper number
+
     setChosenWallpaper(imgBackgroundArray[rndInt]);
 
     fetchGamesByPopularity(9).then((data) => {
       setPopularGames(data);
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -85,7 +85,7 @@ const Homepage = () => {
             return (
               <PopularGameContainer>
                 <GameCardSimple
-                  id={game.id}
+                  slug={game.slug}
                   image={game.background_image}
                   backgroundImage={game.background_image}
                   name={game.name}

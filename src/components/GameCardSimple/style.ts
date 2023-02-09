@@ -4,6 +4,7 @@ interface BackGroundImageProps {
   backgroundImg: string;
 }
 
+
 export const SimpleGameCardContainer = styled.div<BackGroundImageProps>`
   display: flex;
   justify-content: space-around;
@@ -40,6 +41,7 @@ export const GameImg = styled.img`
   height: 100%;
   object-fit: cover;
   border-radius: 5px;
+  border: 1px solid #171e22;
 `;
 
 export const InfoContainer = styled.div`
@@ -93,6 +95,9 @@ export const GameInfoBox = styled.div`
   }
 `;
 
+
+
+
 export const ButtonContainer = styled.div`
   display: flex;
   justify-content: center;
@@ -100,3 +105,5 @@ export const ButtonContainer = styled.div`
   width: 80%;
   height: 15%;
 `;
+
+

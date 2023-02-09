@@ -13,7 +13,7 @@ import {
 } from "./style";
 
 interface GameCardSimpleProps {
-  id: number;
+  slug: string;
   image: string;
   backgroundImage: string;
   name: string;
@@ -22,7 +22,7 @@ interface GameCardSimpleProps {
 }
 
 const GameCardSimple = ({
-  id,
+  slug,
   image,
   backgroundImage,
   name,
@@ -36,7 +36,7 @@ const GameCardSimple = ({
     <SimpleGameCardContainer
       onClick={() => {
         if (!isHovering) {
-          navigate(`/game/${id}`);
+          navigate(`/game/${slug}`);
         }
       }}
       backgroundImg={backgroundImage}
@@ -51,11 +51,11 @@ const GameCardSimple = ({
         <GameInfoBoxesContainer>
           <GameInfoBox>
             <h2>Time</h2>
-            <h2>{hours} hours</h2>
+            <h2>{hours} Hours</h2>
           </GameInfoBox>
           <GameInfoBox>
-            <h2>Rating</h2>
-            <h2>{rating}/100</h2>
+            <h2>Metacritic</h2>
+            <h2>{rating}</h2>
           </GameInfoBox>
           <GameInfoBox>
             <h2>Quality per Hour</h2>

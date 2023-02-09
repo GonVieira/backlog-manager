@@ -17,9 +17,9 @@ export const fetchGamesByPopularity = async (limit: number) => {
   return response.data.results;
 };
 
-export const fetchGameByName = async (name: string) => {
+export const fetchGameBySlug = async (slug: string) => {
   const response = await axios.get(
-    `${url}/${name}?key=${process.env.REACT_APP_RAWG_API_KEY}`,
+    `${url}/${slug}?key=${process.env.REACT_APP_RAWG_API_KEY}`,
     config
   );
   return response.data;
