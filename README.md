@@ -4,7 +4,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## API KEY
 
-For the project to work in your machine you must have an RAWG Api key and set it as an enviroment variable.
+For the project to work in your machine you must have an RAWG Api key and set it as an environment variable.
 
 ## Available Scripts
 
