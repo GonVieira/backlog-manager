@@ -1,7 +1,9 @@
 import React, { useLayoutEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { fetchGameBySlug } from "../../api/gameFetch";
+import PrimaryButton from "../../components/PrimaryButton/PrimaryButton";
 import {
+  ButtonContainer,
   GameDescriptionContainer,
   GameDetailsContentWrapper,
   GameDetailsImg,
@@ -10,7 +12,11 @@ import {
   GameDetailsInfoContainer,
   GameDetailsPageContainer,
   GameDetailsTop,
+  GameMinorInfoBox,
+  GameMinorInfoContainer,
+  GameMinorInfoContent,
   GameNameContainer,
+  GameReleaseDate,
   HoursInfoBox,
   MetacriticBox,
   QualityInfoBox,
@@ -31,6 +37,10 @@ const GameDetailsPage = () => {
   }, [slug]);
 
   if (game) {
+    const gameDescriptionHtml = () => {
+      return { __html: game.description };
+    };
+
     console.log(game.description);
     return (
       <GameDetailsPageContainer>
@@ -57,16 +67,59 @@ const GameDetailsPage = () => {
                   <h2>{(game.metacritic / game.playtime).toFixed(2)}</h2>
                 </QualityInfoBox>
               </GameDetailsInfoBoxesContainer>
-              
+              <ButtonContainer>
+                <PrimaryButton buttonText="Add to Backlog" />
+              </ButtonContainer>
             </GameDetailsInfoContainer>
-            
           </GameDetailsTop>
           <SectionTitleContainer>
             <h2>Description</h2>
           </SectionTitleContainer>
-          <GameDescriptionContainer>
-              <p>{game.description_raw}</p>
-            </GameDescriptionContainer>
+          <GameDescriptionContainer
+            dangerouslySetInnerHTML={gameDescriptionHtml()}
+          ></GameDescriptionContainer>
+          <SectionTitleContainer>
+            <h2>Game Info</h2>
+          </SectionTitleContainer>
+          <GameMinorInfoContainer>
+            <GameMinorInfoBox>
+              <h1>Platforms:&nbsp;</h1>
+              <GameMinorInfoContent>
+                {game.parent_platforms.map((platform: any) => {
+                  return <h2> {platform.platform.name}&nbsp; </h2>;
+                })}
+              </GameMinorInfoContent>
+            </GameMinorInfoBox>
+            <GameMinorInfoBox>
+              <h1>Genres:&nbsp;</h1>
+              <GameMinorInfoContent>
+                {game.genres.map((genre: any) => {
+                  return <h2> {genre.name}&nbsp; </h2>;
+                })}
+              </GameMinorInfoContent>
+            </GameMinorInfoBox>
+            <GameMinorInfoBox>
+              <h1>Developers:&nbsp;</h1>
+              <GameMinorInfoContent>
+              {game.developers.map((developer: any) => {
+                  return <h2> {developer.name}&nbsp; </h2>;
+                })}
+              </GameMinorInfoContent>
+            </GameMinorInfoBox>
+            <GameMinorInfoBox>
+              <h1>Publishers:&nbsp;</h1>
+              <GameMinorInfoContent>
+              {game.publishers.map((publisher: any) => {
+                  return <h2> {publisher.name}&nbsp; </h2>;
+                })}
+              </GameMinorInfoContent>
+            </GameMinorInfoBox>
+            <GameReleaseDate>
+              <h1>Release date:&nbsp;</h1>
+              <h2>{game.released}</h2>
+            </GameReleaseDate>
+          </GameMinorInfoContainer>
+          
         </GameDetailsContentWrapper>
       </GameDetailsPageContainer>
     );

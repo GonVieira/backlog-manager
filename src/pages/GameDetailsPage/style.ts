@@ -17,7 +17,7 @@ export const GameDetailsPageContainer = styled.div`
   justify-content: center;
   align-items: center;
   background-color: #171e22;
-  height: 150%;
+  height: 240%;
   width: 100%;
   flex-direction: column;
 `;
@@ -29,13 +29,14 @@ export const GameDetailsContentWrapper = styled.div`
   height: 100%;
   width: 70%;
   flex-direction: column;
+  padding-top: 2rem;
 `;
 
 export const GameDetailsTop = styled.div`
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
-  height: 40%;
+  height: 30%;
   width: 100%;
   flex-direction: row;
 `;
@@ -44,8 +45,8 @@ export const GameDetailsImgContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 30%;
-  height: 100%;
+  width: 28%;
+  height: 80%;
 `;
 
 export const GameDetailsImg = styled.img`
@@ -61,7 +62,7 @@ export const GameDetailsInfoContainer = styled.div`
   justify-content: space-around;
   align-items: center;
   width: 65%;
-  height: 100%;
+  height: 80%;
   flex-direction: column;
 `;
 
@@ -82,7 +83,7 @@ export const GameNameContainer = styled.div`
 export const GameDetailsInfoBoxesContainer = styled.div`
   display: flex;
   justify-content: space-around;
-  align-items: flex-start;
+  align-items: center;
   flex-direction: row;
   width: 100%;
   height: 40%;
@@ -126,12 +127,20 @@ export const QualityInfoBox = styled(GameDetailsInfoBox)<QualityProps>`
       : "#ff0000"};
 `;
 
+export const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 10%;
+  width: 40%;
+`;
+
 export const SectionTitleContainer = styled.div`
   display: flex;
   justify-content: flex-start;
   align-items: center;
   width: 100%;
-  height: 10%;
+  height: 8%;
 
   h2 {
     color: #287fc2;
@@ -141,14 +150,73 @@ export const SectionTitleContainer = styled.div`
 
 export const GameDescriptionContainer = styled.div`
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: flex-start;
+  align-items: flex-start;
   width: 100%;
-  height: auto;
-  overflow: visible;
+  max-height: 20%;
+  flex-direction: column;
+  overflow: scroll;
 
   p {
     color: white;
     font-size: 1.5rem;
+    margin-top: 0.9rem;
   }
 `;
+
+export const GameMinorInfoContainer = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  grid-gap: 25px;
+  width: 100%;
+  height: 30%;
+`;
+
+export const GameMinorInfoBox = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 80%;
+  height: 80%;
+  flex-direction: column;
+
+  h1 {
+    color: #287fc2;
+    font-size: 1.4rem;
+  }
+`;
+
+export const GameMinorInfoContent = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+
+  h2 {
+    color: white;
+    font-size: 1.2rem;
+    margin-top: 0.5rem;
+  }
+`;
+
+export const GameReleaseDate = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: row;
+  width: 100%;
+  height: 20%;
+
+  h1 {
+    color: #287fc2;
+    font-size: 1.5rem;
+  }
+
+  h2 {
+    color: white;
+    font-size: 1.5rem;
+  }
+`
