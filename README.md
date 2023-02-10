@@ -2,6 +2,10 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## API KEY
+
+For the project to work in your machine you must have an RAWG Api key and set it as an environment variable.
+
 ## Available Scripts
 
 In the project directory, you can run:
