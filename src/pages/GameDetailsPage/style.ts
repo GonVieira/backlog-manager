@@ -1,5 +1,9 @@
 import styled from "styled-components";
 
+interface PageSize {
+  isPlayabelOnPc: boolean;
+}
+
 interface MetacriticProps {
   rating: number;
 }
@@ -12,14 +16,19 @@ interface QualityProps {
   quality: number;
 }
 
-export const GameDetailsPageContainer = styled.div`
+interface BackgroundImg {
+  backgroundImg: string;
+}
+
+export const GameDetailsPageContainer = styled.div<PageSize>`
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: #171e22;
-  height: 240%;
+  height: ${(props) => (props.isPlayabelOnPc ? "280%" : "240%")};
   width: 100%;
   flex-direction: column;
+  padding-top: 5%;
 `;
 
 export const GameDetailsContentWrapper = styled.div`
@@ -29,16 +38,23 @@ export const GameDetailsContentWrapper = styled.div`
   height: 100%;
   width: 70%;
   flex-direction: column;
-  padding-top: 2rem;
 `;
 
-export const GameDetailsTop = styled.div`
+export const GameDetailsTop = styled.div<BackgroundImg>`
   display: flex;
   justify-content: space-between;
   align-items: center;
   height: 30%;
   width: 100%;
   flex-direction: row;
+  background-color: #171e22;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.7)),
+    url(${(props) => props.backgroundImg});
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 5px;
+  padding: 2rem;
 `;
 
 export const GameDetailsImgContainer = styled.div`
@@ -54,7 +70,6 @@ export const GameDetailsImg = styled.img`
   height: 90%;
   object-fit: cover;
   border-radius: 5px;
-  border: 1px solid #171e22;
 `;
 
 export const GameDetailsInfoContainer = styled.div`
@@ -74,7 +89,7 @@ export const GameNameContainer = styled.div`
   height: 10%;
 
   h1 {
-    color: #287fc2;
+    color: white;
     font-weight: bold;
     font-size: 2.3rem;
   }
@@ -140,7 +155,7 @@ export const SectionTitleContainer = styled.div`
   justify-content: flex-start;
   align-items: center;
   width: 100%;
-  height: 8%;
+  height: 6%;
 
   h2 {
     color: #287fc2;
@@ -151,9 +166,10 @@ export const SectionTitleContainer = styled.div`
 export const GameDescriptionContainer = styled.div`
   display: flex;
   justify-content: flex-start;
-  align-items: flex-start;
+  align-items: center;
   width: 100%;
-  max-height: 20%;
+  min-height: 15%;
+  max-height: 30%;
   flex-direction: column;
   overflow: scroll;
 
@@ -161,6 +177,10 @@ export const GameDescriptionContainer = styled.div`
     color: white;
     font-size: 1.5rem;
     margin-top: 0.9rem;
+  }
+
+  h3 {
+    color: #287fc2;
   }
 `;
 
@@ -208,7 +228,7 @@ export const GameReleaseDate = styled.div`
   align-items: center;
   flex-direction: row;
   width: 100%;
-  height: 20%;
+  height: 50%;
 
   h1 {
     color: #287fc2;
@@ -219,4 +239,28 @@ export const GameReleaseDate = styled.div`
     color: white;
     font-size: 1.5rem;
   }
-`
+`;
+
+export const GameRequirements = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 20%;
+  width: 100%;
+`;
+
+export const GameRequirementColumn = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 45%;
+  height: 100%;
+  flex-direction: column;
+  overflow: scroll;
+
+  p {
+    white-space: pre-wrap;
+    color: white;
+    font-size: 1.4rem;
+  }
+`;
