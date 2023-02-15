@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 interface PageSize {
-  isPlayabelOnPc: boolean;
+  isPlayabelOnPc?: boolean;
 }
 
 interface MetacriticProps {
@@ -28,7 +28,7 @@ export const GameDetailsPageContainer = styled.div<PageSize>`
   height: ${(props) => (props.isPlayabelOnPc ? "280%" : "240%")};
   width: 100%;
   flex-direction: column;
-  padding-top: 5%;
+  padding-top: 8%;
 `;
 
 export const GameDetailsContentWrapper = styled.div`
@@ -166,7 +166,7 @@ export const SectionTitleContainer = styled.div`
 export const GameDescriptionContainer = styled.div`
   display: flex;
   justify-content: flex-start;
-  align-items: center;
+  align-items: flex-start;
   width: 100%;
   min-height: 15%;
   max-height: 30%;
@@ -198,7 +198,7 @@ export const GameMinorInfoBox = styled.div`
   justify-content: flex-start;
   align-items: flex-start;
   width: 80%;
-  height: 80%;
+  height: auto;
   flex-direction: column;
 
   h1 {
@@ -244,7 +244,7 @@ export const GameReleaseDate = styled.div`
 export const GameRequirements = styled.div`
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   height: 20%;
   width: 100%;
 `;
@@ -254,7 +254,7 @@ export const GameRequirementColumn = styled.div`
   justify-content: flex-start;
   align-items: flex-start;
   width: 45%;
-  height: 100%;
+  max-height: 80%;
   flex-direction: column;
   overflow: scroll;
 

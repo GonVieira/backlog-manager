@@ -173,7 +173,7 @@ const GameDetailsPage = () => {
       </GameDetailsPageContainer>
     );
   } else {
-    return <></>;
+    return <GameDetailsPageContainer>Game Not Found</GameDetailsPageContainer>;
   }
 };
 

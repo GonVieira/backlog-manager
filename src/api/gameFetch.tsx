@@ -17,6 +17,14 @@ export const fetchGamesByPopularity = async (limit: number) => {
   return response.data.results;
 };
 
+export const fetchGamesByPage = async (limit: number, page: number) => {
+  const response = await axios.get(
+    `${url}?page=${page}&page_size=${limit}&key=${process.env.REACT_APP_RAWG_API_KEY}`
+  );
+
+  return response.data.results;
+};
+
 export const fetchGameBySlug = async (slug: string) => {
   const response = await axios.get(
     `${url}/${slug}?key=${process.env.REACT_APP_RAWG_API_KEY}`,
