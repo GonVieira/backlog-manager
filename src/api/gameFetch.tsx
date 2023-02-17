@@ -32,3 +32,15 @@ export const fetchGameBySlug = async (slug: string) => {
   );
   return response.data;
 };
+
+export const fetchGamesBySearch = async (
+  limit: number,
+  page: number,
+  query: string,
+) => {
+  const response = await axios.get(
+    `${url}?page=${page}&page_size=${limit}&key=${process.env.REACT_APP_RAWG_API_KEY}&search=${query}`
+  );
+
+  return response.data.results;
+};

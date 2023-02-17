@@ -44,6 +44,7 @@ export const SearchBarContainer = styled.div`
   justify-content: center;
   align-items: center;
   width: 40%;
+  height: 50%;
 `;
 
 export const LoginLogoutProfileContainer = styled.div`

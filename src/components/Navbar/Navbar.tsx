@@ -7,6 +7,7 @@ import {
   SearchBarContainer,
 } from "./style";
 import { useNavigate } from "react-router-dom";
+import SearchBar from "../SearchBar/SearchBar";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -29,10 +30,17 @@ const Navbar = () => {
           </h2>
         </NavBarProjectNameLogoContainer>
         <SearchBarContainer>
-          <h2> SearchBar </h2>
+          <SearchBar />
         </SearchBarContainer>
         <LoginLogoutProfileContainer>
-          <h2>Login Logout Profile</h2>
+          <h2 onClick={() => {
+              navigate("/register");
+              window.scrollTo({
+                top: 0,
+                left: 0,
+                behavior: "smooth",
+              });
+            }}>Login Logout Profile</h2>
         </LoginLogoutProfileContainer>
       </NavbarContentWrapper>
     </NavbarContainer>

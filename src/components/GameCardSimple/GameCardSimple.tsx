@@ -55,7 +55,7 @@ const GameCardSimple = ({
           </GameInfoBox>
           <GameInfoBox>
             <h2>Metacritic</h2>
-            <h2>{rating}</h2>
+            {rating ? <h2>{rating}</h2> : <h2>NA</h2>}
           </GameInfoBox>
           <GameInfoBox>
             <h2>Quality per Hour</h2>
