@@ -40,7 +40,6 @@ export const StyledBtnText = styled.span`
   font-weight: bold;
   @media (hover: hover) and (pointer: fine) {
     :after {
-      content: "»";
       position: relative;
       opacity: 0;
       right: -0.3rem;

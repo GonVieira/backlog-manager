@@ -1,6 +1,8 @@
 import React, { useEffect, useLayoutEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { fetchGamesByPage, fetchGamesBySearch } from "../../api/gameFetch";
+import { fetchPlatforms } from "../../api/platformFetch";
+import Dropdown from "../../components/Dropdown/Dropdown";
 import GameCardSimple from "../../components/GameCardSimple/GameCardSimple";
 import PrimaryButton from "../../components/PrimaryButton/PrimaryButton";
 import {
@@ -13,12 +15,18 @@ import {
   PageButtonContainer,
   PageNumberTextContainer,
   PaginationContainer,
+  SearchOption,
+  SearchOptionsContainer,
 } from "./style";
 
 const GameListPage = () => {
   const [games, setGames] = useState([]);
+  const [platforms, setPlatforms] = useState([]);
   const [page, setPage] = useState(1);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const { searchVal } = useParams();
+
+  const arraytest = ["Value 1", "Value 2", "Value 3", "Value 4", "Value 5"];
 
   useLayoutEffect(() => {
     if (searchVal) {
@@ -30,6 +38,10 @@ const GameListPage = () => {
     fetchGamesByPage(9, page).then((data) => {
       setGames(data);
     });
+
+    fetchPlatforms().then((data) => {
+      setPlatforms(data);
+    });
   }, [page, searchVal]);
 
   useEffect(() => {
@@ -38,13 +50,27 @@ const GameListPage = () => {
 
   if (games) {
     return (
-      <GameListPageContainer>
+      <GameListPageContainer isOpen={isOpen}>
         <GameListContentWrapper>
           <ListOptionContainer>
             <ButtonContainer>
-              <PrimaryButton buttonText={"Options"} />
+              <PrimaryButton
+                buttonText={"Options"}
+                onClick={() => setIsOpen(!isOpen)}
+              />
             </ButtonContainer>
           </ListOptionContainer>
+          {isOpen && (
+            <SearchOptionsContainer>
+              <SearchOption>
+                <Dropdown
+                  dropdownText={"Platforms"}
+                  defaultOption={"All platforms"}
+                  options={platforms}
+                />
+              </SearchOption>
+            </SearchOptionsContainer>
+          )}
           <ListOfGames>
             {games.map((game: any) => {
               return (
@@ -97,7 +123,13 @@ const GameListPage = () => {
       </GameListPageContainer>
     );
   } else {
-    return <></>;
+    return (
+      <GameListPageContainer isOpen={isOpen}>
+        <GameListContentWrapper>
+          <h2>LOADING</h2>
+        </GameListContentWrapper>
+      </GameListPageContainer>
+    );
   }
 };
 

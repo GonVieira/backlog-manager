@@ -29,7 +29,6 @@ const GameDetailsPage = () => {
   const { slug } = useParams();
   const [game, setGame] = useState<any>();
 
-  
 
   useLayoutEffect(() => {
     window.scrollTo(0, 0);
