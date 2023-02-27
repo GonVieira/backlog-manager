@@ -15,6 +15,8 @@ interface DropdownProps {
   dropdownText: string;
   defaultOption: string;
   options: any[];
+  state?: any;
+  setState?: any;
   color?: string;
   onClick?: () => void;
 }
@@ -23,6 +25,8 @@ const Dropdown = ({
   dropdownText,
   defaultOption,
   color,
+  state,
+  setState,
   onClick,
   options,
 }: DropdownProps) => {
@@ -87,6 +91,7 @@ const Dropdown = ({
               <DropdownContentOption
                 onClick={() => {
                   setOptionSelected(option.name);
+                  setState(option.id);
                   dropDownToggle();
                 }}
                 active={optionSelected === option.name}

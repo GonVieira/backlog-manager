@@ -87,7 +87,7 @@ export const DropdownContentContainer = styled.div`
   flex-direction: column;
   position: absolute;
   width: 100%;
-  height: 500px;
+  max-height: 500px;
   overflow: auto;
   z-index: 2;
   transition: all 0.3s ease-out;

@@ -1,6 +1,17 @@
-import React, { useEffect, useLayoutEffect, useState } from "react";
+import React, { Suspense, useEffect, useLayoutEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { fetchGamesByPage, fetchGamesBySearch } from "../../api/gameFetch";
+import {
+  fetchByGenre,
+  fetchGamesByPage,
+  fetchGamesByPlatGenre,
+  fetchGamesBySearch,
+  fetchSortedGamesByPlatGenre,
+  fetchSortedGamesGenre,
+  filterPlatformFetchGames,
+  filterPlatformsAndSortedGames,
+  sortedFetchGames,
+} from "../../api/gameFetch";
+import { fetchGenres } from "../../api/genreFetch";
 import { fetchPlatforms } from "../../api/platformFetch";
 import Dropdown from "../../components/Dropdown/Dropdown";
 import GameCardSimple from "../../components/GameCardSimple/GameCardSimple";
@@ -21,32 +32,120 @@ import {
 
 const GameListPage = () => {
   const [games, setGames] = useState([]);
+  const [platformValue, setPlatformValue] = useState<number>(0);
   const [platforms, setPlatforms] = useState([]);
+  const [genreValue, setGenreValue] = useState<number>(0);
+  const [genres, setGenres] = useState([]);
+  const [sort, setSort] = useState("");
   const [page, setPage] = useState(1);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const { searchVal } = useParams();
-
-  const arraytest = ["Value 1", "Value 2", "Value 3", "Value 4", "Value 5"];
+  const sortOptions = [
+    { name: "Most Popular", id: "" },
+    { name: "Name", id: "name" },
+    { name: "Released", id: "released" },
+    { name: "Metacritic", id: "-metacritic" },
+  ];
 
   useLayoutEffect(() => {
+    //GET PLATFORMS
+    if (platforms.length === 0) {
+      fetchPlatforms().then((data) => {
+        setPlatforms(data);
+      });
+    }
+
+    //GET GENRES
+    if (genres.length === 0) {
+      fetchGenres().then((data) => {
+        setGenres(data);
+      });
+    }
+
+    //GET GAMES
+    //IF THERE IS A SEARCH PARAMETER
     if (searchVal) {
       fetchGamesBySearch(9, page, searchVal).then((data) => {
         setGames(data);
       });
       return;
     }
+
+    console.log(platformValue > 0 && sort !== "" && genreValue > 0);
+    //IF THERE IS A PLATFORM, SORT AND GENRE SELECTED
+    if (platformValue > 0 && sort !== "" && genreValue > 0) {
+      fetchSortedGamesByPlatGenre(
+        9,
+        page,
+        platformValue,
+        sort,
+        genreValue
+      ).then((data) => {
+        setGames(data);
+      });
+      return;
+    }
+
+    if (platformValue > 0 && genreValue > 0) {
+      fetchGamesByPlatGenre(9, page, platformValue, genreValue).then((data) => {
+        setGames(data);
+      });
+      return;
+    }
+
+    if (sort !== "" && genreValue > 0) {
+      fetchSortedGamesGenre(9, page, sort, genreValue).then((data) => {
+        setGames(data);
+      });
+      return;
+    }
+
+    //IF THERE IS A PLATFORM SELECTED AND A SORT SELECTED
+    if (platformValue > 0 && sort !== "") {
+      filterPlatformsAndSortedGames(9, page, platformValue, sort).then(
+        (data) => {
+          setGames(data);
+        }
+      );
+      return;
+    }
+
+    //IF THERE IS A PLATFORM SELECTED
+    if (platformValue > 0) {
+      filterPlatformFetchGames(9, page, platformValue).then((data) => {
+        setGames(data);
+      });
+      return;
+    }
+
+    if (genreValue > 0) {
+      fetchByGenre(9, page, genreValue).then((data) => {
+        setGames(data);
+      });
+      return;
+    }
+
+    //IF THERE IS A SORT SELECTED
+    if (sort !== "") {
+      sortedFetchGames(9, page, sort).then((data) => {
+        setGames(data);
+      });
+      return;
+    }
+
+    //IF THERE IS NO SORT AND FILTER OPTINS
     fetchGamesByPage(9, page).then((data) => {
       setGames(data);
     });
-
-    fetchPlatforms().then((data) => {
-      setPlatforms(data);
-    });
-  }, [page, searchVal]);
+  }, [page, searchVal, platformValue, sort, genreValue]);
 
   useEffect(() => {
     setPage(1);
-  }, [searchVal]);
+  }, [searchVal, platformValue]);
+
+  console.log(platformValue);
+  console.log(sort);
+  console.log(genreValue);
 
   if (games) {
     return (
@@ -67,25 +166,47 @@ const GameListPage = () => {
                   dropdownText={"Platforms"}
                   defaultOption={"All platforms"}
                   options={platforms}
+                  state={platformValue}
+                  setState={setPlatformValue}
+                />
+              </SearchOption>
+              <SearchOption>
+                <Dropdown
+                  dropdownText={"Sort By"}
+                  defaultOption={"Most Popular"}
+                  options={sortOptions}
+                  state={sort}
+                  setState={setSort}
+                />
+              </SearchOption>
+              <SearchOption>
+                <Dropdown
+                  dropdownText={"Genre"}
+                  defaultOption={"All"}
+                  options={genres}
+                  state={genreValue}
+                  setState={setGenreValue}
                 />
               </SearchOption>
             </SearchOptionsContainer>
           )}
           <ListOfGames>
-            {games.map((game: any) => {
-              return (
-                <GameContainer>
-                  <GameCardSimple
-                    slug={game.slug}
-                    image={game.background_image}
-                    backgroundImage={game.background_image}
-                    name={game.name}
-                    hours={game.playtime}
-                    rating={game.metacritic}
-                  ></GameCardSimple>
-                </GameContainer>
-              );
-            })}
+            <Suspense fallback={<h2>Loading...</h2>}>
+              {games.map((game: any) => {
+                return (
+                  <GameContainer>
+                    <GameCardSimple
+                      slug={game.slug}
+                      image={game.background_image}
+                      backgroundImage={game.background_image}
+                      name={game.name}
+                      hours={game.playtime}
+                      rating={game.metacritic}
+                    ></GameCardSimple>
+                  </GameContainer>
+                );
+              })}
+            </Suspense>
           </ListOfGames>
           <PaginationContainer>
             <PageButtonContainer>

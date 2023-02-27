@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useState } from "react";
+import React, { useLayoutEffect, useState, Suspense } from "react";
 import { useNavigate } from "react-router-dom";
 import { fetchGamesByPopularity } from "../../api/gameFetch";
 import GameCardSimple from "../../components/GameCardSimple/GameCardSimple";
@@ -44,7 +44,6 @@ const Homepage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-
   return (
     <HomepageContainer>
       <BackGroundImageDiv wallpaperUrl={chosenWallpaper}>
@@ -82,20 +81,22 @@ const Homepage = () => {
           <h2>What's hot right now?</h2>
         </PopularGamesSectionTextDiv>
         <PopularGamesContainer>
-          {popularGames.map((game: any) => {
-            return (
-              <PopularGameContainer>
-                <GameCardSimple
-                  slug={game.slug}
-                  image={game.background_image}
-                  backgroundImage={game.background_image}
-                  name={game.name}
-                  hours={game.playtime}
-                  rating={game.metacritic}
-                ></GameCardSimple>
-              </PopularGameContainer>
-            );
-          })}
+          <Suspense fallback={<h2>Loading..</h2>}>
+            {popularGames.map((game: any) => {
+              return (
+                <PopularGameContainer>
+                  <GameCardSimple
+                    slug={game.slug}
+                    image={game.background_image}
+                    backgroundImage={game.background_image}
+                    name={game.name}
+                    hours={game.playtime}
+                    rating={game.metacritic}
+                  ></GameCardSimple>
+                </PopularGameContainer>
+              );
+            })}
+          </Suspense>
         </PopularGamesContainer>
         <BottomPageButtonContainer>
           <PrimaryButton
