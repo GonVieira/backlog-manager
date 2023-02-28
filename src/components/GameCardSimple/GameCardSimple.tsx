@@ -52,7 +52,7 @@ const GameCardSimple = ({
           <GameInfoBoxesContainer>
             <GameInfoBox>
               <h2>Time</h2>
-              <h2>{hours} Hours</h2>
+              {hours === 0 ? <h2>NA</h2> : <h2>{hours} H</h2>}
             </GameInfoBox>
             <GameInfoBox>
               <h2>Metacritic</h2>
@@ -60,7 +60,13 @@ const GameCardSimple = ({
             </GameInfoBox>
             <GameInfoBox>
               <h2>Quality per Hour</h2>
-              <h2>{(rating / hours).toFixed(2)}</h2>
+              {hours === 0 ? (
+                <h2>NA</h2>
+              ) : rating ? (
+                <h2>{(rating / hours).toFixed(2)}</h2>
+              ) : (
+                <h2>NA</h2>
+              )}
             </GameInfoBox>
           </GameInfoBoxesContainer>
           <ButtonContainer>

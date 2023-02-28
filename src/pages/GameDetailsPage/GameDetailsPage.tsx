@@ -1,6 +1,7 @@
-import React, { useLayoutEffect, useState } from "react";
+import React, { Suspense, useLayoutEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { fetchGameBySlug } from "../../api/gameFetch";
+import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 import PrimaryButton from "../../components/PrimaryButton/PrimaryButton";
 import {
   ButtonContainer,
@@ -21,6 +22,7 @@ import {
   GameRequirements,
   HoursInfoBox,
   MetacriticBox,
+  NotFoundMessageContainer,
   QualityInfoBox,
   SectionTitleContainer,
 } from "./style";
@@ -28,16 +30,28 @@ import {
 const GameDetailsPage = () => {
   const { slug } = useParams();
   const [game, setGame] = useState<any>();
-
+  const [loading, setLoading] = useState(true);
 
   useLayoutEffect(() => {
     window.scrollTo(0, 0);
-
+    setLoading(true);
     if (slug) {
-      fetchGameBySlug(slug).then((data) => setGame(data));
+      fetchGameBySlug(slug).then((data) => {
+        setGame(data);
+        setLoading(false);
+      });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [slug]);
+
+
+  if (loading) {
+    return (
+      <NotFoundMessageContainer>
+        <LoadingSpinner />
+      </NotFoundMessageContainer>
+    );
+  }
 
   if (game) {
     const gameDescriptionHtml = () => {
@@ -79,102 +93,118 @@ const GameDetailsPage = () => {
 
     return (
       <GameDetailsPageContainer isPlayabelOnPc={isPlayableOnPc()}>
-        <GameDetailsContentWrapper>
-          <GameDetailsTop backgroundImg={game.background_image}>
-            <GameDetailsImgContainer>
-              <GameDetailsImg src={game.background_image} />
-            </GameDetailsImgContainer>
-            <GameDetailsInfoContainer>
-              <GameNameContainer>
-                <h1>{game.name}</h1>
-              </GameNameContainer>
-              <GameDetailsInfoBoxesContainer>
-                <HoursInfoBox hours={game.playtime}>
-                  <h2>Time to beat</h2>
-                  <h2>{game.playtime} H</h2>
-                </HoursInfoBox>
-                <MetacriticBox rating={game.metacritic}>
-                  <h2>Metacritic</h2>
-                  <h2>{game.metacritic}</h2>
-                </MetacriticBox>
-                <QualityInfoBox quality={game.metacritic / game.playtime}>
-                  <h2>Quality per hour</h2>
-                  <h2>{(game.metacritic / game.playtime).toFixed(2)}</h2>
-                </QualityInfoBox>
-              </GameDetailsInfoBoxesContainer>
-              <ButtonContainer>
-                <PrimaryButton buttonText="Add to Backlog" />
-              </ButtonContainer>
-            </GameDetailsInfoContainer>
-          </GameDetailsTop>
-          <SectionTitleContainer>
-            <h2>Description</h2>
-          </SectionTitleContainer>
-          <GameDescriptionContainer
-            dangerouslySetInnerHTML={gameDescriptionHtml()}
-          ></GameDescriptionContainer>
-          <SectionTitleContainer>
-            <h2>Game Info</h2>
-          </SectionTitleContainer>
-          <GameMinorInfoContainer>
-            <GameMinorInfoBox>
-              <h1>Platforms:&nbsp;</h1>
-              <GameMinorInfoContent>
-                {game.parent_platforms.map((platform: any) => {
-                  return <h2> {platform.platform.name}&nbsp; </h2>;
-                })}
-              </GameMinorInfoContent>
-            </GameMinorInfoBox>
-            <GameMinorInfoBox>
-              <h1>Genres:&nbsp;</h1>
-              <GameMinorInfoContent>
-                {game.genres.map((genre: any) => {
-                  return <h2> {genre.name}&nbsp; </h2>;
-                })}
-              </GameMinorInfoContent>
-            </GameMinorInfoBox>
-            <GameMinorInfoBox>
-              <h1>Developers:&nbsp;</h1>
-              <GameMinorInfoContent>
-                {game.developers.map((developer: any) => {
-                  return <h2> {developer.name}&nbsp; </h2>;
-                })}
-              </GameMinorInfoContent>
-            </GameMinorInfoBox>
-            <GameMinorInfoBox>
-              <h1>Publishers:&nbsp;</h1>
-              <GameMinorInfoContent>
-                {game.publishers.map((publisher: any) => {
-                  return <h2> {publisher.name}&nbsp; </h2>;
-                })}
-              </GameMinorInfoContent>
-            </GameMinorInfoBox>
-            <GameReleaseDate>
-              <h1>Release date:&nbsp;</h1>
-              <h2>{game.released}</h2>
-            </GameReleaseDate>
-          </GameMinorInfoContainer>
-          {isPlayableOnPc() && (
-            <>
-              <SectionTitleContainer>
-                <h2>Game Requirements</h2>
-              </SectionTitleContainer>
-              <GameRequirements>
-                <GameRequirementColumn>
-                  <p>{getMinimumRequirements()}</p>
-                </GameRequirementColumn>
+        <Suspense fallback={<LoadingSpinner />}>
+          <GameDetailsContentWrapper>
+            <GameDetailsTop backgroundImg={game.background_image}>
+              <GameDetailsImgContainer>
+                <GameDetailsImg src={game.background_image} />
+              </GameDetailsImgContainer>
+              <GameDetailsInfoContainer>
+                <GameNameContainer>
+                  <h1>{game.name}</h1>
+                </GameNameContainer>
+                <GameDetailsInfoBoxesContainer>
+                  <HoursInfoBox hours={game.playtime}>
+                    <h2>Time to beat</h2>
+                    {game.playtime === 0 ? (
+                      <h2>NA</h2>
+                    ) : (
+                      <h2>{game.playtime} H</h2>
+                    )}
+                  </HoursInfoBox>
+                  <MetacriticBox rating={game.metacritic}>
+                    <h2>Metacritic</h2>
+                    {game.metacritic ? <h2>{game.metacritic}</h2> : <h2>NA</h2>}
+                  </MetacriticBox>
+                  <QualityInfoBox quality={game.metacritic / game.playtime}>
+                    <h2>Quality per hour</h2>
+                    {game.playtime === 0 ? (
+                      <h2>NA</h2>
+                    ) : game.metacritic ? (
+                      <h2>{(game.metacritic / game.playtime).toFixed(2)}</h2>
+                    ) : (
+                      <h2>NA</h2>
+                    )}
+                  </QualityInfoBox>
+                </GameDetailsInfoBoxesContainer>
+                <ButtonContainer>
+                  <PrimaryButton buttonText="Add to Backlog" />
+                </ButtonContainer>
+              </GameDetailsInfoContainer>
+            </GameDetailsTop>
+            <SectionTitleContainer>
+              <h2>Description</h2>
+            </SectionTitleContainer>
+            <GameDescriptionContainer
+              dangerouslySetInnerHTML={gameDescriptionHtml()}
+            ></GameDescriptionContainer>
+            <SectionTitleContainer>
+              <h2>Game Info</h2>
+            </SectionTitleContainer>
+            <GameMinorInfoContainer>
+              <GameMinorInfoBox>
+                <h1>Platforms:&nbsp;</h1>
+                <GameMinorInfoContent>
+                  {game.parent_platforms.map((platform: any) => {
+                    return <h2> {platform.platform.name}&nbsp; </h2>;
+                  })}
+                </GameMinorInfoContent>
+              </GameMinorInfoBox>
+              <GameMinorInfoBox>
+                <h1>Genres:&nbsp;</h1>
+                <GameMinorInfoContent>
+                  {game.genres.map((genre: any) => {
+                    return <h2> {genre.name}&nbsp; </h2>;
+                  })}
+                </GameMinorInfoContent>
+              </GameMinorInfoBox>
+              <GameMinorInfoBox>
+                <h1>Developers:&nbsp;</h1>
+                <GameMinorInfoContent>
+                  {game.developers.map((developer: any) => {
+                    return <h2> {developer.name}&nbsp; </h2>;
+                  })}
+                </GameMinorInfoContent>
+              </GameMinorInfoBox>
+              <GameMinorInfoBox>
+                <h1>Publishers:&nbsp;</h1>
+                <GameMinorInfoContent>
+                  {game.publishers.map((publisher: any) => {
+                    return <h2> {publisher.name}&nbsp; </h2>;
+                  })}
+                </GameMinorInfoContent>
+              </GameMinorInfoBox>
+              <GameReleaseDate>
+                <h1>Release date:&nbsp;</h1>
+                <h2>{game.released}</h2>
+              </GameReleaseDate>
+            </GameMinorInfoContainer>
+            {isPlayableOnPc() && (
+              <>
+                <SectionTitleContainer>
+                  <h2>Game Requirements</h2>
+                </SectionTitleContainer>
+                <GameRequirements>
+                  <GameRequirementColumn>
+                    <p>{getMinimumRequirements()}</p>
+                  </GameRequirementColumn>
 
-                <GameRequirementColumn>
-                  <p>{getRecommendedRequirements()}</p>
-                </GameRequirementColumn>
-              </GameRequirements>
-            </>
-          )}
-        </GameDetailsContentWrapper>
+                  <GameRequirementColumn>
+                    <p>{getRecommendedRequirements()}</p>
+                  </GameRequirementColumn>
+                </GameRequirements>
+              </>
+            )}
+          </GameDetailsContentWrapper>
+        </Suspense>
       </GameDetailsPageContainer>
     );
   } else {
-    return <GameDetailsPageContainer>Game Not Found</GameDetailsPageContainer>;
+    return (
+      <NotFoundMessageContainer>
+        <h2>Game Not Found</h2>
+      </NotFoundMessageContainer>
+    );
   }
 };
 

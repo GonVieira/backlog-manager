@@ -10,10 +10,14 @@ const config = {
 };
 
 export const fetchPlatforms = async () => {
-  const response = await axios.get(
-    `${url}?key=${process.env.REACT_APP_RAWG_API_KEY}`,
-    config
-  );
+  try {
+    const response = await axios.get(
+      `${url}?key=${process.env.REACT_APP_RAWG_API_KEY}`,
+      config
+    );
 
-  return response.data.results;
+    return response.data.results;
+  } catch (err:any) {
+    console.log(err.message);
+  }
 };

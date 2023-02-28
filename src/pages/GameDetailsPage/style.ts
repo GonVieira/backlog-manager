@@ -264,3 +264,17 @@ export const GameRequirementColumn = styled.div`
     font-size: 1.4rem;
   }
 `;
+
+export const NotFoundMessageContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background-color: #171e22;
+
+  h2 {
+    color: white;
+    font-size: 4rem;
+  }
+`;

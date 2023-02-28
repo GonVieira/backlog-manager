@@ -10,29 +10,41 @@ const config = {
 };
 
 export const fetchGamesByPopularity = async (limit: number) => {
-  const response = await axios.get(
-    `${url}?page_size=${limit}&key=${process.env.REACT_APP_RAWG_API_KEY}`,
-    config
-  );
+  try {
+    const response = await axios.get(
+      `${url}?page_size=${limit}&key=${process.env.REACT_APP_RAWG_API_KEY}`,
+      config
+    );
 
-  return response.data.results;
+    return response.data.results;
+  } catch (err) {
+    console.error(err);
+  }
 };
 
 export const fetchGamesByPage = async (limit: number, page: number) => {
-  const response = await axios.get(
-    `${url}?page=${page}&page_size=${limit}&key=${process.env.REACT_APP_RAWG_API_KEY}`,
-    config
-  );
+  try {
+    const response = await axios.get(
+      `${url}?page=${page}&page_size=${limit}&key=${process.env.REACT_APP_RAWG_API_KEY}`,
+      config
+    );
 
-  return response.data.results;
+    return response.data.results;
+  } catch (err: any) {
+    console.log(err.message);
+  }
 };
 
 export const fetchGameBySlug = async (slug: string) => {
-  const response = await axios.get(
-    `${url}/${slug}?key=${process.env.REACT_APP_RAWG_API_KEY}`,
-    config
-  );
-  return response.data;
+  try {
+    const response = await axios.get(
+      `${url}/${slug}?key=${process.env.REACT_APP_RAWG_API_KEY}`,
+      config
+    );
+    return response.data;
+  } catch (err: any) {
+    console.log(err.message);
+  }
 };
 
 export const fetchGamesBySearch = async (
@@ -40,12 +52,16 @@ export const fetchGamesBySearch = async (
   page: number,
   query: string
 ) => {
-  const response = await axios.get(
-    `${url}?page=${page}&page_size=${limit}&key=${process.env.REACT_APP_RAWG_API_KEY}&search=${query}`,
-    config
-  );
+  try {
+    const response = await axios.get(
+      `${url}?page=${page}&page_size=${limit}&key=${process.env.REACT_APP_RAWG_API_KEY}&search=${query}`,
+      config
+    );
 
-  return response.data.results;
+    return response.data.results;
+  } catch (err: any) {
+    console.log(err.message);
+  }
 };
 
 export const sortedFetchGames = async (
@@ -53,12 +69,16 @@ export const sortedFetchGames = async (
   page: number,
   sortVal: string
 ) => {
-  const response = await axios.get(
-    `${url}?page=${page}&page_size=${limit}&key=${process.env.REACT_APP_RAWG_API_KEY}&ordering=${sortVal}`,
-    config
-  );
+  try {
+    const response = await axios.get(
+      `${url}?page=${page}&page_size=${limit}&key=${process.env.REACT_APP_RAWG_API_KEY}&ordering=${sortVal}`,
+      config
+    );
 
-  return response.data.results;
+    return response.data.results;
+  } catch (err: any) {
+    console.log(err.message);
+  }
 };
 
 export const filterPlatformsAndSortedGames = async (
@@ -67,11 +87,15 @@ export const filterPlatformsAndSortedGames = async (
   platform: number,
   sortVal: string
 ) => {
-  const response = await axios.get(
-    `${url}?page=${page}&page_size=${limit}&key=${process.env.REACT_APP_RAWG_API_KEY}&platforms=${platform}&ordering=${sortVal}`
-  );
+  try {
+    const response = await axios.get(
+      `${url}?page=${page}&page_size=${limit}&key=${process.env.REACT_APP_RAWG_API_KEY}&platforms=${platform}&ordering=${sortVal}`
+    );
 
-  return response.data.results;
+    return response.data.results;
+  } catch (err: any) {
+    console.log(err.message);
+  }
 };
 
 export const filterPlatformFetchGames = async (
@@ -79,13 +103,15 @@ export const filterPlatformFetchGames = async (
   page: number,
   platform: number
 ) => {
-  if (platform) {
+  try {
     const response = await axios.get(
       `${url}?page=${page}&page_size=${limit}&key=${process.env.REACT_APP_RAWG_API_KEY}&platforms=${platform}`,
       config
     );
 
     return response.data.results;
+  } catch (err: any) {
+    console.log(err.message);
   }
 };
 
@@ -94,11 +120,15 @@ export const fetchByGenre = async (
   page: number,
   genre: number
 ) => {
-  const response = await axios.get(
-    `${url}?page=${page}&page_size=${limit}&key=${process.env.REACT_APP_RAWG_API_KEY}&genres=${genre}`
-  );
+  try {
+    const response = await axios.get(
+      `${url}?page=${page}&page_size=${limit}&key=${process.env.REACT_APP_RAWG_API_KEY}&genres=${genre}`
+    );
 
-  return response.data.results;
+    return response.data.results;
+  } catch (err: any) {
+    console.log(err.message);
+  }
 };
 
 export const fetchSortedGamesByPlatGenre = async (
@@ -108,11 +138,15 @@ export const fetchSortedGamesByPlatGenre = async (
   sortVal: string,
   genre: number
 ) => {
-  const response = await axios.get(
-    `${url}?page=${page}&page_size=${limit}&key=${process.env.REACT_APP_RAWG_API_KEY}&platforms=${platform}&ordering=${sortVal}&genres=${genre}`
-  );
+  try {
+    const response = await axios.get(
+      `${url}?page=${page}&page_size=${limit}&key=${process.env.REACT_APP_RAWG_API_KEY}&platforms=${platform}&ordering=${sortVal}&genres=${genre}`
+    );
 
-  return response.data.results;
+    return response.data.results;
+  } catch (err: any) {
+    console.log(err.message);
+  }
 };
 
 export const fetchGamesByPlatGenre = async (
@@ -121,11 +155,15 @@ export const fetchGamesByPlatGenre = async (
   platform: number,
   genre: number
 ) => {
-  const response = await axios.get(
-    `${url}?page=${page}&page_size=${limit}&key=${process.env.REACT_APP_RAWG_API_KEY}&platforms=${platform}&genres=${genre}`
-  );
+  try {
+    const response = await axios.get(
+      `${url}?page=${page}&page_size=${limit}&key=${process.env.REACT_APP_RAWG_API_KEY}&platforms=${platform}&genres=${genre}`
+    );
 
-  return response.data.results;
+    return response.data.results;
+  } catch (err: any) {
+    console.log(err.message);
+  }
 };
 
 export const fetchSortedGamesGenre = async (
@@ -134,9 +172,13 @@ export const fetchSortedGamesGenre = async (
   sortVal: string,
   genre: number
 ) => {
-  const response = await axios.get(
-    `${url}?page=${page}&page_size=${limit}&key=${process.env.REACT_APP_RAWG_API_KEY}&ordering=${sortVal}&genres=${genre}`
-  );
+  try {
+    const response = await axios.get(
+      `${url}?page=${page}&page_size=${limit}&key=${process.env.REACT_APP_RAWG_API_KEY}&ordering=${sortVal}&genres=${genre}`
+    );
 
-  return response.data.results;
+    return response.data.results;
+  } catch (err: any) {
+    console.log(err.message);
+  }
 };
