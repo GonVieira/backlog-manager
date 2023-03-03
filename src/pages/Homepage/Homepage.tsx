@@ -2,6 +2,7 @@ import React, { useLayoutEffect, useState, Suspense } from "react";
 import { useNavigate } from "react-router-dom";
 import { fetchGamesByPopularity } from "../../api/gameFetch";
 import GameCardSimple from "../../components/GameCardSimple/GameCardSimple";
+import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 import PrimaryButton from "../../components/PrimaryButton/PrimaryButton";
 import {
   BackGroundImageDiv,
@@ -80,24 +81,30 @@ const Homepage = () => {
         <PopularGamesSectionTextDiv>
           <h2>What's hot right now?</h2>
         </PopularGamesSectionTextDiv>
-        <PopularGamesContainer>
-          <Suspense fallback={<h2>Loading..</h2>}>
-            {popularGames.map((game: any) => {
-              return (
-                <PopularGameContainer>
-                  <GameCardSimple
-                    slug={game.slug}
-                    image={game.background_image}
-                    backgroundImage={game.background_image}
-                    name={game.name}
-                    hours={game.playtime}
-                    rating={game.metacritic}
-                  ></GameCardSimple>
-                </PopularGameContainer>
-              );
-            })}
-          </Suspense>
-        </PopularGamesContainer>
+
+        {popularGames.length > 0 ? (
+          <PopularGamesContainer>
+            <Suspense fallback={<h2>Loading..</h2>}>
+              {popularGames.map((game: any) => {
+                return (
+                  <PopularGameContainer>
+                    <GameCardSimple
+                      slug={game.slug}
+                      image={game.background_image}
+                      backgroundImage={game.background_image}
+                      name={game.name}
+                      hours={game.playtime}
+                      rating={game.metacritic}
+                    ></GameCardSimple>
+                  </PopularGameContainer>
+                );
+              })}
+            </Suspense>
+          </PopularGamesContainer>
+        ) : (
+          <LoadingSpinner />
+        )}
+
         <BottomPageButtonContainer>
           <PrimaryButton
             buttonText="See more"

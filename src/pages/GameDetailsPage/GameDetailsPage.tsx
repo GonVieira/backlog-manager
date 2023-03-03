@@ -1,5 +1,5 @@
 import React, { Suspense, useLayoutEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { fetchGameBySlug } from "../../api/gameFetch";
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 import PrimaryButton from "../../components/PrimaryButton/PrimaryButton";
@@ -20,6 +20,8 @@ import {
   GameReleaseDate,
   GameRequirementColumn,
   GameRequirements,
+  GoBackButton,
+  GoBackButtonContainer,
   HoursInfoBox,
   MetacriticBox,
   NotFoundMessageContainer,
@@ -31,6 +33,7 @@ const GameDetailsPage = () => {
   const { slug } = useParams();
   const [game, setGame] = useState<any>();
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useLayoutEffect(() => {
     window.scrollTo(0, 0);
@@ -43,7 +46,6 @@ const GameDetailsPage = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [slug]);
-
 
   if (loading) {
     return (
@@ -94,6 +96,15 @@ const GameDetailsPage = () => {
     return (
       <GameDetailsPageContainer isPlayabelOnPc={isPlayableOnPc()}>
         <Suspense fallback={<LoadingSpinner />}>
+          <GoBackButtonContainer>
+            <GoBackButton>
+              <PrimaryButton
+                buttonText="<"
+                color="#2b2a33"
+                onClick={() => navigate(-1)}
+              />
+            </GoBackButton>
+          </GoBackButtonContainer>
           <GameDetailsContentWrapper>
             <GameDetailsTop backgroundImg={game.background_image}>
               <GameDetailsImgContainer>

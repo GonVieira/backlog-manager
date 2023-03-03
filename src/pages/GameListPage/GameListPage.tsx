@@ -15,6 +15,7 @@ import { fetchGenres } from "../../api/genreFetch";
 import { fetchPlatforms } from "../../api/platformFetch";
 import Dropdown from "../../components/Dropdown/Dropdown";
 import GameCardSimple from "../../components/GameCardSimple/GameCardSimple";
+import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 import PrimaryButton from "../../components/PrimaryButton/PrimaryButton";
 import {
   ButtonContainer,
@@ -23,6 +24,7 @@ import {
   GameListPageContainer,
   ListOfGames,
   ListOptionContainer,
+  LoadingDiv,
   PageButtonContainer,
   PageNumberTextContainer,
   PaginationContainer,
@@ -31,13 +33,38 @@ import {
 } from "./style";
 
 const GameListPage = () => {
+  //GET STORAGE VALUES
+
+  let pageValStorage: number = parseInt(sessionStorage.getItem("pageVal")!);
+  if (!pageValStorage) {
+    pageValStorage = 1;
+  }
+
+  let platValStorage: number = parseInt(
+    sessionStorage.getItem("platformValue")!
+  );
+  if (!platValStorage) {
+    platValStorage = 0;
+  }
+
+  let sortValStorage = sessionStorage.getItem("sort");
+  if (sortValStorage === null) {
+    sortValStorage = "";
+  }
+
+  let genreValStorage: number = parseInt(sessionStorage.getItem("genreValue")!);
+  if (!genreValStorage) {
+    genreValStorage = 0;
+  }
+
   const [games, setGames] = useState([]);
-  const [platformValue, setPlatformValue] = useState<number>(0);
+  const [loading, setLoading] = useState(true);
+  const [platformValue, setPlatformValue] = useState<number>(platValStorage);
   const [platforms, setPlatforms] = useState([]);
-  const [genreValue, setGenreValue] = useState<number>(0);
+  const [genreValue, setGenreValue] = useState<number>(genreValStorage);
   const [genres, setGenres] = useState([]);
-  const [sort, setSort] = useState("");
-  const [page, setPage] = useState(1);
+  const [sort, setSort] = useState(sortValStorage);
+  const [page, setPage] = useState(pageValStorage);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const { searchVal } = useParams();
   const sortOptions = [
@@ -48,6 +75,7 @@ const GameListPage = () => {
   ];
 
   useLayoutEffect(() => {
+    setLoading(true);
     //GET PLATFORMS
     if (platforms.length === 0) {
       fetchPlatforms().then((data) => {
@@ -68,10 +96,10 @@ const GameListPage = () => {
       fetchGamesBySearch(9, page, searchVal).then((data) => {
         setGames(data);
       });
+      setLoading(false);
       return;
     }
 
-    console.log(platformValue > 0 && sort !== "" && genreValue > 0);
     //IF THERE IS A PLATFORM, SORT AND GENRE SELECTED
     if (platformValue > 0 && sort !== "" && genreValue > 0) {
       fetchSortedGamesByPlatGenre(
@@ -83,6 +111,7 @@ const GameListPage = () => {
       ).then((data) => {
         setGames(data);
       });
+      setLoading(false);
       return;
     }
 
@@ -90,6 +119,7 @@ const GameListPage = () => {
       fetchGamesByPlatGenre(9, page, platformValue, genreValue).then((data) => {
         setGames(data);
       });
+      setLoading(false);
       return;
     }
 
@@ -97,6 +127,7 @@ const GameListPage = () => {
       fetchSortedGamesGenre(9, page, sort, genreValue).then((data) => {
         setGames(data);
       });
+      setLoading(false);
       return;
     }
 
@@ -107,6 +138,7 @@ const GameListPage = () => {
           setGames(data);
         }
       );
+      setLoading(false);
       return;
     }
 
@@ -115,6 +147,7 @@ const GameListPage = () => {
       filterPlatformFetchGames(9, page, platformValue).then((data) => {
         setGames(data);
       });
+      setLoading(false);
       return;
     }
 
@@ -122,6 +155,7 @@ const GameListPage = () => {
       fetchByGenre(9, page, genreValue).then((data) => {
         setGames(data);
       });
+      setLoading(false);
       return;
     }
 
@@ -130,41 +164,57 @@ const GameListPage = () => {
       sortedFetchGames(9, page, sort).then((data) => {
         setGames(data);
       });
+      setLoading(false);
       return;
     }
 
     //IF THERE IS NO SORT AND FILTER OPTINS
     fetchGamesByPage(9, page).then((data) => {
       setGames(data);
+      setLoading(false);
     });
   }, [page, searchVal, platformValue, sort, genreValue]);
 
   useEffect(() => {
-    setPage(1);
-  }, [searchVal, platformValue]);
+    sessionStorage.setItem("platformValue", JSON.stringify(platformValue));
+    sessionStorage.setItem("sort", sort);
+    sessionStorage.setItem("genreValue", JSON.stringify(genreValue));
+  }, [platformValue, sort, genreValue]);
 
-  console.log(platformValue);
-  console.log(sort);
-  console.log(genreValue);
+  useEffect(() => {
+    setPlatformValue(0);
+    setGenreValue(0);
+    setSort("");
+    setPage(1);
+    setIsOpen(false);
+  }, [searchVal]);
+
+  useEffect(() => {
+    sessionStorage.setItem("pageVal", JSON.stringify(page));
+  }, [page]);
+
 
   if (games) {
     return (
       <GameListPageContainer isOpen={isOpen}>
         <GameListContentWrapper>
-          <ListOptionContainer>
-            <ButtonContainer>
-              <PrimaryButton
-                buttonText={"Options"}
-                onClick={() => setIsOpen(!isOpen)}
-              />
-            </ButtonContainer>
-          </ListOptionContainer>
+          {!searchVal && !searchVal && (
+            <ListOptionContainer>
+              <ButtonContainer>
+                <PrimaryButton
+                  buttonText={"Options"}
+                  onClick={() => setIsOpen(!isOpen)}
+                />
+              </ButtonContainer>
+            </ListOptionContainer>
+          )}
           {isOpen && (
             <SearchOptionsContainer>
               <SearchOption>
                 <Dropdown
                   dropdownText={"Platforms"}
-                  defaultOption={"All platforms"}
+                  defaultOption={platformValue}
+                  failsafe={"All Platforms"}
                   options={platforms}
                   state={platformValue}
                   setState={setPlatformValue}
@@ -173,7 +223,7 @@ const GameListPage = () => {
               <SearchOption>
                 <Dropdown
                   dropdownText={"Sort By"}
-                  defaultOption={"Most Popular"}
+                  defaultOption={sort}
                   options={sortOptions}
                   state={sort}
                   setState={setSort}
@@ -182,7 +232,8 @@ const GameListPage = () => {
               <SearchOption>
                 <Dropdown
                   dropdownText={"Genre"}
-                  defaultOption={"All"}
+                  defaultOption={genreValue}
+                  failsafe={"All Genres"}
                   options={genres}
                   state={genreValue}
                   setState={setGenreValue}
@@ -190,8 +241,12 @@ const GameListPage = () => {
               </SearchOption>
             </SearchOptionsContainer>
           )}
-          <ListOfGames>
-            <Suspense fallback={<h2>Loading...</h2>}>
+          {loading ? (
+            <LoadingDiv>
+              <LoadingSpinner />
+            </LoadingDiv>
+          ) : (
+            <ListOfGames>
               {games.map((game: any) => {
                 return (
                   <GameContainer>
@@ -206,8 +261,8 @@ const GameListPage = () => {
                   </GameContainer>
                 );
               })}
-            </Suspense>
-          </ListOfGames>
+            </ListOfGames>
+          )}
           <PaginationContainer>
             <PageButtonContainer>
               {page === 1 ? (

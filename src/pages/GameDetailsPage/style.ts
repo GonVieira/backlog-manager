@@ -278,3 +278,17 @@ export const NotFoundMessageContainer = styled.div`
     font-size: 4rem;
   }
 `;
+
+export const GoBackButtonContainer = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 90%;
+  height: 5%;
+`;
+
+export const GoBackButton = styled.div`
+  width: 4%;
+`
+
+

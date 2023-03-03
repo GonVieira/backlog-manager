@@ -22,6 +22,7 @@ const SearchBar = () => {
       <SearchButton
         onClick={() => {
           navigate(`/games/${searchInput}`);
+          sessionStorage.clear();
         }}
       >
         <SearchBarIcon />

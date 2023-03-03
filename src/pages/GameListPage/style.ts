@@ -45,6 +45,14 @@ export const ListOfGames = styled.div`
   padding: 1.3rem;
 `;
 
+export const LoadingDiv = styled.div`
+  display: flex; 
+  justify-content: center;
+  align-items: center;
+  width:100%;
+  height: 70%;
+`
+
 export const GameContainer = styled.div`
   display: flex;
   justify-content: center;

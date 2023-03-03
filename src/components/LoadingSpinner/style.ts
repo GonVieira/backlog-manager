@@ -5,5 +5,5 @@ export const LoadingSpinnerContainer = styled.div`
   justify-content: center;
   align-items: center;
   width: 50%;
-  height: auto;
+  height: 50%;
 `;

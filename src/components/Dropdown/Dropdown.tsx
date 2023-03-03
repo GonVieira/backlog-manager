@@ -13,25 +13,50 @@ import {
 
 interface DropdownProps {
   dropdownText: string;
-  defaultOption: string;
+  defaultOption: string | number;
   options: any[];
   state?: any;
   setState?: any;
   color?: string;
+  failsafe?: string;
   onClick?: () => void;
 }
 
 const Dropdown = ({
   dropdownText,
   defaultOption,
+  failsafe,
   color,
   state,
   setState,
   onClick,
   options,
 }: DropdownProps) => {
+  let optionVal;
+
+
+  if (defaultOption === 0) {
+    optionVal = failsafe;
+  }
+
+  if (typeof defaultOption === typeof 1) {
+    for (let i = 0; i < options.length; i++) {
+      if (options[i].id === defaultOption) {
+        optionVal = defaultOption = options[i].name;
+      }
+    }
+  } else if (typeof defaultOption === typeof "") {
+    for (let i = 0; i < options.length; i++) {
+      if (options[i].id === defaultOption) {
+        optionVal = defaultOption = options[i].name;
+      }
+    }
+  } else {
+    optionVal = defaultOption;
+  }
+
   const [dropdownIsOpen, setDropdownIsOpen] = useState<boolean>(false);
-  const [optionSelected, setOptionSelected] = useState<string>(defaultOption);
+  const [optionSelected, setOptionSelected] = useState<string>(optionVal);
   const wrapperRef = useRef(null);
 
   const dropDownToggle = () => {
