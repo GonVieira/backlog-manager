@@ -63,13 +63,13 @@ const Homepage = () => {
             <RegisterButtonContainer>
               <PrimaryButton
                 color="#171e22"
-                buttonText={"Sign up"}
+                buttonText={"Sign Up"}
                 onClick={() => navigate("/register")}
               />
             </RegisterButtonContainer>
             <LogInButtonContainer>
               <PrimaryButton
-                buttonText={"Log in"}
+                buttonText={"Login"}
                 onClick={() => navigate("/login")}
               />
             </LogInButtonContainer>
