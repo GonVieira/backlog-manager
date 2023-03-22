@@ -10,6 +10,11 @@ import {
   FormTitleContainer,
   PageContainer,
 } from "./style";
+import { useDispatch } from "react-redux";
+import { fetchLogin } from "../../api/authFetch";
+import { setCookie } from "../../utils/cookies";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 interface Props {
   type: string;
@@ -24,6 +29,7 @@ interface userProps {
 
 const LoginPage = ({ type }: Props) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [userValues, setUserValues] = useState<userProps>({
     userName: "",
     email: "",
@@ -36,9 +42,39 @@ const LoginPage = ({ type }: Props) => {
     setUserValues({ ...userValues, [name]: value });
   };
 
+  const userLogin = () => {
+    fetchLogin(userValues.email, userValues.password)
+      .then((data: any) => {
+        console.log(data);
+        if (data.status === 200) {
+          toast.success(data.data.message, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
+          dispatch({ type: "SET_USER", payload: data.data });
+          setCookie("token", data.data.token, 2);
+          navigate("/");
+        }
+      })
+      .catch((error) => {
+        console.log("error = " + error);
+        error.response.status === 401
+          ? toast.error("Wrong email or password")
+          : error.response.data.message
+          ? toast.error(error.response.data.message)
+          : toast.error(error.response.data);
+      });
+  };
+
   return type === "login" ? (
     <PageContainer>
       <FormContainer>
+        <ToastContainer />
         <FormTitleContainer>
           <h2>User {type}</h2>
         </FormTitleContainer>
@@ -62,12 +98,7 @@ const LoginPage = ({ type }: Props) => {
         </FormInputsContainer>
         <FormConfirmationButtons>
           <FormConfirmationButton>
-            <PrimaryButton
-              buttonText={"Login"}
-              onClick={() => {
-                console.log("Login backend in progress.");
-              }}
-            />
+            <PrimaryButton buttonText={"Login"} onClick={userLogin} />
           </FormConfirmationButton>
           <FormConfirmationButton>
             <PrimaryButton

@@ -1,6 +1,7 @@
 import React from "react";
 import {
   LoginLogoutProfileContainer,
+  LogoutNavBarButton,
   NavBarButton,
   NavbarContainer,
   NavbarContentWrapper,
@@ -9,10 +10,13 @@ import {
 } from "./style";
 import { useNavigate } from "react-router-dom";
 import SearchBar from "../SearchBar/SearchBar";
-import { type } from "os";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 const Navbar = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const user = useSelector((state: any) => state.user);
 
   return (
     <NavbarContainer>
@@ -34,32 +38,62 @@ const Navbar = () => {
         <SearchBarContainer>
           <SearchBar />
         </SearchBarContainer>
-        <LoginLogoutProfileContainer>
-          <NavBarButton
-            onClick={() => {
-              navigate("/register");
-              window.scrollTo({
-                top: 0,
-                left: 0,
-                behavior: "smooth",
-              });
-            }}
-          >
-            Sign up
-          </NavBarButton>
-          <NavBarButton
-            onClick={() => {
-              navigate("/login");
-              window.scrollTo({
-                top: 0,
-                left: 0,
-                behavior: "smooth",
-              });
-            }}
-          >
-            Login
-          </NavBarButton>
-        </LoginLogoutProfileContainer>
+        {user.email ? (
+          <LoginLogoutProfileContainer>
+            <NavBarButton
+              onClick={() => {
+                navigate("/profile");
+                window.scrollTo({
+                  top: 0,
+                  left: 0,
+                  behavior: "smooth",
+                });
+              }}
+            >
+              Profile
+            </NavBarButton>
+            <LogoutNavBarButton
+              onClick={() => {
+                dispatch({ type: "RESET" });
+                navigate("/");
+                window.scrollTo({
+                  top: 0,
+                  left: 0,
+                  behavior: "smooth",
+                });
+              }}
+            >
+              Logout
+            </LogoutNavBarButton>
+          </LoginLogoutProfileContainer>
+        ) : (
+          <LoginLogoutProfileContainer>
+            <NavBarButton
+              onClick={() => {
+                navigate("/register");
+                window.scrollTo({
+                  top: 0,
+                  left: 0,
+                  behavior: "smooth",
+                });
+              }}
+            >
+              Sign up
+            </NavBarButton>
+            <NavBarButton
+              onClick={() => {
+                navigate("/login");
+                window.scrollTo({
+                  top: 0,
+                  left: 0,
+                  behavior: "smooth",
+                });
+              }}
+            >
+              Login
+            </NavBarButton>
+          </LoginLogoutProfileContainer>
+        )}
       </NavbarContentWrapper>
     </NavbarContainer>
   );

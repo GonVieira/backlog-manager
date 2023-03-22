@@ -33,7 +33,7 @@ export const FormTitleContainer = styled.div`
   }
 `;
 
-export const FormInputsContainer = styled.div`
+export const FormInputsContainer = styled.form`
   display: flex;
   justify-content: center;
   align-items: center;

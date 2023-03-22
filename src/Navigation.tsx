@@ -5,6 +5,7 @@ import GameDetailsPage from "./pages/GameDetailsPage/GameDetailsPage";
 import GameListPage from "./pages/GameListPage/GameListPage";
 import Homepage from "./pages/Homepage/Homepage";
 import LoginPage from "./pages/LoginRegisterPage/LoginRegisterPage";
+import ProfilePage from "./pages/profile/ProfilePage";
 
 const Navigation = () => {
   return (
@@ -17,6 +18,7 @@ const Navigation = () => {
           <Route path="/game/:slug" element={<GameDetailsPage />} />
           <Route path="/login" element={<LoginPage type="login" />} />
           <Route path="/register" element={<LoginPage type="register" />} />
+          <Route path="/profile" element={<ProfilePage />} />
         </Route>
       </Routes>
     </BrowserRouter>

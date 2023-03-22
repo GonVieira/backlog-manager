@@ -81,3 +81,11 @@ export const NavBarButton = styled.button`
     background-color: #7c9ce4;
   }
 `;
+
+export const LogoutNavBarButton = styled(NavBarButton)`
+  background-color: #b12626;
+
+  &:hover {
+    background-color: #b83b3b;
+  }
+`
