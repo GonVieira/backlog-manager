@@ -175,7 +175,6 @@ const GameListPage = () => {
     });
   }, [page, searchVal, platformValue, sort, genreValue]);
 
-  console.log(platformValue)
 
   useEffect(() => {
     sessionStorage.setItem("platformValue", JSON.stringify(platformValue));

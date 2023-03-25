@@ -56,8 +56,8 @@ const LoginPage = ({ type }: Props) => {
             draggable: true,
             progress: undefined,
           });
-          dispatch({ type: "SET_USER", payload: data.data });
-          setCookie("token", data.data.token, 2);
+          dispatch({ type: "SET_USER", payload: data.data.userData });
+          setCookie("token", data.data.userData.token, 2);
           navigate("/");
         }
       })

@@ -4,8 +4,12 @@ import { deleteCookie } from "../utils/cookies";
 
 const initialState = {
   user: {
+    _id: null,
+    username: null,
     email: null,
     token: null,
+    profileImage: null,
+    backgroundImage: null,
   },
 };
 
@@ -15,7 +19,6 @@ const reducer = (
 ): any => {
   switch (action.type) {
     case "SET_USER":
-      console.log(action.payload);
       return { user: action.payload };
     case "RESET":
       deleteCookie("token");
