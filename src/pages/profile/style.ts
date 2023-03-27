@@ -78,9 +78,12 @@ export const UserNameContainer = styled.div`
 export const UserBioContainer = styled.div`
   display: flex;
   justify-content: flex-start;
-  align-items: center;
+  align-items: flex-start;
   width: 100%;
   height: 70%;
+  border-radius: 6px;
+  background-color: rgba(43, 42, 51, 0.4);
+  padding: 0.5rem;
 
   p {
     color: #fcebeb;
@@ -115,4 +118,4 @@ export const InfoContainer = styled.div`
   align-items: center;
   width: 30%;
   height: 30%;
-`
+`;

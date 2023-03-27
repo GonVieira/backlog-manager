@@ -11,7 +11,7 @@ import {
   PageContainer,
 } from "./style";
 import { useDispatch } from "react-redux";
-import { fetchLogin } from "../../api/authFetch";
+import { fetchLogin, fetchRegister } from "../../api/authFetch";
 import { setCookie } from "../../utils/cookies";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -45,29 +45,47 @@ const LoginPage = ({ type }: Props) => {
   const userLogin = () => {
     fetchLogin(userValues.email, userValues.password)
       .then((data: any) => {
-        console.log(data);
         if (data.status === 200) {
-          toast.success(data.data.message, {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: true,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          });
+          toast.success(data.data.message);
           dispatch({ type: "SET_USER", payload: data.data.userData });
           setCookie("token", data.data.userData.token, 2);
           navigate("/");
         }
       })
       .catch((error) => {
-        console.log("error = " + error);
         error.response.status === 401
           ? toast.error("Wrong email or password")
           : error.response.data.message
           ? toast.error(error.response.data.message)
           : toast.error(error.response.data);
+      });
+  };
+
+  const userRegister = () => {
+    if (userValues.password !== userValues.passwordVerify) {
+      toast.error("Paswords do not match.");
+      return;
+    }
+
+    fetchRegister(userValues.email, userValues.userName, userValues.password)
+      .then((data) => {
+        if (data.status === 201) {
+          toast.success(data.data.message);
+          setUserValues({
+            userName: "",
+            email: "",
+            password: "",
+            passwordVerify: "",
+          });
+          navigate("/login");
+        }
+      })
+      .catch((error) => {
+        console.log(error.response);
+        if (error.response.status === 409) {
+          toast.error(error.response.data.message);
+        }
+        toast.error(error.response.data);
       });
   };
 
@@ -115,6 +133,7 @@ const LoginPage = ({ type }: Props) => {
   ) : (
     <PageContainer>
       <FormContainer>
+        <ToastContainer />
         <FormTitleContainer>
           <h2>User {type}</h2>
         </FormTitleContainer>
@@ -157,7 +176,7 @@ const LoginPage = ({ type }: Props) => {
             <PrimaryButton
               buttonText={"Create"}
               onClick={() => {
-                console.log("Back end in progress.");
+                userRegister();
               }}
             />
           </FormConfirmationButton>

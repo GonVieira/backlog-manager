@@ -1,4 +1,4 @@
-import React, { useLayoutEffect } from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import PrimaryButton from "../../components/PrimaryButton/PrimaryButton";
@@ -22,14 +22,16 @@ const ProfilePage = () => {
   const user = useSelector((state: any) => state.user);
   const navigate = useNavigate();
 
-  useLayoutEffect(() => {
-    if (user.email === "") {
-      navigate("/login");
+  useEffect(() => {
+    if (user._id === null) {
+      console.log("No user Logged in");
+      navigate("/");
     }
+
     console.log(user);
   }, [user]);
 
-  return (
+  return user._id ? (
     <ProfileBodyContainer>
       <ProfilePageFirstHalf backgroundImg={user.backgroundImage}>
         <ProfileBasicInfoContainer>
@@ -63,6 +65,8 @@ const ProfilePage = () => {
         </UserStatsInfoContainer>
       </ProfilePageFirstHalf>
     </ProfileBodyContainer>
+  ) : (
+    <></>
   );
 };
 

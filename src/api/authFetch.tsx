@@ -2,32 +2,35 @@ import axios from "axios";
 
 const url = "https://backlog-manager-be.onrender.com";
 
-
 export const fetchLogin = async (email: string, password: string) => {
   const body = {
     email: email,
     password: password,
   };
 
-  const response = await axios
-    .post(`${url}/login`, body)
-    .then((result) => {
-      return result;
-    })
-    .catch((error) => {
-      throw error;
-    });
-
-  return response;
+  try {
+    const response = await axios.post(`${url}/login`, body);
+    return response;
+  } catch (err) {
+    throw err;
+  }
 };
 
-export const fetchRegister = async (user: any) => {
+export const fetchRegister = async (
+  email: string,
+  username: string,
+  password: string
+) => {
   const body = {
-    username: user.username,
-    email: user.email,
-    password: user.password,
+    username: username,
+    email: email,
+    password: password,
   };
 
-  const res = await axios.post(`{url}/register`, body);
-  return res.data;
+  try {
+    const response = await axios.post(`${url}/register`, body);
+    return response;
+  } catch (err) {
+    throw err;
+  }
 };
