@@ -10,6 +10,37 @@ export const fetchUserByEmail = async (email: string, jwt: string) => {
 
     return response.data.data;
   } catch (err) {
-    console.error(err);
+    throw err;
+  }
+};
+
+export const fetchUserGamesById = async (userId: string, jwt: string) => {
+  try {
+    const response = await axios.get(`${url}/user/games/${userId}`, {
+      headers: { Authorization: `Bearer ${jwt}` },
+    });
+
+    return response.data.data;
+  } catch (err) {
+    throw err;
+  }
+};
+
+export const addGameToUser = async (
+  userId: string,
+  jwt: string,
+  game: any
+) => {
+  const body = {
+    game: game,
+  };
+
+  try {
+    const response = await axios.patch(`${url}/user/add/${userId}`, body, {
+      headers: { Authorization: `Bearer ${jwt}` },
+    });
+    return response;
+  } catch (err) {
+    throw err;
   }
 };

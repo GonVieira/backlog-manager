@@ -11,6 +11,7 @@ import {
   InfoContainer,
   SimpleGameCardContainer,
 } from "./style";
+import { addGameToUser } from "../../api/userFetch";
 
 interface GameCardSimpleProps {
   slug: string;
@@ -19,6 +20,9 @@ interface GameCardSimpleProps {
   name: string;
   hours: number;
   rating: number;
+  id: string;
+  token: string;
+  platforms: any[];
 }
 
 const GameCardSimple = ({
@@ -28,9 +32,27 @@ const GameCardSimple = ({
   name,
   hours,
   rating,
+  id,
+  token,
+  platforms,
 }: GameCardSimpleProps) => {
   const [isHovering, setIsHovering] = useState(false);
   const navigate = useNavigate();
+  const gameInfoToSend = {
+    completed: false,
+    slug: slug,
+    name: name,
+    backgroundImage: backgroundImage,
+    platforms: [] as string[],
+    playtime: hours,
+    metacritic: rating,
+  };
+
+  const getGamePlatforms = () => {
+    for (let i = 0; i < platforms.length; i++) {
+      gameInfoToSend.platforms.push(platforms[i].platform.name);
+    }
+  };
 
   return (
     <Suspense fallback={<h2>Loading game...</h2>}>
@@ -75,9 +97,8 @@ const GameCardSimple = ({
               onMouseEnter={() => setIsHovering(true)}
               onMouseLeave={() => setIsHovering(false)}
               onClick={() => {
-                if (isHovering) {
-                  console.log("Added to backlog!");
-                }
+                getGamePlatforms();
+                addGameToUser(id, token, gameInfoToSend);
               }}
             />
           </ButtonContainer>

@@ -19,11 +19,13 @@ import {
   ProjectNameTitleConainer,
   RegisterButtonContainer,
 } from "./style";
+import { useSelector } from "react-redux";
 
 const Homepage = () => {
   const [chosenWallpaper, setChosenWallpaper] = useState("");
   const [popularGames, setPopularGames] = useState([]);
   const navigate = useNavigate();
+  const user = useSelector((state: any) => state.user);
 
   const imgBackgroundArray = [
     "https://cdn.discordapp.com/attachments/1070077755120701540/1070078599455068160/elden-ring-keyart.png",
@@ -95,6 +97,9 @@ const Homepage = () => {
                       name={game.name}
                       hours={game.playtime}
                       rating={game.metacritic}
+                      id={user._id}
+                      token={user.token}
+                      platforms={game.platforms}
                     ></GameCardSimple>
                   </PopularGameContainer>
                 );

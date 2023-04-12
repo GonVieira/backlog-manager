@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import PrimaryButton from "../../components/PrimaryButton/PrimaryButton";
@@ -17,18 +17,41 @@ import {
   UserOptionsContainer,
   UserStatsInfoContainer,
 } from "./style";
+import { fetchUserGamesById } from "../../api/userFetch";
+
+interface GameProps {
+  completed: boolean;
+  slug: string;
+  name: string;
+  backgroundImage: string;
+  platforms: string[];
+  playtime: number;
+  metacritic: number;
+  _id: any;
+}
 
 const ProfilePage = () => {
   const user = useSelector((state: any) => state.user);
+  const [games, setGames] = useState<GameProps[]>();
+  const [completedGames, setCompletedGames] = useState<number>(0);
   const navigate = useNavigate();
+
+  window.scrollTo({
+    top: 0,
+    left: 0,
+    behavior: "smooth",
+  });
 
   useEffect(() => {
     if (user._id === null) {
-      console.log("No user Logged in");
       navigate("/");
+      return;
     }
 
-    console.log(user);
+    fetchUserGamesById(user._id, user.token).then((data) => {
+      setGames(data);
+    });
+
   }, [user]);
 
   return user._id ? (
@@ -59,8 +82,19 @@ const ProfilePage = () => {
           <InfoContainer>
             <UserStats infoText={"Backlogged "} valueText={"340 games."} />
           </InfoContainer>
+
           <InfoContainer>
-            <UserStats infoText={"Has a total of "} valueText={"440 games."} />
+            {games ? (
+              <UserStats
+                infoText={"Has a total of "}
+                valueText={games.length + " games."}
+              />
+            ) : (
+              <UserStats
+                infoText={"Has a total of "}
+                valueText={0 + " games."}
+              />
+            )}
           </InfoContainer>
         </UserStatsInfoContainer>
       </ProfilePageFirstHalf>

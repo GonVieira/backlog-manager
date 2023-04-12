@@ -28,12 +28,26 @@ import {
   QualityInfoBox,
   SectionTitleContainer,
 } from "./style";
+import { addGameToUser } from "../../api/userFetch";
+import { useSelector } from "react-redux";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const GameDetailsPage = () => {
+  const user = useSelector((state: any) => state.user);
   const { slug } = useParams();
   const [game, setGame] = useState<any>();
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+  const gameInfoToSend = {
+    completed: false,
+    slug: null,
+    name: null,
+    backgroundImage: null,
+    platforms: [] as string[],
+    playtime: null,
+    metacritic: null,
+  };
 
   useLayoutEffect(() => {
     window.scrollTo(0, 0);
@@ -56,6 +70,16 @@ const GameDetailsPage = () => {
   }
 
   if (game) {
+    gameInfoToSend.slug = game.slug;
+    gameInfoToSend.name = game.name;
+    gameInfoToSend.backgroundImage = game.background_image;
+    gameInfoToSend.playtime = game.playtime;
+    gameInfoToSend.metacritic = game.metacritic;
+
+    for (let i = 0; i < game.platforms.length; i++) {
+      gameInfoToSend.platforms.push(game.platforms[i].platform.name);
+    }
+
     const gameDescriptionHtml = () => {
       return { __html: game.description };
     };
@@ -95,6 +119,7 @@ const GameDetailsPage = () => {
 
     return (
       <GameDetailsPageContainer isPlayabelOnPc={isPlayableOnPc()}>
+        <ToastContainer />
         <Suspense fallback={<LoadingSpinner />}>
           <GoBackButtonContainer>
             <GoBackButton>
@@ -139,7 +164,32 @@ const GameDetailsPage = () => {
                   </QualityInfoBox>
                 </GameDetailsInfoBoxesContainer>
                 <ButtonContainer>
-                  <PrimaryButton buttonText="Add to Backlog" />
+                  <PrimaryButton
+                    onClick={() => {
+                      addGameToUser(user._id, user.token, gameInfoToSend)
+                        .then((data) => {
+                          if (data.status === 200) {
+                            toast.success(
+                              "Successfully added " +
+                                gameInfoToSend.name +
+                                " to your backlog."
+                            );
+                          }
+                        })
+                        .catch((error) => {
+                          if (error.response.status === 401) {
+                            toast.error(
+                              "You must be logged in to add a game to your account!"
+                            );
+                          }
+                          if (error.response.status === 409) {
+                            toast.error(error.response.data.message);
+                          }
+                          toast.error(error.response.data);
+                        });
+                    }}
+                    buttonText="Add to Backlog"
+                  />
                 </ButtonContainer>
               </GameDetailsInfoContainer>
             </GameDetailsTop>

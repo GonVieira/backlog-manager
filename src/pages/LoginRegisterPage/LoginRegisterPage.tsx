@@ -81,7 +81,6 @@ const LoginPage = ({ type }: Props) => {
         }
       })
       .catch((error) => {
-        console.log(error.response);
         if (error.response.status === 409) {
           toast.error(error.response.data.message);
         }

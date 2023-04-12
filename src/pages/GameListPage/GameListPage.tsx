@@ -31,6 +31,7 @@ import {
   SearchOption,
   SearchOptionsContainer,
 } from "./style";
+import { useSelector } from "react-redux";
 
 const GameListPage = () => {
   //GET STORAGE VALUES
@@ -58,6 +59,7 @@ const GameListPage = () => {
   }
 
   const [games, setGames] = useState([]);
+  const user = useSelector((state: any) => state.user);
   const [loading, setLoading] = useState(true);
   const [platformValue, setPlatformValue] = useState<number>(platValStorage);
   const [platforms, setPlatforms] = useState([]);
@@ -175,7 +177,6 @@ const GameListPage = () => {
     });
   }, [page, searchVal, platformValue, sort, genreValue]);
 
-
   useEffect(() => {
     sessionStorage.setItem("platformValue", JSON.stringify(platformValue));
     sessionStorage.setItem("sort", sort);
@@ -193,7 +194,6 @@ const GameListPage = () => {
   useEffect(() => {
     sessionStorage.setItem("pageVal", JSON.stringify(page));
   }, [page]);
-
 
   if (games) {
     return (
@@ -258,6 +258,9 @@ const GameListPage = () => {
                       name={game.name}
                       hours={game.playtime}
                       rating={game.metacritic}
+                      id={user._id}
+                      token={user.token}
+                      platforms={user.platforms}
                     ></GameCardSimple>
                   </GameContainer>
                 );
