@@ -12,14 +12,15 @@ export const GameListPageContainer = styled.div<isOpenProps>`
   height: ${(props) => (props.isOpen ? "230%" : "180%")};
   width: 100%;
   flex-direction: column;
+  padding-top: 100px;
 `;
 
 export const GameListContentWrapper = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
   width: 85%;
-  height: 95%;
+  height: 100%;
   flex-direction: column;
 `;
 

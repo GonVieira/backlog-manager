@@ -44,6 +44,8 @@ const Homepage = () => {
     fetchGamesByPopularity(9).then((data) => {
       setPopularGames(data);
     });
+
+    console.log(user);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -61,21 +63,25 @@ const Homepage = () => {
               find out what game you will play next.
             </h2>
           </ProjectCoolPhraseConainer>
-          <ButtonsContainer>
-            <RegisterButtonContainer>
-              <PrimaryButton
-                color="#171e22"
-                buttonText={"Sign Up"}
-                onClick={() => navigate("/register")}
-              />
-            </RegisterButtonContainer>
-            <LogInButtonContainer>
-              <PrimaryButton
-                buttonText={"Login"}
-                onClick={() => navigate("/login")}
-              />
-            </LogInButtonContainer>
-          </ButtonsContainer>
+          {user.email ? (
+            <></>
+          ) : (
+            <ButtonsContainer>
+              <RegisterButtonContainer>
+                <PrimaryButton
+                  color="#171e22"
+                  buttonText={"Sign Up"}
+                  onClick={() => navigate("/register")}
+                />
+              </RegisterButtonContainer>
+              <LogInButtonContainer>
+                <PrimaryButton
+                  buttonText={"Login"}
+                  onClick={() => navigate("/login")}
+                />
+              </LogInButtonContainer>
+            </ButtonsContainer>
+          )}
         </HomepageContentWrapper>
       </BackGroundImageDiv>
 

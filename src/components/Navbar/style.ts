@@ -5,10 +5,11 @@ export const NavbarContainer = styled.div`
   justify-content: space-around;
   align-items: center;
   background-color: #2b2a33;
-  height: 10%;
+  height: 100px;
   width: 100%;
   position: fixed;
-  z-index: 1002;
+  z-index: 1000;
+  top: 0;
 `;
 
 export const NavbarContentWrapper = styled.div`
@@ -88,4 +89,4 @@ export const LogoutNavBarButton = styled(NavBarButton)`
   &:hover {
     background-color: #b83b3b;
   }
-`
+`;

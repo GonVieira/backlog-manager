@@ -9,9 +9,10 @@ export const ProfileBodyContainer = styled.div`
   justify-content: flex-start;
   align-items: center;
   background-color: #000000;
-  height: 175%;
+  height: 185%;
   width: 100%;
   flex-direction: column;
+  padding-top: 100px;
 `;
 
 export const ProfilePageFirstHalf = styled.div<BackgroundImg>`
@@ -19,7 +20,7 @@ export const ProfilePageFirstHalf = styled.div<BackgroundImg>`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  height: 55%;
+  height: 50%;
   width: 100%;
   background-color: #171e22;
   background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.7)),
@@ -27,6 +28,15 @@ export const ProfilePageFirstHalf = styled.div<BackgroundImg>`
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+`;
+
+export const ProfilePageSecondHalf = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 50%;
+  width: 100%;
 `;
 
 export const ProfileBasicInfoContainer = styled.div`
@@ -93,14 +103,19 @@ export const UserBioContainer = styled.div`
 
 export const UserOptionsContainer = styled.div`
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
+  align-items: flex-start;
   width: 10%;
   height: 50%;
+  padding-top: 0.4rem;
 `;
 
 export const UserOptionsButtonContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   height: 20%;
-  width: 95%;
+  width: 90%;
 `;
 
 export const UserStatsInfoContainer = styled.div`
@@ -108,7 +123,7 @@ export const UserStatsInfoContainer = styled.div`
   justify-content: space-around;
   align-items: flex-start;
   width: 70%;
-  height: 25%;
+  height: 15%;
   flex-direction: row;
 `;
 
@@ -117,5 +132,26 @@ export const InfoContainer = styled.div`
   justify-content: center;
   align-items: center;
   width: 30%;
-  height: 30%;
+  height: 50%;
+`;
+
+export const MyGamesContainer = styled.div`
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+  width: 70%;
+  height: 100%;
+`;
+
+export const MyGamesTitleContainer = styled.div`
+  height: 8%;
+  width: 100%;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+
+  h2 {
+    font-size: 2rem;
+    color: white;
+  }
 `;

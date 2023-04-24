@@ -11,7 +11,7 @@ export const HomepageContainer = styled.div`
   background-color: #171e22;
   height: 250%;
   width: 100%;
-  padding-top: 4%;
+  padding-top: 90px;
   flex-direction: column;
 `;
 

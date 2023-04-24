@@ -14,7 +14,7 @@ export const StyledButton = styled.button`
   margin: 5px;
   border: none;
   font-weight: bold;
-  z-index: 1001;
+  z-index: 81;
   @media (hover: hover) and (pointer: fine) {
     :hover {
       padding-right: 0.2rem;

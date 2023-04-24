@@ -5,12 +5,15 @@ import PrimaryButton from "../../components/PrimaryButton/PrimaryButton";
 import UserStats from "../../components/UserStats/UserStats";
 import {
   InfoContainer,
+  MyGamesContainer,
+  MyGamesTitleContainer,
   ProfileBasicInfoContainer,
   ProfileBasicInfoNameAndBioContainer,
   ProfileBodyContainer,
   ProfileImg,
   ProfileImgContainer,
   ProfilePageFirstHalf,
+  ProfilePageSecondHalf,
   UserBioContainer,
   UserNameContainer,
   UserOptionsButtonContainer,
@@ -52,6 +55,16 @@ const ProfilePage = () => {
       setGames(data);
     });
 
+    if (games) {
+      let completedGamesLength = 0;
+
+      for (let i = 0; i < games.length; i++) {
+        if (games[i].completed === true) {
+          completedGamesLength++;
+        }
+      }
+      setCompletedGames(completedGamesLength);
+    }
   }, [user]);
 
   return user._id ? (
@@ -77,10 +90,21 @@ const ProfilePage = () => {
         </ProfileBasicInfoContainer>
         <UserStatsInfoContainer>
           <InfoContainer>
-            <UserStats infoText={"Completed "} valueText={"100 games."} />
+            <UserStats
+              infoText={"Completed "}
+              valueText={completedGames + " games."}
+            />
           </InfoContainer>
+
           <InfoContainer>
-            <UserStats infoText={"Backlogged "} valueText={"340 games."} />
+            {games ? (
+              <UserStats
+                infoText={"Backlogged "}
+                valueText={games.length - completedGames + " games."}
+              />
+            ) : (
+              <UserStats infoText={"Backlogged "} valueText={"0 games."} />
+            )}
           </InfoContainer>
 
           <InfoContainer>
@@ -90,14 +114,18 @@ const ProfilePage = () => {
                 valueText={games.length + " games."}
               />
             ) : (
-              <UserStats
-                infoText={"Has a total of "}
-                valueText={0 + " games."}
-              />
+              <UserStats infoText={"Has a total of "} valueText={"0 games."} />
             )}
           </InfoContainer>
         </UserStatsInfoContainer>
       </ProfilePageFirstHalf>
+      <ProfilePageSecondHalf>
+        <MyGamesContainer>
+          <MyGamesTitleContainer>
+            <h2>My games </h2>
+          </MyGamesTitleContainer>
+        </MyGamesContainer>
+      </ProfilePageSecondHalf>
     </ProfileBodyContainer>
   ) : (
     <></>

@@ -28,7 +28,7 @@ export const GameDetailsPageContainer = styled.div<PageSize>`
   height: ${(props) => (props.isPlayabelOnPc ? "280%" : "240%")};
   width: 100%;
   flex-direction: column;
-  padding-top: 8%;
+  padding-top: 120px;
 `;
 
 export const GameDetailsContentWrapper = styled.div`
@@ -281,14 +281,15 @@ export const NotFoundMessageContainer = styled.div`
 
 export const GoBackButtonContainer = styled.div`
   display: flex;
+  position: fixed;
   justify-content: flex-start;
   align-items: flex-start;
   width: 90%;
   height: 5%;
+  left: 30px;
+  top: 120px;
 `;
 
 export const GoBackButton = styled.div`
   width: 4%;
-`
-
-
+`;

@@ -7,6 +7,7 @@ export const PageContainer = styled.div`
   background-color: #171e22;
   height: 100%;
   width: 100%;
+  padding-top: 100px;
   flex-direction: column;
 `;
 
