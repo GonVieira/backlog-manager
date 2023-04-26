@@ -20,6 +20,8 @@ import {
   RegisterButtonContainer,
 } from "./style";
 import { useSelector } from "react-redux";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Homepage = () => {
   const [chosenWallpaper, setChosenWallpaper] = useState("");
@@ -51,6 +53,7 @@ const Homepage = () => {
 
   return (
     <HomepageContainer>
+        <ToastContainer />
       <BackGroundImageDiv wallpaperUrl={chosenWallpaper}>
         <HomepageContentWrapper>
           <ProjectNameTitleConainer>
@@ -106,6 +109,7 @@ const Homepage = () => {
                       id={user._id}
                       token={user.token}
                       platforms={game.platforms}
+                      toast={toast}
                     ></GameCardSimple>
                   </PopularGameContainer>
                 );

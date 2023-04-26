@@ -1,3 +1,4 @@
+import { ToastContainer } from 'react-toastify';
 import styled from "styled-components";
 
 interface Props {
@@ -139,3 +140,5 @@ export const BottomPageButtonContainer = styled.div`
   width: 30%;
   height: 10%;
 `
+
+

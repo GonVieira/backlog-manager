@@ -23,6 +23,7 @@ interface GameCardSimpleProps {
   id: string;
   token: string;
   platforms: any[];
+  toast: any;
 }
 
 const GameCardSimple = ({
@@ -35,6 +36,7 @@ const GameCardSimple = ({
   id,
   token,
   platforms,
+  toast,
 }: GameCardSimpleProps) => {
   const [isHovering, setIsHovering] = useState(false);
   const navigate = useNavigate();
@@ -81,7 +83,7 @@ const GameCardSimple = ({
               {rating ? <h2>{rating}</h2> : <h2>NA</h2>}
             </GameInfoBox>
             <GameInfoBox>
-              <h2>Quality per Hour</h2>
+              <h2>Quality / Hour</h2>
               {hours === 0 ? (
                 <h2>NA</h2>
               ) : rating ? (
@@ -98,7 +100,28 @@ const GameCardSimple = ({
               onMouseLeave={() => setIsHovering(false)}
               onClick={() => {
                 getGamePlatforms();
-                addGameToUser(id, token, gameInfoToSend);
+
+                addGameToUser(id, token, gameInfoToSend)
+                  .then((data) => {
+                    if (data.status === 200) {
+                      toast.success(
+                        "Successfully added " +
+                          gameInfoToSend.name +
+                          " to your backlog."
+                      );
+                    }
+                  })
+                  .catch((error) => {
+                    if (error.response.status === 401) {
+                      toast.error(
+                        "You must be logged in to add a game to your account!"
+                      );
+                    }
+                    if (error.response.status === 409) {
+                      toast.error(error.response.data.message);
+                    }
+                    toast.error(error.response.data);
+                  });
               }}
             />
           </ButtonContainer>

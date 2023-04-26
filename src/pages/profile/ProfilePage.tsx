@@ -6,13 +6,18 @@ import UserStats from "../../components/UserStats/UserStats";
 import {
   InfoContainer,
   MyGamesContainer,
+  MyGamesContentContainer,
   MyGamesTitleContainer,
   ProfileBasicInfoContainer,
   ProfileBasicInfoNameAndBioContainer,
   ProfileBodyContainer,
+  ProfileGameContainer,
+  ProfileGamesPaginationContainer,
   ProfileImg,
   ProfileImgContainer,
+  ProfilePageButtonContainer,
   ProfilePageFirstHalf,
+  ProfilePageNumberTextContainer,
   ProfilePageSecondHalf,
   UserBioContainer,
   UserNameContainer,
@@ -21,6 +26,7 @@ import {
   UserStatsInfoContainer,
 } from "./style";
 import { fetchUserGamesById } from "../../api/userFetch";
+import ProfileGameCard from "../../components/ProfileGameCard/ProfileGameCard";
 
 interface GameProps {
   completed: boolean;
@@ -38,6 +44,8 @@ const ProfilePage = () => {
   const [games, setGames] = useState<GameProps[]>();
   const [completedGames, setCompletedGames] = useState<number>(0);
   const navigate = useNavigate();
+  const [currentPage, setCurrentPage] = useState(1);
+  const [gamesToDisplay, setGamesToDisplay] = useState<GameProps[]>();
 
   window.scrollTo({
     top: 0,
@@ -66,6 +74,15 @@ const ProfilePage = () => {
       setCompletedGames(completedGamesLength);
     }
   }, [user]);
+
+  useEffect(() => {
+    if (games) {
+      //GET CURRENT GAMES TO SHOW
+      const indexOfLastPost = currentPage * 4;
+      const indexOfFirstPost = indexOfLastPost - 4;
+      setGamesToDisplay(games.slice(indexOfFirstPost, indexOfLastPost));
+    }
+  }, [games, currentPage]);
 
   return user._id ? (
     <ProfileBodyContainer>
@@ -119,13 +136,60 @@ const ProfilePage = () => {
           </InfoContainer>
         </UserStatsInfoContainer>
       </ProfilePageFirstHalf>
-      <ProfilePageSecondHalf>
-        <MyGamesContainer>
-          <MyGamesTitleContainer>
-            <h2>My games </h2>
-          </MyGamesTitleContainer>
-        </MyGamesContainer>
-      </ProfilePageSecondHalf>
+      {gamesToDisplay ? (
+        <ProfilePageSecondHalf>
+          <MyGamesContainer>
+            <MyGamesTitleContainer>
+              <h2> My games </h2>
+            </MyGamesTitleContainer>
+            <MyGamesContentContainer>
+              {gamesToDisplay?.map((game) => (
+                <ProfileGameContainer>
+                  <ProfileGameCard
+                    slug={game.slug}
+                    image={game.backgroundImage}
+                    backgroundImage={game.backgroundImage}
+                    name={game.name}
+                    hours={game.playtime}
+                    rating={game.metacritic}
+                  />
+                </ProfileGameContainer>
+              ))}
+            </MyGamesContentContainer>
+          </MyGamesContainer>
+          <ProfileGamesPaginationContainer>
+            <ProfilePageButtonContainer>
+              {currentPage === 1 ? (
+                <></>
+              ) : (
+                <PrimaryButton
+                  buttonText={"Previous"}
+                  onClick={() =>
+                    setCurrentPage((currentPage) => currentPage - 1)
+                  }
+                />
+              )}
+            </ProfilePageButtonContainer>
+            <ProfilePageNumberTextContainer>
+              <h2>Page: {currentPage}</h2>
+            </ProfilePageNumberTextContainer>
+            <ProfilePageButtonContainer>
+              {gamesToDisplay.length < 4 ? (
+                <></>
+              ) : (
+                <PrimaryButton
+                  buttonText={"Next"}
+                  onClick={() => {
+                    setCurrentPage((currentPage) => currentPage + 1);
+                  }}
+                />
+              )}
+            </ProfilePageButtonContainer>
+          </ProfileGamesPaginationContainer>
+        </ProfilePageSecondHalf>
+      ) : (
+        <></>
+      )}
     </ProfileBodyContainer>
   ) : (
     <></>

@@ -9,7 +9,7 @@ export const ProfileBodyContainer = styled.div`
   justify-content: flex-start;
   align-items: center;
   background-color: #000000;
-  height: 185%;
+  height: 220%;
   width: 100%;
   flex-direction: column;
   padding-top: 100px;
@@ -20,7 +20,7 @@ export const ProfilePageFirstHalf = styled.div<BackgroundImg>`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  height: 50%;
+  height: 35%;
   width: 100%;
   background-color: #171e22;
   background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.7)),
@@ -35,8 +35,9 @@ export const ProfilePageSecondHalf = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  height: 50%;
+  height: 70%;
   width: 100%;
+  overflow: hidden;
 `;
 
 export const ProfileBasicInfoContainer = styled.div`
@@ -137,21 +138,67 @@ export const InfoContainer = styled.div`
 
 export const MyGamesContainer = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: space-around;
-  align-items: flex-start;
+  align-items: center;
   width: 70%;
   height: 100%;
 `;
 
 export const MyGamesTitleContainer = styled.div`
+  display: flex;
   height: 8%;
   width: 100%;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
 
   h2 {
     font-size: 2rem;
+    color: white;
+  }
+`;
+
+export const MyGamesContentContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 90%;
+  width: 100%;
+`
+
+export const ProfileGameContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+  height: 22%;
+  margin: 1rem;
+`
+
+export const ProfileGamesPaginationContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 50%;
+  height: 15%;
+`
+
+export const ProfilePageButtonContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 13%;
+`;
+
+export const ProfilePageNumberTextContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 20%;
+
+  h2 {
     color: white;
   }
 `;

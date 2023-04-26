@@ -6,7 +6,7 @@ export const StyledButton = styled.button`
   background-color: ${(props) => (props.color ? props.color : "#287fc2")};
   color: #ffffff;
   text-align: center;
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   padding: 0.9rem;
   width: 100%;
   transition: all 0.5s;

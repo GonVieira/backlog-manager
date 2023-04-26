@@ -32,6 +32,8 @@ import {
   SearchOptionsContainer,
 } from "./style";
 import { useSelector } from "react-redux";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const GameListPage = () => {
   //GET STORAGE VALUES
@@ -198,6 +200,7 @@ const GameListPage = () => {
   if (games) {
     return (
       <GameListPageContainer isOpen={isOpen}>
+        <ToastContainer/>
         <GameListContentWrapper>
           {!searchVal && !searchVal && (
             <ListOptionContainer>
@@ -260,7 +263,8 @@ const GameListPage = () => {
                       rating={game.metacritic}
                       id={user._id}
                       token={user.token}
-                      platforms={user.platforms}
+                      platforms={game.platforms}
+                      toast={toast}
                     ></GameCardSimple>
                   </GameContainer>
                 );
