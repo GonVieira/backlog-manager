@@ -27,6 +27,8 @@ import {
 } from "./style";
 import { fetchUserGamesById } from "../../api/userFetch";
 import ProfileGameCard from "../../components/ProfileGameCard/ProfileGameCard";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 interface GameProps {
   completed: boolean;
@@ -46,12 +48,8 @@ const ProfilePage = () => {
   const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState(1);
   const [gamesToDisplay, setGamesToDisplay] = useState<GameProps[]>();
-
-  window.scrollTo({
-    top: 0,
-    left: 0,
-    behavior: "smooth",
-  });
+  const gamesPerPage = 5;
+  const [lastPage, setLastPage] = useState(0);
 
   useEffect(() => {
     if (user._id === null) {
@@ -63,29 +61,44 @@ const ProfilePage = () => {
       setGames(data);
     });
 
-    if (games) {
-      let completedGamesLength = 0;
-
-      for (let i = 0; i < games.length; i++) {
-        if (games[i].completed === true) {
-          completedGamesLength++;
-        }
-      }
-      setCompletedGames(completedGamesLength);
-    }
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
+    });
   }, [user]);
 
   useEffect(() => {
     if (games) {
+      let completedGamesLength = 0;
+
+      for (let i = 0; i < games.length; i++) {
+        console.log(games[i].completed)
+        if (games[i].completed === true) {
+          completedGamesLength++;
+        }
+      }
+      console.log(completedGamesLength);
+      setCompletedGames(completedGamesLength);
+    }
+  }, [games, user, currentPage]);
+
+  useEffect(() => {
+    if (games) {
       //GET CURRENT GAMES TO SHOW
-      const indexOfLastPost = currentPage * 4;
-      const indexOfFirstPost = indexOfLastPost - 4;
+      const indexOfLastPost = currentPage * gamesPerPage;
+      const indexOfFirstPost = indexOfLastPost - gamesPerPage;
       setGamesToDisplay(games.slice(indexOfFirstPost, indexOfLastPost));
+
+      //GET LAST PAGE NUMBER
+      let lastPageIndex = games.length / gamesPerPage;
+      setLastPage(lastPageIndex);
     }
   }, [games, currentPage]);
 
   return user._id ? (
     <ProfileBodyContainer>
+      <ToastContainer />
       <ProfilePageFirstHalf backgroundImg={user.backgroundImage}>
         <ProfileBasicInfoContainer>
           <ProfileImgContainer>
@@ -146,12 +159,16 @@ const ProfilePage = () => {
               {gamesToDisplay?.map((game) => (
                 <ProfileGameContainer>
                   <ProfileGameCard
+                    userId={user._id}
+                    token={user.token}
                     slug={game.slug}
                     image={game.backgroundImage}
                     backgroundImage={game.backgroundImage}
                     name={game.name}
                     hours={game.playtime}
                     rating={game.metacritic}
+                    completed={game.completed}
+                    toast={toast}
                   />
                 </ProfileGameContainer>
               ))}
@@ -174,7 +191,7 @@ const ProfilePage = () => {
               <h2>Page: {currentPage}</h2>
             </ProfilePageNumberTextContainer>
             <ProfilePageButtonContainer>
-              {gamesToDisplay.length < 4 ? (
+              {currentPage >= lastPage ? (
                 <></>
               ) : (
                 <PrimaryButton

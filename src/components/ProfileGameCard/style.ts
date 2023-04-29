@@ -1,10 +1,11 @@
 import styled from "styled-components";
 
-interface BackGroundImageProps {
+interface GameCardProps {
   backgroundImg: string;
+  completed: boolean;
 }
 
-export const ProfileGameCardBody = styled.div<BackGroundImageProps>`
+export const ProfileGameCardBody = styled.div<GameCardProps>`
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -19,6 +20,9 @@ export const ProfileGameCardBody = styled.div<BackGroundImageProps>`
   background-repeat: no-repeat;
   background-size: cover;
   border-radius: 4px;
+
+  border: ${(props) =>
+    props.completed === true ? "1px solid yellowgreen" : "1px solid black"};
 `;
 
 export const ProfileGameImageContainer = styled.div`
@@ -66,7 +70,8 @@ export const ProfileGameNameContainer = styled.div`
   h2 {
     padding-left: 1.5rem;
     font-size: 1.8rem;
-    color: white;
+    color: #ffa500;
+    font-weight: bolder;
   }
 `;
 

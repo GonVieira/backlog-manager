@@ -26,11 +26,7 @@ export const fetchUserGamesById = async (userId: string, jwt: string) => {
   }
 };
 
-export const addGameToUser = async (
-  userId: string,
-  jwt: string,
-  game: any
-) => {
+export const addGameToUser = async (userId: string, jwt: string, game: any) => {
   const body = {
     game: game,
   };
@@ -41,6 +37,31 @@ export const addGameToUser = async (
     });
     return response;
   } catch (err) {
+    throw err;
+  }
+};
+
+export const setGameAsCompleted = async (
+  userId: string,
+  jwt: string,
+  gameSlug: string,
+  completed: boolean
+) => {
+  const body = {
+    slug: gameSlug,
+    completed: completed,
+  };
+
+  try {
+    const response = await axios.patch(
+      `${url}/user/completed/${userId}`,
+      body,
+      { headers: { Authorization: `Bearer ${jwt}` } }
+    );
+    console.log(response);
+    return response;
+  } catch (err) {
+    console.log(err);
     throw err;
   }
 };

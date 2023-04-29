@@ -1,6 +1,6 @@
 import React from "react";
 import {
-    ProfileGameButtonContainer,
+  ProfileGameButtonContainer,
   ProfileGameCardBody,
   ProfileGameImageContainer,
   ProfileGameImg,
@@ -13,26 +13,35 @@ import {
   RemoveButtonContainer,
 } from "./style";
 import PrimaryButton from "../PrimaryButton/PrimaryButton";
+import { setGameAsCompleted } from "../../api/userFetch";
 
 interface ProfileGameCardProps {
+  userId: string;
+  token: string;
   slug: string;
   image: string;
   backgroundImage: string;
   name: string;
   hours: number;
   rating: number;
+  completed: boolean;
+  toast: any;
 }
 
 const ProfileGameCard = ({
+  userId,
+  token,
   slug,
   image,
   backgroundImage,
   name,
   hours,
   rating,
+  completed,
+  toast,
 }: ProfileGameCardProps) => {
   return (
-    <ProfileGameCardBody backgroundImg={backgroundImage}>
+    <ProfileGameCardBody backgroundImg={backgroundImage} completed={completed}>
       <ProfileGameImageContainer>
         <ProfileGameImg src={image} />
       </ProfileGameImageContainer>
@@ -66,7 +75,23 @@ const ProfileGameCard = ({
           </ProfileGameInfoBox>
         </ProfileGameInfoBoxesContainer>
         <ProfileGameButtonContainer>
-            <PrimaryButton buttonText="Set as completed."/>
+          <PrimaryButton
+            onClick={() => {
+              setGameAsCompleted(userId, token, slug, true)
+                .then((data) => {
+                  if (data.status === 200) {
+                    toast.success(name + " was successfully set as completed!");
+                  }
+                })
+                .catch((error) => {
+                  if (error.response.status === 409) {
+                    toast.error(error.response.data.message);
+                  }
+                  toast.error(error.response.data);
+                });
+            }}
+            buttonText="Set as completed."
+          />
         </ProfileGameButtonContainer>
       </ProfileGameInformationsContainer>
     </ProfileGameCardBody>
