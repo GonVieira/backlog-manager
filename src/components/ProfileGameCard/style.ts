@@ -22,7 +22,7 @@ export const ProfileGameCardBody = styled.div<GameCardProps>`
   border-radius: 4px;
 
   border: ${(props) =>
-    props.completed === true ? "1px solid yellowgreen" : "1px solid black"};
+    props.completed === true ? "1px solid #FFD700" : "1px solid black"};
 `;
 
 export const ProfileGameImageContainer = styled.div`
@@ -136,6 +136,6 @@ export const ProfileGameButtonContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 30%;
-  height: 25%;
+  width: 40%;
+  height: 22%;
 `;

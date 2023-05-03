@@ -10,13 +10,14 @@ import {
   StyledDropdown,
   TextContainer,
 } from "./style";
+import { useDispatch } from "react-redux";
 
 interface DropdownProps {
   dropdownText: string;
   defaultOption: string | number;
   options: any[];
   state?: any;
-  setState?: any;
+  stateIdentifier: string;
   color?: string;
   failsafe?: string;
   onClick?: () => void;
@@ -28,12 +29,11 @@ const Dropdown = ({
   failsafe,
   color,
   state,
-  setState,
+  stateIdentifier,
   onClick,
   options,
 }: DropdownProps) => {
   let optionVal;
-
 
   if (defaultOption === 0) {
     optionVal = failsafe;
@@ -58,6 +58,7 @@ const Dropdown = ({
   const [dropdownIsOpen, setDropdownIsOpen] = useState<boolean>(false);
   const [optionSelected, setOptionSelected] = useState<string>(optionVal);
   const wrapperRef = useRef(null);
+  const dispatch = useDispatch();
 
   const dropDownToggle = () => {
     setDropdownIsOpen(!dropdownIsOpen);
@@ -84,6 +85,22 @@ const Dropdown = ({
         document.removeEventListener("mousedown", handler);
       };
     }, [ref, dropdownIsOpen]);
+  };
+
+  console.log(defaultOption + "   ");
+
+  const handleClick = (option: any, identifier: string) => {
+    setOptionSelected(option.name);
+    if (identifier === "platform") {
+      dispatch({ type: "SET_PLATFORM", payload: option.id });
+    }
+    if (identifier === "genre") {
+      dispatch({ type: "SET_GENRE", payload: option.id });
+    }
+    if (identifier === "sort") {
+      dispatch({ type: "SET_SORT", payload: option.id });
+    }
+    dropDownToggle();
   };
 
   useOutsideAlerter(wrapperRef);
@@ -114,11 +131,8 @@ const Dropdown = ({
           <DropdownContentContainer>
             {options.map((option) => (
               <DropdownContentOption
-                onClick={() => {
-                  setOptionSelected(option.name);
-                  setState(option.id);
-                  dropDownToggle();
-                }}
+                onClick={() => handleClick(option, stateIdentifier)}
+                
                 active={optionSelected === option.name}
               >
                 {option.name}

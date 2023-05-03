@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect, useLayoutEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import {
   fetchByGenre,
@@ -31,43 +31,26 @@ import {
   SearchOption,
   SearchOptionsContainer,
 } from "./style";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const GameListPage = () => {
-  //GET STORAGE VALUES
-
+  //GET STORAGE PAGE VALUE
   let pageValStorage: number = parseInt(sessionStorage.getItem("pageVal")!);
   if (!pageValStorage) {
     pageValStorage = 1;
   }
-
-  let platValStorage: number = parseInt(
-    sessionStorage.getItem("platformValue")!
-  );
-  if (!platValStorage) {
-    platValStorage = 0;
-  }
-
-  let sortValStorage = sessionStorage.getItem("sort");
-  if (sortValStorage === null) {
-    sortValStorage = "";
-  }
-
-  let genreValStorage: number = parseInt(sessionStorage.getItem("genreValue")!);
-  if (!genreValStorage) {
-    genreValStorage = 0;
-  }
-
-  const [games, setGames] = useState([]);
   const user = useSelector((state: any) => state.user);
+
+  const platformValue = useSelector((state: any) => state.platformVal);
+  const genreValue = useSelector((state: any) => state.genreVal);
+  const sort = useSelector((state: any) => state.sortVal);
+  const dispatch = useDispatch();
+  const [games, setGames] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [platformValue, setPlatformValue] = useState<number>(platValStorage);
   const [platforms, setPlatforms] = useState([]);
-  const [genreValue, setGenreValue] = useState<number>(genreValStorage);
   const [genres, setGenres] = useState([]);
-  const [sort, setSort] = useState(sortValStorage);
   const [page, setPage] = useState(pageValStorage);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const { searchVal } = useParams();
@@ -78,6 +61,10 @@ const GameListPage = () => {
     { name: "Metacritic", id: "-metacritic" },
   ];
 
+  const initialState = useSelector((state: any) => state);
+
+  console.log(initialState);
+
   useLayoutEffect(() => {
     setLoading(true);
     //GET PLATFORMS
@@ -86,7 +73,6 @@ const GameListPage = () => {
         setPlatforms(data);
       });
     }
-
     //GET GENRES
     if (genres.length === 0) {
       fetchGenres().then((data) => {
@@ -99,6 +85,10 @@ const GameListPage = () => {
     if (searchVal) {
       fetchGamesBySearch(9, page, searchVal).then((data) => {
         setGames(data);
+        dispatch({ type: "SET_PLATFORM", payload: 0 });
+        dispatch({ type: "SET_GENRE", payload: 0 });
+        dispatch({ type: "SET_SORT", payload: "" });
+        setIsOpen(false);
       });
       setLoading(false);
       return;
@@ -179,20 +169,7 @@ const GameListPage = () => {
     });
   }, [page, searchVal, platformValue, sort, genreValue]);
 
-  useEffect(() => {
-    sessionStorage.setItem("platformValue", JSON.stringify(platformValue));
-    sessionStorage.setItem("sort", sort);
-    sessionStorage.setItem("genreValue", JSON.stringify(genreValue));
-  }, [platformValue, sort, genreValue]);
-
-  useEffect(() => {
-    setPlatformValue(0);
-    setGenreValue(0);
-    setSort("");
-    setPage(1);
-    setIsOpen(false);
-  }, [searchVal]);
-
+  //SAVE PAGE VALUE EACH TIME PAGE STATE CHANGES
   useEffect(() => {
     sessionStorage.setItem("pageVal", JSON.stringify(page));
   }, [page]);
@@ -200,7 +177,7 @@ const GameListPage = () => {
   if (games) {
     return (
       <GameListPageContainer isOpen={isOpen}>
-        <ToastContainer/>
+        <ToastContainer />
         <GameListContentWrapper>
           {!searchVal && !searchVal && (
             <ListOptionContainer>
@@ -221,7 +198,7 @@ const GameListPage = () => {
                   failsafe={"All Platforms"}
                   options={platforms}
                   state={platformValue}
-                  setState={setPlatformValue}
+                  stateIdentifier={"platform"}
                 />
               </SearchOption>
               <SearchOption>
@@ -230,7 +207,7 @@ const GameListPage = () => {
                   defaultOption={sort}
                   options={sortOptions}
                   state={sort}
-                  setState={setSort}
+                  stateIdentifier={"sort"}
                 />
               </SearchOption>
               <SearchOption>
@@ -240,7 +217,7 @@ const GameListPage = () => {
                   failsafe={"All Genres"}
                   options={genres}
                   state={genreValue}
-                  setState={setGenreValue}
+                  stateIdentifier={"genre"}
                 />
               </SearchOption>
             </SearchOptionsContainer>

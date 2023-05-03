@@ -73,12 +73,10 @@ const ProfilePage = () => {
       let completedGamesLength = 0;
 
       for (let i = 0; i < games.length; i++) {
-        console.log(games[i].completed)
         if (games[i].completed === true) {
           completedGamesLength++;
         }
       }
-      console.log(completedGamesLength);
       setCompletedGames(completedGamesLength);
     }
   }, [games, user, currentPage]);

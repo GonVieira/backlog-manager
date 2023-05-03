@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   ProfileGameButtonContainer,
   ProfileGameCardBody,
@@ -13,7 +13,7 @@ import {
   RemoveButtonContainer,
 } from "./style";
 import PrimaryButton from "../PrimaryButton/PrimaryButton";
-import { setGameAsCompleted } from "../../api/userFetch";
+import { updateGameCompletedStatus } from "../../api/userFetch";
 
 interface ProfileGameCardProps {
   userId: string;
@@ -40,8 +40,13 @@ const ProfileGameCard = ({
   completed,
   toast,
 }: ProfileGameCardProps) => {
+  const [isCompleted, setIsCompleted] = useState(completed);
+
   return (
-    <ProfileGameCardBody backgroundImg={backgroundImage} completed={completed}>
+    <ProfileGameCardBody
+      backgroundImg={backgroundImage}
+      completed={isCompleted}
+    >
       <ProfileGameImageContainer>
         <ProfileGameImg src={image} />
       </ProfileGameImageContainer>
@@ -75,23 +80,51 @@ const ProfileGameCard = ({
           </ProfileGameInfoBox>
         </ProfileGameInfoBoxesContainer>
         <ProfileGameButtonContainer>
-          <PrimaryButton
-            onClick={() => {
-              setGameAsCompleted(userId, token, slug, true)
-                .then((data) => {
-                  if (data.status === 200) {
-                    toast.success(name + " was successfully set as completed!");
-                  }
-                })
-                .catch((error) => {
-                  if (error.response.status === 409) {
-                    toast.error(error.response.data.message);
-                  }
-                  toast.error(error.response.data);
-                });
-            }}
-            buttonText="Set as completed."
-          />
+          {isCompleted === true ? (
+            <PrimaryButton
+              onClick={() => {
+                updateGameCompletedStatus(userId, token, slug, false)
+                  .then((data) => {
+                    if (data.status === 200) {
+                      toast.success(
+                        name +
+                          " was successfully removed from the completed category!"
+                      );
+                    }
+                    setIsCompleted(false);
+                  })
+                  .catch((error) => {
+                    if (error.response.status === 409) {
+                      toast.error(error.response.data.message);
+                    }
+                    toast.error(error.response.data);
+                  });
+              }}
+              buttonText="Set as not completed!"
+              color="#871616"
+            />
+          ) : (
+            <PrimaryButton
+              onClick={() => {
+                updateGameCompletedStatus(userId, token, slug, true)
+                  .then((data) => {
+                    if (data.status === 200) {
+                      toast.success(
+                        name + " was successfully set as completed!"
+                      );
+                    }
+                    setIsCompleted(true);
+                  })
+                  .catch((error) => {
+                    if (error.response.status === 409) {
+                      toast.error(error.response.data.message);
+                    }
+                    toast.error(error.response.data);
+                  });
+              }}
+              buttonText="Set as completed!"
+            />
+          )}
         </ProfileGameButtonContainer>
       </ProfileGameInformationsContainer>
     </ProfileGameCardBody>

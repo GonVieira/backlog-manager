@@ -11,6 +11,9 @@ const initialState = {
     profileImage: null,
     backgroundImage: null,
   },
+  platformVal: 0,
+  sortVal: "",
+  genreVal: 0,
 };
 
 const reducer = (
@@ -19,7 +22,13 @@ const reducer = (
 ): any => {
   switch (action.type) {
     case "SET_USER":
-      return { user: action.payload };
+      return { ...state, user: action.payload };
+    case "SET_PLATFORM":
+      return { ...state, platformVal: action.payload };
+    case "SET_SORT":
+      return { ...state, sortVal: action.payload };
+    case "SET_GENRE":
+      return { ...state, genreVal: action.payload };
     case "RESET":
       deleteCookie("token");
       return initialState;

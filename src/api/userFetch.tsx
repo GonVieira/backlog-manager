@@ -41,7 +41,7 @@ export const addGameToUser = async (userId: string, jwt: string, game: any) => {
   }
 };
 
-export const setGameAsCompleted = async (
+export const updateGameCompletedStatus = async (
   userId: string,
   jwt: string,
   gameSlug: string,
