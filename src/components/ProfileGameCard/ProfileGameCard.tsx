@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   ProfileGameButtonContainer,
   ProfileGameCardBody,
@@ -13,7 +13,10 @@ import {
   RemoveButtonContainer,
 } from "./style";
 import PrimaryButton from "../PrimaryButton/PrimaryButton";
-import { updateGameCompletedStatus } from "../../api/userFetch";
+import {
+  deleteGameFromLibrary,
+  updateGameCompletedStatus,
+} from "../../api/userFetch";
 
 interface ProfileGameCardProps {
   userId: string;
@@ -40,7 +43,11 @@ const ProfileGameCard = ({
   completed,
   toast,
 }: ProfileGameCardProps) => {
-  const [isCompleted, setIsCompleted] = useState(completed);
+  const [isCompleted, setIsCompleted] = useState(false);
+
+  useEffect(() => {
+    setIsCompleted(completed);
+  }, [name]);
 
   return (
     <ProfileGameCardBody
@@ -56,7 +63,19 @@ const ProfileGameCard = ({
             <h2>{name}</h2>
           </ProfileGameNameContainer>
           <RemoveButtonContainer>
-            <RemoveButton>X</RemoveButton>
+            <RemoveButton
+              onClick={() => {
+                deleteGameFromLibrary(userId, token, slug).then((data) => {
+                  if (data.status === 200) {
+                    toast.success(
+                      name + " successfully removed from your backlog."
+                    );
+                  }
+                });
+              }}
+            >
+              X
+            </RemoveButton>
           </RemoveButtonContainer>
         </ProfileGameTopInfoContainer>
         <ProfileGameInfoBoxesContainer>

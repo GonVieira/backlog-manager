@@ -58,10 +58,46 @@ export const updateGameCompletedStatus = async (
       body,
       { headers: { Authorization: `Bearer ${jwt}` } }
     );
-    console.log(response);
     return response;
   } catch (err) {
-    console.log(err);
+    throw err;
+  }
+};
+
+export const checkIfGameExistsInLibrary = async (
+  userId: string,
+  jwt: string,
+  slug: string
+) => {
+  const body = {
+    gameSlug: slug,
+  };
+
+  try {
+    const response = await axios.post(`${url}/user/game/${userId}`, body, {
+      headers: { Authorization: `Bearer ${jwt}` },
+    });
+    return response;
+  } catch (err) {
+    throw err;
+  }
+};
+
+export const deleteGameFromLibrary = async (
+  userId: string,
+  jwt: string,
+  slug: string
+) => {
+  const body = {
+    slug: slug,
+  };
+
+  try {
+    const response = await axios.patch(`${url}/user/delete/${userId}`, body, {
+      headers: { Authorization: `Bearer ${jwt}` },
+    });
+    return response;
+  } catch (err) {
     throw err;
   }
 };

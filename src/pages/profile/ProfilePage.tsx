@@ -61,12 +61,7 @@ const ProfilePage = () => {
       setGames(data);
     });
 
-    window.scrollTo({
-      top: 0,
-      left: 0,
-      behavior: "smooth",
-    });
-  }, [user]);
+  }, [user, currentPage]);
 
   useEffect(() => {
     if (games) {

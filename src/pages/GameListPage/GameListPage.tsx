@@ -61,9 +61,6 @@ const GameListPage = () => {
     { name: "Metacritic", id: "-metacritic" },
   ];
 
-  const initialState = useSelector((state: any) => state);
-
-  console.log(initialState);
 
   useLayoutEffect(() => {
     setLoading(true);
