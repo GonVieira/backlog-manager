@@ -1,6 +1,10 @@
 import styled from "styled-components";
 
-export const UserStatsContainer = styled.div`
+interface UserStatsContainerProps {
+  isSelected: boolean;
+}
+
+export const UserStatsContainer = styled.div<UserStatsContainerProps>`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -9,6 +13,13 @@ export const UserStatsContainer = styled.div`
   background-color: #2b2a33;
   flex-direction: row;
   border-radius: 5px;
+  border: ${(props) =>
+    props.isSelected === true ? "1px solid #287fc2" : "1px solid black"};
+
+  &:hover {
+    cursor: pointer;
+    background-color: #34343b;
+  }
 `;
 
 export const TextDiv = styled.div`

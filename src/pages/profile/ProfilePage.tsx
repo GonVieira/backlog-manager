@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import PrimaryButton from "../../components/PrimaryButton/PrimaryButton";
 import UserStats from "../../components/UserStats/UserStats";
 import {
+  FiltersAndSortsContainer,
   InfoContainer,
   MyGamesContainer,
   MyGamesContentContainer,
@@ -25,7 +26,11 @@ import {
   UserOptionsContainer,
   UserStatsInfoContainer,
 } from "./style";
-import { fetchUserGamesById } from "../../api/userFetch";
+import {
+  fetchUserCompletedGames,
+  fetchUserGamesById,
+  fetchUserUncompletedGames,
+} from "../../api/userFetch";
 import ProfileGameCard from "../../components/ProfileGameCard/ProfileGameCard";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -43,8 +48,12 @@ interface GameProps {
 
 const ProfilePage = () => {
   const user = useSelector((state: any) => state.user);
+  const completedFilter = useSelector(
+    (state: any) => state.profileCompletedFilter
+  );
   const [games, setGames] = useState<GameProps[]>();
-  const [completedGames, setCompletedGames] = useState<number>(0);
+  const [completedGames, setCompletedGames] = useState<GameProps[]>();
+  const [uncompletedGames, setUncompletedGames] = useState<GameProps[]>();
   const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState(1);
   const [gamesToDisplay, setGamesToDisplay] = useState<GameProps[]>();
@@ -61,33 +70,48 @@ const ProfilePage = () => {
       setGames(data);
     });
 
+    fetchUserCompletedGames(user._id, user.token).then((data) => {
+      setCompletedGames(data.data.data[0].games);
+    });
+
+    fetchUserUncompletedGames(user._id, user.token).then((data) => {
+      setUncompletedGames(data.data.data[0].games);
+    });
   }, [user, currentPage]);
-
-  useEffect(() => {
-    if (games) {
-      let completedGamesLength = 0;
-
-      for (let i = 0; i < games.length; i++) {
-        if (games[i].completed === true) {
-          completedGamesLength++;
-        }
-      }
-      setCompletedGames(completedGamesLength);
-    }
-  }, [games, user, currentPage]);
 
   useEffect(() => {
     if (games) {
       //GET CURRENT GAMES TO SHOW
       const indexOfLastPost = currentPage * gamesPerPage;
       const indexOfFirstPost = indexOfLastPost - gamesPerPage;
-      setGamesToDisplay(games.slice(indexOfFirstPost, indexOfLastPost));
-
-      //GET LAST PAGE NUMBER
-      let lastPageIndex = games.length / gamesPerPage;
-      setLastPage(lastPageIndex);
+      if (completedFilter === "all") {
+        setGamesToDisplay(games.slice(indexOfFirstPost, indexOfLastPost));
+        //GET LAST PAGE NUMBER
+        let lastPageIndex = games.length / gamesPerPage;
+        setLastPage(lastPageIndex);
+      }
+      if (completedFilter === "completed" && completedGames) {
+        setGamesToDisplay(
+          completedGames.slice(indexOfFirstPost, indexOfLastPost)
+        );
+        //GET LAST PAGE NUMBER
+        let lastPageIndex = completedGames.length / gamesPerPage;
+        setLastPage(lastPageIndex);
+      }
+      if (completedFilter === "uncompleted" && uncompletedGames) {
+        setGamesToDisplay(
+          uncompletedGames.slice(indexOfFirstPost, indexOfLastPost)
+        );
+        //GET LAST PAGE NUMBER
+        let lastPageIndex = uncompletedGames.length / gamesPerPage;
+        setLastPage(lastPageIndex);
+      }
     }
-  }, [games, currentPage]);
+  }, [games, currentPage, completedFilter]);
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [completedFilter]);
 
   return user._id ? (
     <ProfileBodyContainer>
@@ -112,21 +136,41 @@ const ProfilePage = () => {
           </UserOptionsContainer>
         </ProfileBasicInfoContainer>
         <UserStatsInfoContainer>
-          <InfoContainer>
-            <UserStats
-              infoText={"Completed "}
-              valueText={completedGames + " games."}
-            />
-          </InfoContainer>
+          {completedGames ? (
+            <InfoContainer>
+              <UserStats
+                infoText={"Completed "}
+                valueText={completedGames.length + " games."}
+                filterValue={"completed"}
+                selectedValue={completedFilter}
+              />
+            </InfoContainer>
+          ) : (
+            <InfoContainer>
+              <UserStats
+                infoText={"Completed "}
+                valueText={"0 games."}
+                filterValue={"completed"}
+                selectedValue={completedFilter}
+              />
+            </InfoContainer>
+          )}
 
           <InfoContainer>
-            {games ? (
+            {uncompletedGames ? (
               <UserStats
                 infoText={"Backlogged "}
-                valueText={games.length - completedGames + " games."}
+                valueText={uncompletedGames.length + " games."}
+                filterValue={"uncompleted"}
+                selectedValue={completedFilter}
               />
             ) : (
-              <UserStats infoText={"Backlogged "} valueText={"0 games."} />
+              <UserStats
+                infoText={"Backlogged "}
+                valueText={"0 games."}
+                filterValue={"uncompleted"}
+                selectedValue={completedFilter}
+              />
             )}
           </InfoContainer>
 
@@ -135,9 +179,16 @@ const ProfilePage = () => {
               <UserStats
                 infoText={"Has a total of "}
                 valueText={games.length + " games."}
+                filterValue={"all"}
+                selectedValue={completedFilter}
               />
             ) : (
-              <UserStats infoText={"Has a total of "} valueText={"0 games."} />
+              <UserStats
+                infoText={"Has a total of "}
+                valueText={"0 games."}
+                filterValue={"all"}
+                selectedValue={completedFilter}
+              />
             )}
           </InfoContainer>
         </UserStatsInfoContainer>
@@ -148,6 +199,9 @@ const ProfilePage = () => {
             <MyGamesTitleContainer>
               <h2> My games </h2>
             </MyGamesTitleContainer>
+            {/* IF NEEDED 
+            <FiltersAndSortsContainer></FiltersAndSortsContainer>
+            */}
             <MyGamesContentContainer>
               {gamesToDisplay?.map((game) => (
                 <ProfileGameContainer>

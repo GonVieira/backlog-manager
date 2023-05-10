@@ -17,6 +17,7 @@ import {
   deleteGameFromLibrary,
   updateGameCompletedStatus,
 } from "../../api/userFetch";
+import { useNavigate } from "react-router-dom";
 
 interface ProfileGameCardProps {
   userId: string;
@@ -44,6 +45,8 @@ const ProfileGameCard = ({
   toast,
 }: ProfileGameCardProps) => {
   const [isCompleted, setIsCompleted] = useState(false);
+  const [isHovering, setIsHovering] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     setIsCompleted(completed);
@@ -53,6 +56,11 @@ const ProfileGameCard = ({
     <ProfileGameCardBody
       backgroundImg={backgroundImage}
       completed={isCompleted}
+      onClick={() => {
+        if (!isHovering) {
+          navigate(`/game/${slug}`);
+        }
+      }}
     >
       <ProfileGameImageContainer>
         <ProfileGameImg src={image} />
@@ -64,6 +72,8 @@ const ProfileGameCard = ({
           </ProfileGameNameContainer>
           <RemoveButtonContainer>
             <RemoveButton
+              onMouseEnter={() => setIsHovering(true)}
+              onMouseLeave={() => setIsHovering(false)}
               onClick={() => {
                 deleteGameFromLibrary(userId, token, slug).then((data) => {
                   if (data.status === 200) {
@@ -101,6 +111,8 @@ const ProfileGameCard = ({
         <ProfileGameButtonContainer>
           {isCompleted === true ? (
             <PrimaryButton
+              onMouseEnter={() => setIsHovering(true)}
+              onMouseLeave={() => setIsHovering(false)}
               onClick={() => {
                 updateGameCompletedStatus(userId, token, slug, false)
                   .then((data) => {
@@ -124,6 +136,8 @@ const ProfileGameCard = ({
             />
           ) : (
             <PrimaryButton
+              onMouseEnter={() => setIsHovering(true)}
+              onMouseLeave={() => setIsHovering(false)}
               onClick={() => {
                 updateGameCompletedStatus(userId, token, slug, true)
                   .then((data) => {

@@ -203,3 +203,11 @@ export const ProfilePageNumberTextContainer = styled.div`
     color: white;
   }
 `;
+
+export const FiltersAndSortsContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 10%;
+`

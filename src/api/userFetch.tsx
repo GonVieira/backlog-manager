@@ -101,3 +101,26 @@ export const deleteGameFromLibrary = async (
     throw err;
   }
 };
+
+export const fetchUserCompletedGames = async (userId: string, jwt: string) => {
+  try {
+    const response = await axios.get(`${url}/user/games/completed/${userId}`, {
+      headers: { Authorization: `Bearer ${jwt}` },
+    });
+    return response;
+  } catch (err) {
+    throw err;
+  }
+};
+
+export const fetchUserUncompletedGames = async (userId: string, jwt: string) => {
+  try {
+    const response = await axios.get(`${url}/user/games/uncompleted/${userId}`, {
+      headers: { Authorization: `Bearer ${jwt}` },
+    });
+    return response;
+  } catch (err) {
+    throw err;
+  }
+};
+

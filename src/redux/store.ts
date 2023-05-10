@@ -14,6 +14,7 @@ const initialState = {
   platformVal: 0,
   sortVal: "",
   genreVal: 0,
+  profileCompletedFilter: "all",
 };
 
 const reducer = (
@@ -29,6 +30,8 @@ const reducer = (
       return { ...state, sortVal: action.payload };
     case "SET_GENRE":
       return { ...state, genreVal: action.payload };
+    case "SET_PROFILE_COMPLETED":
+      return { ...state, profileCompletedFilter: action.payload };
     case "RESET":
       deleteCookie("token");
       return initialState;

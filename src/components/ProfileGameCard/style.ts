@@ -23,6 +23,12 @@ export const ProfileGameCardBody = styled.div<GameCardProps>`
 
   border: ${(props) =>
     props.completed === true ? "1px solid #FFD700" : "1px solid black"};
+
+  &:hover {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.5)),
+      url(${(props) => props.backgroundImg});
+    cursor: pointer;
+  }
 `;
 
 export const ProfileGameImageContainer = styled.div`
