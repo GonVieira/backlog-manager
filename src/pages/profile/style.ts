@@ -122,9 +122,9 @@ export const UserOptionsButtonContainer = styled.div`
 export const UserStatsInfoContainer = styled.div`
   display: flex;
   justify-content: space-around;
-  align-items: flex-start;
+  align-items: center;
   width: 70%;
-  height: 15%;
+  height: 10%;
   flex-direction: row;
 `;
 
@@ -133,7 +133,7 @@ export const InfoContainer = styled.div`
   justify-content: center;
   align-items: center;
   width: 30%;
-  height: 50%;
+  height: 90%;
 `;
 
 export const MyGamesContainer = styled.div`
@@ -166,6 +166,19 @@ export const MyGamesContentContainer = styled.div`
   flex-direction: column;
   height: 80%;
   width: 100%;
+`
+
+export const NoGamesScreenContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80%;
+  width: 100%;
+
+  h2 {
+    font-size: 2.5rem;
+    color: #b12626;
+  }
 `
 
 export const ProfileGameContainer = styled.div`

@@ -9,6 +9,7 @@ import {
   MyGamesContainer,
   MyGamesContentContainer,
   MyGamesTitleContainer,
+  NoGamesScreenContainer,
   ProfileBasicInfoContainer,
   ProfileBasicInfoNameAndBioContainer,
   ProfileBodyContainer,
@@ -113,6 +114,8 @@ const ProfilePage = () => {
     setCurrentPage(1);
   }, [completedFilter]);
 
+  console.log(gamesToDisplay);
+
   return user._id ? (
     <ProfileBodyContainer>
       <ToastContainer />
@@ -197,59 +200,69 @@ const ProfilePage = () => {
         <ProfilePageSecondHalf>
           <MyGamesContainer>
             <MyGamesTitleContainer>
-              <h2> My games </h2>
+              <h2> User games: </h2>
             </MyGamesTitleContainer>
             {/* IF NEEDED 
             <FiltersAndSortsContainer></FiltersAndSortsContainer>
-            */}
-            <MyGamesContentContainer>
-              {gamesToDisplay?.map((game) => (
-                <ProfileGameContainer>
-                  <ProfileGameCard
-                    userId={user._id}
-                    token={user.token}
-                    slug={game.slug}
-                    image={game.backgroundImage}
-                    backgroundImage={game.backgroundImage}
-                    name={game.name}
-                    hours={game.playtime}
-                    rating={game.metacritic}
-                    completed={game.completed}
-                    toast={toast}
-                  />
-                </ProfileGameContainer>
-              ))}
-            </MyGamesContentContainer>
+           */}
+            {gamesToDisplay.length > 0 ? (
+              <MyGamesContentContainer>
+                {gamesToDisplay?.map((game) => (
+                  <ProfileGameContainer>
+                    <ProfileGameCard
+                      userId={user._id}
+                      token={user.token}
+                      slug={game.slug}
+                      image={game.backgroundImage}
+                      backgroundImage={game.backgroundImage}
+                      name={game.name}
+                      hours={game.playtime}
+                      rating={game.metacritic}
+                      completed={game.completed}
+                      toast={toast}
+                    />
+                  </ProfileGameContainer>
+                ))}
+              </MyGamesContentContainer>
+            ) : (
+              <NoGamesScreenContainer>
+                <h2>User has no games in this section!</h2>
+              </NoGamesScreenContainer>
+            )}
           </MyGamesContainer>
-          <ProfileGamesPaginationContainer>
-            <ProfilePageButtonContainer>
-              {currentPage === 1 ? (
-                <></>
-              ) : (
-                <PrimaryButton
-                  buttonText={"Previous"}
-                  onClick={() =>
-                    setCurrentPage((currentPage) => currentPage - 1)
-                  }
-                />
-              )}
-            </ProfilePageButtonContainer>
-            <ProfilePageNumberTextContainer>
-              <h2>Page: {currentPage}</h2>
-            </ProfilePageNumberTextContainer>
-            <ProfilePageButtonContainer>
-              {currentPage >= lastPage ? (
-                <></>
-              ) : (
-                <PrimaryButton
-                  buttonText={"Next"}
-                  onClick={() => {
-                    setCurrentPage((currentPage) => currentPage + 1);
-                  }}
-                />
-              )}
-            </ProfilePageButtonContainer>
-          </ProfileGamesPaginationContainer>
+          {gamesToDisplay.length > 0 ? (
+            <ProfileGamesPaginationContainer>
+              <ProfilePageButtonContainer>
+                {currentPage === 1 ? (
+                  <></>
+                ) : (
+                  <PrimaryButton
+                    buttonText={"Previous"}
+                    onClick={() =>
+                      setCurrentPage((currentPage) => currentPage - 1)
+                    }
+                  />
+                )}
+              </ProfilePageButtonContainer>
+              <ProfilePageNumberTextContainer>
+                <h2>Page: {currentPage}</h2>
+              </ProfilePageNumberTextContainer>
+              <ProfilePageButtonContainer>
+                {currentPage >= lastPage ? (
+                  <></>
+                ) : (
+                  <PrimaryButton
+                    buttonText={"Next"}
+                    onClick={() => {
+                      setCurrentPage((currentPage) => currentPage + 1);
+                    }}
+                  />
+                )}
+              </ProfilePageButtonContainer>
+            </ProfileGamesPaginationContainer>
+          ) : (
+            <></>
+          )}
         </ProfilePageSecondHalf>
       ) : (
         <></>
