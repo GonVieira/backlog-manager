@@ -32,6 +32,7 @@ import { addGameToUser } from "../../api/userFetch";
 import { useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { getCookie } from "../../utils/cookies";
 
 const GameDetailsPage = () => {
   const user = useSelector((state: any) => state.user);
@@ -48,6 +49,7 @@ const GameDetailsPage = () => {
     playtime: null,
     metacritic: null,
   };
+  const loginToken = getCookie("token");
 
   useLayoutEffect(() => {
     window.scrollTo(0, 0);
@@ -166,7 +168,7 @@ const GameDetailsPage = () => {
                 <ButtonContainer>
                   <PrimaryButton
                     onClick={() => {
-                      addGameToUser(user._id, user.token, gameInfoToSend)
+                      addGameToUser(user._id, loginToken, gameInfoToSend)
                         .then((data) => {
                           if (data.status === 200) {
                             toast.success(

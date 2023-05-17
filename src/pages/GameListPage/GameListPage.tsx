@@ -34,6 +34,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { getCookie } from "../../utils/cookies";
 
 const GameListPage = () => {
   //GET STORAGE PAGE VALUE
@@ -60,7 +61,7 @@ const GameListPage = () => {
     { name: "Released", id: "released" },
     { name: "Metacritic", id: "-metacritic" },
   ];
-
+  const loginToken = getCookie("token");
 
   useLayoutEffect(() => {
     setLoading(true);
@@ -236,7 +237,7 @@ const GameListPage = () => {
                       hours={game.playtime}
                       rating={game.metacritic}
                       id={user._id}
-                      token={user.token}
+                      token={loginToken}
                       platforms={game.platforms}
                       toast={toast}
                     ></GameCardSimple>

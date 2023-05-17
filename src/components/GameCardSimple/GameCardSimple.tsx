@@ -56,15 +56,18 @@ const GameCardSimple = ({
   };
 
   useEffect(() => {
-    checkIfGameExistsInLibrary(id, token, slug)
-      .then((data) => {
+    if (id !== null) {
+      checkIfGameExistsInLibrary(id, token, slug).then((data) => {
         if (data.status === 200) {
           setIsOnBacklog(true);
         }
         if (data.status === 404) {
           setIsOnBacklog(false);
         }
-      })
+      });
+    } else {
+      setIsOnBacklog(false);
+    }
   }, []);
 
   const getGamePlatforms = () => {

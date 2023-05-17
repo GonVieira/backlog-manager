@@ -113,9 +113,80 @@ export const fetchUserCompletedGames = async (userId: string, jwt: string) => {
   }
 };
 
-export const fetchUserUncompletedGames = async (userId: string, jwt: string) => {
+export const fetchUserUncompletedGames = async (
+  userId: string,
+  jwt: string
+) => {
   try {
-    const response = await axios.get(`${url}/user/games/uncompleted/${userId}`, {
+    const response = await axios.get(
+      `${url}/user/games/uncompleted/${userId}`,
+      {
+        headers: { Authorization: `Bearer ${jwt}` },
+      }
+    );
+    return response;
+  } catch (err) {
+    throw err;
+  }
+};
+
+export const updateUserProfileImage = async (
+  userId: string,
+  jwt: string,
+  picture: string
+) => {
+  const body = {
+    picture: picture,
+  };
+
+  try {
+    const response = await axios.patch(
+      `${url}/user/profilePicture/${userId}`,
+      body,
+      {
+        headers: { Authorization: `Bearer ${jwt}` },
+      }
+    );
+    return response;
+  } catch (err) {
+    throw err;
+  }
+};
+
+export const updateUserBackgroundImage = async (
+  userId: string,
+  jwt: string,
+  backgroundImage: string
+) => {
+  const body = {
+    backgroundImage: backgroundImage,
+  };
+
+  try {
+    const response = await axios.patch(
+      `${url}/user/backgroundImage/${userId}`,
+      body,
+      {
+        headers: { Authorization: `Bearer ${jwt}` },
+      }
+    );
+    return response;
+  } catch (err) {
+    throw err;
+  }
+};
+
+export const updateUsername = async (
+  userId: string,
+  jwt: string,
+  username: string
+) => {
+  const body = {
+    username: username,
+  };
+
+  try {
+    const response = await axios.patch(`${url}/user/username/${userId}`, body, {
       headers: { Authorization: `Bearer ${jwt}` },
     });
     return response;
@@ -124,3 +195,25 @@ export const fetchUserUncompletedGames = async (userId: string, jwt: string) => 
   }
 };
 
+export const updateUserBio = async (
+  userId: string,
+  jwt: string,
+  biography: string
+) => {
+  const body = {
+    biography: biography,
+  };
+
+  try {
+    const response = await axios.patch(
+      `${url}/user/biography/${userId}`,
+      body,
+      {
+        headers: { Authorization: `Bearer ${jwt}` },
+      }
+    );
+    return response;
+  } catch (err) {
+    throw err;
+  }
+};

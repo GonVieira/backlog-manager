@@ -87,8 +87,6 @@ const Dropdown = ({
     }, [ref, dropdownIsOpen]);
   };
 
-  console.log(defaultOption + "   ");
-
   const handleClick = (option: any, identifier: string) => {
     setOptionSelected(option.name);
     if (identifier === "platform") {
@@ -132,7 +130,6 @@ const Dropdown = ({
             {options.map((option) => (
               <DropdownContentOption
                 onClick={() => handleClick(option, stateIdentifier)}
-                
                 active={optionSelected === option.name}
               >
                 {option.name}

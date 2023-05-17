@@ -4,7 +4,11 @@ interface BackgroundImg {
   backgroundImg: string;
 }
 
-export const ProfileBodyContainer = styled.div`
+interface ModalLogic {
+  modalIsOpen: boolean;
+}
+
+export const ProfileBodyContainer = styled.div<ModalLogic>`
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -13,6 +17,7 @@ export const ProfileBodyContainer = styled.div`
   width: 100%;
   flex-direction: column;
   padding-top: 100px;
+  position: ${(props) => props.modalIsOpen ? 'fixed' : 'relative'};
 `;
 
 export const ProfilePageFirstHalf = styled.div<BackgroundImg>`
@@ -23,7 +28,7 @@ export const ProfilePageFirstHalf = styled.div<BackgroundImg>`
   height: 30%;
   width: 100%;
   background-color: #171e22;
-  background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.7)),
+  background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.9)),
     url(${(props) => props.backgroundImg});
   background-position: center;
   background-repeat: no-repeat;
@@ -37,7 +42,6 @@ export const ProfilePageSecondHalf = styled.div`
   flex-direction: column;
   height: 70%;
   width: 100%;
-  overflow: hidden;
 `;
 
 export const ProfileBasicInfoContainer = styled.div`
@@ -69,7 +73,7 @@ export const ProfileBasicInfoNameAndBioContainer = styled.div`
   align-items: center;
   flex-direction: column;
   width: 50%;
-  height: 55%;
+  height: 60%;
   padding: 5rem;
 `;
 
@@ -79,8 +83,10 @@ export const UserNameContainer = styled.div`
   align-items: center;
   width: 100%;
   height: 30%;
+  margin-bottom: 1rem;
+
   h2 {
-    font-size: 2.2rem;
+    font-size: 2.4rem;
     color: white;
     font-weight: 900;
   }
@@ -93,7 +99,7 @@ export const UserBioContainer = styled.div`
   width: 100%;
   height: 70%;
   border-radius: 6px;
-  background-color: rgba(43, 42, 51, 0.4);
+  background-color: rgba(43, 42, 51, 0.5);
   padding: 0.5rem;
 
   p {
@@ -166,7 +172,7 @@ export const MyGamesContentContainer = styled.div`
   flex-direction: column;
   height: 80%;
   width: 100%;
-`
+`;
 
 export const NoGamesScreenContainer = styled.div`
   display: flex;
@@ -179,7 +185,7 @@ export const NoGamesScreenContainer = styled.div`
     font-size: 2.5rem;
     color: #b12626;
   }
-`
+`;
 
 export const ProfileGameContainer = styled.div`
   display: flex;
@@ -188,14 +194,14 @@ export const ProfileGameContainer = styled.div`
   width: 85%;
   height: 18%;
   margin: 1rem;
-`
+`;
 
 export const ProfileGamesPaginationContainer = styled.div`
   display: flex;
   justify-content: center;
   width: 50%;
   height: 10%;
-`
+`;
 
 export const ProfilePageButtonContainer = styled.div`
   display: flex;
@@ -217,10 +223,20 @@ export const ProfilePageNumberTextContainer = styled.div`
   }
 `;
 
+export const ModalContainer = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1004;
+  background: rgba(0, 0, 0, 0.8);
+`;
+
 export const FiltersAndSortsContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
   height: 10%;
-`
+`;

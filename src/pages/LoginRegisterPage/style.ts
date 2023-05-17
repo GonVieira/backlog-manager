@@ -43,6 +43,14 @@ export const FormInputsContainer = styled.form`
   flex-direction: column;
 `;
 
+export const SingleFormInputContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30%;
+  height: 30%;
+`;
+
 export const FormConfirmationButtons = styled.div`
   display: flex;
   justify-content: space-around;

@@ -22,12 +22,15 @@ import {
 import { useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { getCookie } from "../../utils/cookies";
 
 const Homepage = () => {
   const [chosenWallpaper, setChosenWallpaper] = useState("");
   const [popularGames, setPopularGames] = useState([]);
   const navigate = useNavigate();
   const user = useSelector((state: any) => state.user);
+  const loginToken = getCookie("token");
+
 
   const imgBackgroundArray = [
     "https://cdn.discordapp.com/attachments/1070077755120701540/1070078599455068160/elden-ring-keyart.png",
@@ -106,7 +109,7 @@ const Homepage = () => {
                       hours={game.playtime}
                       rating={game.metacritic}
                       id={user._id}
-                      token={user.token}
+                      token={loginToken}
                       platforms={game.platforms}
                       toast={toast}
                     ></GameCardSimple>

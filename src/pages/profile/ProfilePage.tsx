@@ -4,8 +4,8 @@ import { useNavigate } from "react-router-dom";
 import PrimaryButton from "../../components/PrimaryButton/PrimaryButton";
 import UserStats from "../../components/UserStats/UserStats";
 import {
-  FiltersAndSortsContainer,
   InfoContainer,
+  ModalContainer,
   MyGamesContainer,
   MyGamesContentContainer,
   MyGamesTitleContainer,
@@ -35,6 +35,8 @@ import {
 import ProfileGameCard from "../../components/ProfileGameCard/ProfileGameCard";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import ProfileEditModal from "../../components/ProfileEditModal/ProfileEditModal";
+import { getCookie } from "../../utils/cookies";
 
 interface GameProps {
   completed: boolean;
@@ -60,25 +62,27 @@ const ProfilePage = () => {
   const [gamesToDisplay, setGamesToDisplay] = useState<GameProps[]>();
   const gamesPerPage = 5;
   const [lastPage, setLastPage] = useState(0);
+  const [editingOn, setEditingOn] = useState<boolean>(false);
+  const loginToken = getCookie("token");
 
   useEffect(() => {
     if (user._id === null) {
       navigate("/");
       return;
     }
-
-    fetchUserGamesById(user._id, user.token).then((data) => {
+    fetchUserGamesById(user._id, loginToken).then((data) => {
       setGames(data);
     });
 
-    fetchUserCompletedGames(user._id, user.token).then((data) => {
+    fetchUserCompletedGames(user._id, loginToken).then((data) => {
       setCompletedGames(data.data.data[0].games);
     });
 
-    fetchUserUncompletedGames(user._id, user.token).then((data) => {
+    fetchUserUncompletedGames(user._id, loginToken).then((data) => {
       setUncompletedGames(data.data.data[0].games);
     });
-  }, [user, currentPage]);
+    
+  }, [user._id, currentPage]);
 
   useEffect(() => {
     if (games) {
@@ -114,27 +118,36 @@ const ProfilePage = () => {
     setCurrentPage(1);
   }, [completedFilter]);
 
-  console.log(gamesToDisplay);
-
   return user._id ? (
-    <ProfileBodyContainer>
+    <ProfileBodyContainer modalIsOpen={editingOn}>
+      {editingOn && (
+        <ModalContainer>
+          <ProfileEditModal setIsOpen={setEditingOn} />
+        </ModalContainer>
+      )}
       <ToastContainer />
       <ProfilePageFirstHalf backgroundImg={user.backgroundImage}>
         <ProfileBasicInfoContainer>
           <ProfileImgContainer>
-            <ProfileImg src={user.profileImage} />
+            <ProfileImg src={user.profilePicture} />
           </ProfileImgContainer>
           <ProfileBasicInfoNameAndBioContainer>
             <UserNameContainer>
               <h2>{user.username}</h2>
             </UserNameContainer>
             <UserBioContainer>
-              <p>Life is a circus and I'am the clown.</p>
+              <p>{user.bio}</p>
             </UserBioContainer>
           </ProfileBasicInfoNameAndBioContainer>
           <UserOptionsContainer>
             <UserOptionsButtonContainer>
-              <PrimaryButton buttonText={"Opt"} />
+              <PrimaryButton
+                buttonText={"Opt"}
+                onClick={() => {
+                  setEditingOn(!editingOn);
+                  console.log(user);
+                }}
+              />
             </UserOptionsButtonContainer>
           </UserOptionsContainer>
         </ProfileBasicInfoContainer>
@@ -211,7 +224,7 @@ const ProfilePage = () => {
                   <ProfileGameContainer>
                     <ProfileGameCard
                       userId={user._id}
-                      token={user.token}
+                      token={loginToken}
                       slug={game.slug}
                       image={game.backgroundImage}
                       backgroundImage={game.backgroundImage}

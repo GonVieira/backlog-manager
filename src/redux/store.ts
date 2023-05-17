@@ -7,9 +7,9 @@ const initialState = {
     _id: null,
     username: null,
     email: null,
-    token: null,
-    profileImage: null,
+    profilePicture: null,
     backgroundImage: null,
+    bio: null,
   },
   platformVal: 0,
   sortVal: "",
@@ -32,6 +32,12 @@ const reducer = (
       return { ...state, genreVal: action.payload };
     case "SET_PROFILE_COMPLETED":
       return { ...state, profileCompletedFilter: action.payload };
+    case "UPDATE_USER_IMAGE":
+      return { ...state, user: { ...state, profileImage: action.payload } };
+    case "UPDATE_USER_NAME":
+      return { ...state, user: { ...state, username: action.payload } };
+    case "UPDATE_USER_BIO":
+      return { ...state, user: { ...state, bio: action.payload } };
     case "RESET":
       deleteCookie("token");
       return initialState;
