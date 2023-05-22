@@ -5,7 +5,7 @@ import GameDetailsPage from "./pages/GameDetailsPage/GameDetailsPage";
 import GameListPage from "./pages/GameListPage/GameListPage";
 import Homepage from "./pages/Homepage/Homepage";
 import LoginPage from "./pages/LoginRegisterPage/LoginRegisterPage";
-import ProfilePage from "./pages/Profile/ProfilePage";
+import ProfilePage from "./pages/ProfilePage/ProfilePage";
 
 const Navigation = () => {
   return (
