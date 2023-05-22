@@ -28,7 +28,11 @@ import {
   QualityInfoBox,
   SectionTitleContainer,
 } from "./style";
-import { addGameToUser } from "../../api/userFetch";
+import {
+  addGameToUser,
+  checkIfGameExistsInLibrary,
+  deleteGameFromLibrary,
+} from "../../api/userFetch";
 import { useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -40,6 +44,7 @@ const GameDetailsPage = () => {
   const [game, setGame] = useState<any>();
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+  const [isOnBacklog, setIsOnBacklog] = useState<boolean>(false);
   const gameInfoToSend = {
     completed: false,
     slug: null,
@@ -59,6 +64,19 @@ const GameDetailsPage = () => {
         setGame(data);
         setLoading(false);
       });
+
+      if (user._id !== null) {
+        checkIfGameExistsInLibrary(user._id, loginToken, slug).then((data) => {
+          if (data.status === 200) {
+            setIsOnBacklog(true);
+          }
+          if (data.status === 404) {
+            setIsOnBacklog(false);
+          }
+        });
+      } else {
+        setIsOnBacklog(false);
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [slug]);
@@ -166,32 +184,53 @@ const GameDetailsPage = () => {
                   </QualityInfoBox>
                 </GameDetailsInfoBoxesContainer>
                 <ButtonContainer>
-                  <PrimaryButton
-                    onClick={() => {
-                      addGameToUser(user._id, loginToken, gameInfoToSend)
-                        .then((data) => {
-                          if (data.status === 200) {
-                            toast.success(
-                              "Successfully added " +
+                  {isOnBacklog ? (
+                    <PrimaryButton
+                      buttonText={"Remove from backlog"}
+                      color="#b12626"
+                      onClick={() => {
+                        deleteGameFromLibrary(user._id, loginToken, slug!).then(
+                          (data) => {
+                            if (data.status === 200) {
+                              toast.success(
                                 gameInfoToSend.name +
-                                " to your backlog."
-                            );
+                                  " successfully removed from your backlog."
+                              );
+                              setIsOnBacklog(false);
+                            }
                           }
-                        })
-                        .catch((error) => {
-                          if (error.response.status === 401) {
-                            toast.error(
-                              "You must be logged in to add a game to your account!"
-                            );
-                          }
-                          if (error.response.status === 409) {
-                            toast.error(error.response.data.message);
-                          }
-                          toast.error(error.response.data);
-                        });
-                    }}
-                    buttonText="Add to Backlog"
-                  />
+                        );
+                      }}
+                    />
+                  ) : (
+                    <PrimaryButton
+                      onClick={() => {
+                        addGameToUser(user._id, loginToken, gameInfoToSend)
+                          .then((data) => {
+                            if (data.status === 200) {
+                              toast.success(
+                                "Successfully added " +
+                                  gameInfoToSend.name +
+                                  " to your backlog."
+                              );
+                              setIsOnBacklog(true);
+                            }
+                          })
+                          .catch((error) => {
+                            if (error.response.status === 401) {
+                              toast.error(
+                                "You must be logged in to add a game to your account!"
+                              );
+                            }
+                            if (error.response.status === 409) {
+                              toast.error(error.response.data.message);
+                            }
+                            toast.error(error.response.data);
+                          });
+                      }}
+                      buttonText="Add to Backlog"
+                    />
+                  )}
                 </ButtonContainer>
               </GameDetailsInfoContainer>
             </GameDetailsTop>

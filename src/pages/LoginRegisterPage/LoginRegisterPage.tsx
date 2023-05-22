@@ -48,7 +48,6 @@ const LoginPage = ({ type }: Props) => {
       .then((data: any) => {
         if (data.status === 200) {
           toast.success(data.data.message);
-          console.log(data.data.data.user);
           dispatch({ type: "SET_USER", payload: data.data.data.user });
           setCookie("token", data.data.data.token, 2);
           navigate("/");
