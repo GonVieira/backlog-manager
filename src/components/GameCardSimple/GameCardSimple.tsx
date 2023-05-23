@@ -10,6 +10,8 @@ import {
   GameNameContainer,
   InfoContainer,
   SimpleGameCardContainer,
+  StatNameBox,
+  StatValBox,
 } from "./style";
 import {
   addGameToUser,
@@ -95,21 +97,49 @@ const GameCardSimple = ({
           </GameNameContainer>
           <GameInfoBoxesContainer>
             <GameInfoBox>
-              <h2>Time</h2>
-              {hours === 0 ? <h2>NA</h2> : <h2>{hours} H</h2>}
-            </GameInfoBox>
-            <GameInfoBox>
-              <h2>Metacritic</h2>
-              {rating ? <h2>{rating}</h2> : <h2>NA</h2>}
-            </GameInfoBox>
-            <GameInfoBox>
-              <h2>Quality / Hour</h2>
+              <StatNameBox>
+                <h2>Time</h2>
+              </StatNameBox>
               {hours === 0 ? (
-                <h2>NA</h2>
-              ) : rating ? (
-                <h2>{(rating / hours).toFixed(2)}</h2>
+                <StatValBox>
+                  <h2>NA</h2>
+                </StatValBox>
               ) : (
-                <h2>NA</h2>
+                <StatValBox>
+                  <h2>{hours}H</h2>
+                </StatValBox>
+              )}
+            </GameInfoBox>
+            <GameInfoBox>
+              <StatNameBox>
+                <h2>Metacritic</h2>
+              </StatNameBox>
+              {rating ? (
+                <StatValBox>
+                  <h2>{rating}</h2>
+                </StatValBox>
+              ) : (
+                <StatValBox>
+                  <h2>NA</h2>
+                </StatValBox>
+              )}
+            </GameInfoBox>
+            <GameInfoBox>
+              <StatNameBox>
+                <h2>Quality / Hour</h2>
+              </StatNameBox>
+              {hours === 0 ? (
+                <StatValBox>
+                  <h2>NA</h2>
+                </StatValBox>
+              ) : rating ? (
+                <StatValBox>
+                  <h2>{(rating / hours).toFixed(2)}</h2>
+                </StatValBox>
+              ) : (
+                <StatValBox>
+                  <h2>NA</h2>
+                </StatValBox>
               )}
             </GameInfoBox>
           </GameInfoBoxesContainer>

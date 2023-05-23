@@ -28,13 +28,23 @@ export const SearchBarInput = styled.input`
   &:focus {
     outline: none;
   }
+
+  //Tablets
+  @media (max-width: 768px) {
+    font-size: 1.2rem;
+  }
+
+  //Mobile
+  @media (max-width: 576px) {
+    font-size: 1rem;
+  }
 `;
 
 export const SearchButton = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 10%;
+  width: 15%;
   height: 100%;
   border: none;
   background-color: #00bcd4;

@@ -6,8 +6,8 @@ export const StyledButton = styled.button`
   background-color: ${(props) => (props.color ? props.color : "#287fc2")};
   color: #ffffff;
   text-align: center;
-  font-size: 1.2rem;
-  padding: 0.9rem;
+  font-size: 1.1rem;
+  padding: 0.7rem;
   width: 100%;
   transition: all 0.5s;
   cursor: pointer;
@@ -23,15 +23,13 @@ export const StyledButton = styled.button`
   }
   //Tablets
   @media screen and (max-width: 768px) {
-    font-size: 1.1rem;
-    padding: 0.8rem;
-    width: 60%;
+    font-size: 1rem;
+    padding: 0.7rem;
   }
   //Mobile
   @media screen and (max-width: 480px) {
-    font-size: 1.1rem;
-    width: 75%;
-    padding: 0.7rem;
+    font-size: 0.9rem;
+    padding: 0.6rem;
   }
 `;
 

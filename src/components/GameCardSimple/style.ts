@@ -37,7 +37,7 @@ export const GameImgContainer = styled.div`
 
 export const GameImg = styled.img`
   width: 100%;
-  height: 100%;
+  height: 90%;
   object-fit: cover;
   border-radius: 5px;
   border: 1px solid #171e22;
@@ -54,43 +54,83 @@ export const InfoContainer = styled.div`
 
 export const GameNameContainer = styled.div`
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
   width: 90%;
   height: 15%;
 
   h2 {
     color: white;
-    font-size: 1.4rem;
+    font-size: 1.3rem;
     font-weight: 800;
+
+    //Tablets
+    @media (max-width: 768px) {
+      font-size: 1.1rem;
+    }
   }
 `;
 
 export const GameInfoBoxesContainer = styled.div`
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
   width: 100%;
   height: 60%;
-  flex-direction: row;
+  flex-direction: column;
 `;
 
 export const GameInfoBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 30%;
-  height: 70%;
-  flex-direction: column;
+  width: 80%;
+  height: 20%;
+  flex-direction: row;
   text-align: center;
   background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.4));
   border-radius: 5px;
   padding: 0.2rem;
+  margin: 0.2rem;
+`;
+
+export const StatNameBox = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 75%;
+  height: 100%;
 
   h2 {
     color: white;
-    height: 25%;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
+    font-weight: 400;
+    line-height: 1;
+
+    //Tablets
+    @media (max-width: 768px) {
+      font-size: 0.9rem;
+    }
+  }
+`;
+
+export const StatValBox = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20%;
+  height: 100%;
+  border-radius: 5%;
+
+  h2 {
+    color: white;
+    font-size: 1.1rem;
+    line-height: 1;
+
+    //Tablets
+    @media (max-width: 768px) {
+      font-size: 0.9rem;
+    }
   }
 `;
 
@@ -98,7 +138,6 @@ export const ButtonContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 80%;
+  width: 85%;
   height: 15%;
 `;
-

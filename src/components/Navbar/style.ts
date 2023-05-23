@@ -22,6 +22,11 @@ export const NavbarContentWrapper = styled.div`
   h2 {
     color: white;
   }
+
+  //Tablets
+  @media (max-width: 768px) {
+    width: 95%;
+  }
 `;
 
 export const NavBarProjectNameLogoContainer = styled.div`
@@ -38,6 +43,21 @@ export const NavBarProjectNameLogoContainer = styled.div`
     :hover {
       color: #287fc2;
     }
+
+    //Tablets
+    @media (max-width: 768px) {
+      font-size: 1.1rem;
+    }
+
+    //Mobile
+    @media (max-width: 576px) {
+      font-size: 0.8rem;
+    }
+  }
+
+  //Tablets
+  @media (max-width: 768px) {
+    width: 15%;
   }
 `;
 
@@ -47,18 +67,39 @@ export const SearchBarContainer = styled.div`
   align-items: center;
   width: 40%;
   height: 50%;
+
+  //Tablets
+  @media (max-width: 768px) {
+  }
+
+  //Mobile
+  @media (max-width: 576px) {
+    height: 40%;
+    width: 45%;
+  }
 `;
 
 export const LoginLogoutProfileContainer = styled.div`
   display: flex;
   justify-content: space-around;
   align-items: center;
-  width: 20%;
+  width: 22%;
   height: 50%;
 
   h2 {
     cursor: pointer;
     color: white;
+  }
+
+  //Tablets
+  @media (max-width: 768px) {
+    flex-direction: column;
+    width: 25%;
+  }
+
+  //Mobile
+  @media (max-width: 576px) {
+    width: 22%;
   }
 `;
 
@@ -66,12 +107,12 @@ export const NavBarButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 40%;
+  width: 45%;
   height: 100%;
   cursor: pointer;
   border-radius: 5px;
   background-color: #287fc2;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   color: white;
   font-weight: 900;
   border: 0;
@@ -80,6 +121,18 @@ export const NavBarButton = styled.button`
 
   &:hover {
     background-color: #7c9ce4;
+  }
+
+  //Tablets
+  @media (max-width: 768px) {
+    width: 100%;
+    height: 75%;
+    margin: 0.2rem;
+  }
+
+  //Mobile
+  @media (max-width: 576px) {
+    font-size: 1rem;
   }
 `;
 

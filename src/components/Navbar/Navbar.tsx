@@ -22,18 +22,33 @@ const Navbar = () => {
     <NavbarContainer>
       <NavbarContentWrapper>
         <NavBarProjectNameLogoContainer>
-          <h2
-            onClick={() => {
-              navigate("/");
-              window.scrollTo({
-                top: 0,
-                left: 0,
-                behavior: "smooth",
-              });
-            }}
-          >
-            GameBacklogManager
-          </h2>
+          {window.innerWidth <= 768 ? (
+            <h2
+              onClick={() => {
+                navigate("/");
+                window.scrollTo({
+                  top: 0,
+                  left: 0,
+                  behavior: "smooth",
+                });
+              }}
+            >
+              Game Backlog Manager
+            </h2>
+          ) : (
+            <h2
+              onClick={() => {
+                navigate("/");
+                window.scrollTo({
+                  top: 0,
+                  left: 0,
+                  behavior: "smooth",
+                });
+              }}
+            >
+              Game BacklogManager
+            </h2>
+          )}
         </NavBarProjectNameLogoContainer>
         <SearchBarContainer>
           <SearchBar />

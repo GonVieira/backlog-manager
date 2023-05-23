@@ -31,7 +31,6 @@ const Homepage = () => {
   const user = useSelector((state: any) => state.user);
   const loginToken = getCookie("token");
 
-
   const imgBackgroundArray = [
     "https://cdn.discordapp.com/attachments/1070077755120701540/1070078599455068160/elden-ring-keyart.png",
     "https://cdn.discordapp.com/attachments/1070077755120701540/1071147780321591317/thumb-1920-939737.png",
@@ -46,16 +45,26 @@ const Homepage = () => {
 
     setChosenWallpaper(imgBackgroundArray[rndInt]);
 
-    fetchGamesByPopularity(9).then((data) => {
-      setPopularGames(data);
-    });
+    if (window.innerWidth <= 768) {
+      fetchGamesByPopularity(4).then((data) => {
+        setPopularGames(data);
+      });
+    } else if (window.innerWidth <= 1200) {
+      fetchGamesByPopularity(6).then((data) => {
+        setPopularGames(data);
+      });
+    } else {
+      fetchGamesByPopularity(9).then((data) => {
+        setPopularGames(data);
+      });
+    }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <HomepageContainer>
-        <ToastContainer />
+      <ToastContainer />
       <BackGroundImageDiv wallpaperUrl={chosenWallpaper}>
         <HomepageContentWrapper>
           <ProjectNameTitleConainer>
