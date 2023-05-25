@@ -16,7 +16,6 @@ interface DropdownProps {
   dropdownText: string;
   defaultOption: string | number;
   options: any[];
-  state?: any;
   stateIdentifier: string;
   color?: string;
   failsafe?: string;
@@ -28,7 +27,6 @@ const Dropdown = ({
   defaultOption,
   failsafe,
   color,
-  state,
   stateIdentifier,
   onClick,
   options,
@@ -102,7 +100,7 @@ const Dropdown = ({
   };
 
   useOutsideAlerter(wrapperRef);
-
+  
   return (
     <DropdownAndTextContainer>
       <TextContainer>
@@ -113,6 +111,8 @@ const Dropdown = ({
           <DropdownText>
             {optionSelected === defaultOption ? (
               <p>{defaultOption}</p>
+            ) : optionSelected === undefined ? (
+              <p>{optionVal}</p>
             ) : (
               <p>{optionSelected}</p>
             )}

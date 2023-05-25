@@ -5,7 +5,7 @@ export const PageContainer = styled.div`
   justify-content: center;
   align-items: center;
   background-color: #171e22;
-  height: 100%;
+  height: 90%;
   width: 100%;
   padding-top: 100px;
   flex-direction: column;
@@ -13,11 +13,21 @@ export const PageContainer = styled.div`
 
 export const FormContainer = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
   width: 80%;
-  height: 80%;
+  height: 90%;
   flex-direction: column;
+
+  //Tablets
+  @media (max-width: 768px) {
+    height: 95%;
+  }
+
+  //Mobile
+  @media (max-width: 576px) {
+    height: 100%;
+  }
 `;
 
 export const FormTitleContainer = styled.div`
@@ -27,10 +37,30 @@ export const FormTitleContainer = styled.div`
   width: 100%;
   height: 20%;
 
+  //Mobile
+  @media (max-width: 576px) {
+    height: 10%;
+  }
+
   h2 {
     color: white;
     font-size: 3rem;
     text-transform: capitalize;
+
+    //Laptops
+    @media (max-width: 992px) {
+      font-size: 2.8rem;
+    }
+
+    //Tablets
+    @media (max-width: 768px) {
+      font-size: 2.6rem;
+    }
+
+    //Mobile
+    @media (max-width: 576px) {
+      font-size: 2rem;
+    }
   }
 `;
 
@@ -47,8 +77,23 @@ export const SingleFormInputContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 30%;
+  width: 35%;
   height: 30%;
+
+  //Laptops
+  @media (max-width: 992px) {
+    width: 40%;
+  }
+
+  //Tablets
+  @media (max-width: 768px) {
+    width: 50%;
+  }
+
+  //Mobile
+  @media (max-width: 576px) {
+    width: 70%;
+  }
 `;
 
 export const FormConfirmationButtons = styled.div`
@@ -58,6 +103,22 @@ export const FormConfirmationButtons = styled.div`
   height: 20%;
   flex-direction: row;
   width: 40%;
+
+  //Laptops
+  @media (max-width: 992px) {
+    width: 45%;
+  }
+
+  //Tablets
+  @media (max-width: 768px) {
+    width: 50%;
+  }
+
+  //Mobile
+  @media (max-width: 576px) {
+    width: 100%;
+    flex-direction: column;
+  }
 `;
 
 export const FormConfirmationButton = styled.div`
@@ -66,4 +127,10 @@ export const FormConfirmationButton = styled.div`
   align-items: center;
   width: 40%;
   height: 100%;
+
+  //Mobile
+  @media (max-width: 576px) {
+    height: 50%;
+    width: 50%;
+  }
 `;

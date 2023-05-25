@@ -37,6 +37,11 @@ export const TextContainer = styled.div`
     color: white;
     font-weight: bold;
     font-size: 1rem;
+
+    //Tablets
+    @media (max-width: 768px) {
+      font-size: 0.9rem;
+    }
   }
 `;
 
@@ -67,9 +72,19 @@ export const DropdownText = styled.div`
   width: 90%;
   height: 100%;
   p {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     color: #000000;
     margin: 0.5rem;
+
+    //Tablets
+    @media (max-width: 768px) {
+      font-size: 0.9rem;
+    }
+
+    //Mobile
+    @media (max-width: 576px) {
+      font-size: 0.9rem;
+    }
   }
 `;
 
@@ -78,6 +93,16 @@ export const DropdownArrowContainer = styled.div`
   justify-content: center;
   align-items: center;
   font-size: 1.2rem;
+
+  //Tablets
+  @media (max-width: 768px) {
+    font-size: 1.1rem;
+  }
+
+  //Mobile
+  @media (max-width: 576px) {
+    font-size: 1rem;
+  }
 `;
 
 export const DropdownContentContainer = styled.div`
@@ -89,13 +114,22 @@ export const DropdownContentContainer = styled.div`
   width: 100%;
   max-height: 500px;
   overflow: auto;
-  z-index: 2;
+  z-index: 1000;
   transition: all 0.3s ease-out;
   animation: 300ms ease-in-out forwards;
   transform-origin: top center;
   background-color: #e9e9ed;
   animation: ${fadeIn} 0.4s ease-in-out;
   cursor: pointer;
+
+  //Tablets
+  @media (max-width: 768px) {
+    max-height: 250px;
+  }
+
+  //Mobile
+  @media (max-width: 576px) {
+  }
 `;
 
 export const DropdownContentOption = styled.button<isSelected>`
@@ -103,15 +137,25 @@ export const DropdownContentOption = styled.button<isSelected>`
   height: 8%;
   border: 0px 2px 2px 2px solid black;
   border-style: none;
-  padding: 0;
+  padding: 0.3rem 0.1rem;
   font-size: 1rem;
   font-weight: 500;
   text-transform: capitalize;
   text-align: center;
   cursor: pointer;
-  background-color: ${(props) => (props.active ? "black" : "#e9e9ed")};
+  background-color: ${(props) => (props.active ? "#00bcd4" : "#e9e9ed")};
   color: ${(props) => (props.active ? "white" : "black")};
   &:hover {
-    background-color: ${(props) => (props.active ? "black" : "#cdcdcd")};
+    background-color: ${(props) => (props.active ? "#287fc2" : "#cdcdcd")};
+  }
+
+  //Tablets
+  @media (max-width: 768px) {
+    height: 10%;
+    font-size: 0.9rem;
+  }
+
+  //Mobile
+  @media (max-width: 576px) {
   }
 `;

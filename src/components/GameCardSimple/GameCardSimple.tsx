@@ -18,6 +18,7 @@ import {
   checkIfGameExistsInLibrary,
   deleteGameFromLibrary,
 } from "../../api/userFetch";
+import { useSelector } from "react-redux";
 
 interface GameCardSimpleProps {
   slug: string;
@@ -47,6 +48,7 @@ const GameCardSimple = ({
   const [isHovering, setIsHovering] = useState(false);
   const navigate = useNavigate();
   const [isOnBacklog, setIsOnBacklog] = useState<boolean>(false);
+  const user = useSelector((state: any) => state.user);
   const gameInfoToSend = {
     completed: false,
     slug: slug,
@@ -70,7 +72,7 @@ const GameCardSimple = ({
     } else {
       setIsOnBacklog(false);
     }
-  }, []);
+  }, [user]);
 
   const getGamePlatforms = () => {
     for (let i = 0; i < platforms.length; i++) {

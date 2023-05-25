@@ -10,6 +10,21 @@ export const StyledInput = styled.input`
   margin: 1rem;
   width: 100%;
 
+  //Laptops
+  @media (max-width: 992px) {
+    font-size: 1.4rem;
+  }
+
+  //Tablets
+  @media (max-width: 768px) {
+    font-size: 1.3rem;
+  }
+
+  //Mobile
+  @media (max-width: 576px) {
+    font-size: 1.2rem;
+  }
+
   &:focus {
     outline: none;
   }

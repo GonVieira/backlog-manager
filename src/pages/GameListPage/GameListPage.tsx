@@ -18,12 +18,10 @@ import GameCardSimple from "../../components/GameCardSimple/GameCardSimple";
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 import PrimaryButton from "../../components/PrimaryButton/PrimaryButton";
 import {
-  ButtonContainer,
   GameContainer,
   GameListContentWrapper,
   GameListPageContainer,
   ListOfGames,
-  ListOptionContainer,
   LoadingDiv,
   PageButtonContainer,
   PageNumberTextContainer,
@@ -42,8 +40,20 @@ const GameListPage = () => {
   if (!pageValStorage) {
     pageValStorage = 1;
   }
-  const user = useSelector((state: any) => state.user);
 
+  //GET GAMES PER PAGE VALUE DEPENDING ON SCREEN WIDTH
+  let gamesPerPage = 0;
+  if (window.innerWidth <= 768) {
+    gamesPerPage = 4;
+  } else if (window.innerWidth <= 1200) {
+    gamesPerPage = 6;
+  } else {
+    gamesPerPage = 9;
+  }
+
+  const [numberOfGamesPerPage] = useState<number>(gamesPerPage);
+
+  const user = useSelector((state: any) => state.user);
   const platformValue = useSelector((state: any) => state.platformVal);
   const genreValue = useSelector((state: any) => state.genreVal);
   const sort = useSelector((state: any) => state.sortVal);
@@ -53,8 +63,9 @@ const GameListPage = () => {
   const [platforms, setPlatforms] = useState([]);
   const [genres, setGenres] = useState([]);
   const [page, setPage] = useState(pageValStorage);
-  const [isOpen, setIsOpen] = useState<boolean>(false);
   const { searchVal } = useParams();
+  console.log(genreValue);
+
   const sortOptions = [
     { name: "Most Popular", id: "" },
     { name: "Name", id: "name" },
@@ -65,6 +76,7 @@ const GameListPage = () => {
 
   useLayoutEffect(() => {
     setLoading(true);
+
     //GET PLATFORMS
     if (platforms.length === 0) {
       fetchPlatforms().then((data) => {
@@ -81,12 +93,11 @@ const GameListPage = () => {
     //GET GAMES
     //IF THERE IS A SEARCH PARAMETER
     if (searchVal) {
-      fetchGamesBySearch(9, page, searchVal).then((data) => {
+      fetchGamesBySearch(numberOfGamesPerPage, page, searchVal).then((data) => {
         setGames(data);
         dispatch({ type: "SET_PLATFORM", payload: 0 });
         dispatch({ type: "SET_GENRE", payload: 0 });
         dispatch({ type: "SET_SORT", payload: "" });
-        setIsOpen(false);
       });
       setLoading(false);
       return;
@@ -95,7 +106,7 @@ const GameListPage = () => {
     //IF THERE IS A PLATFORM, SORT AND GENRE SELECTED
     if (platformValue > 0 && sort !== "" && genreValue > 0) {
       fetchSortedGamesByPlatGenre(
-        9,
+        numberOfGamesPerPage,
         page,
         platformValue,
         sort,
@@ -108,7 +119,12 @@ const GameListPage = () => {
     }
 
     if (platformValue > 0 && genreValue > 0) {
-      fetchGamesByPlatGenre(9, page, platformValue, genreValue).then((data) => {
+      fetchGamesByPlatGenre(
+        numberOfGamesPerPage,
+        page,
+        platformValue,
+        genreValue
+      ).then((data) => {
         setGames(data);
       });
       setLoading(false);
@@ -116,16 +132,7 @@ const GameListPage = () => {
     }
 
     if (sort !== "" && genreValue > 0) {
-      fetchSortedGamesGenre(9, page, sort, genreValue).then((data) => {
-        setGames(data);
-      });
-      setLoading(false);
-      return;
-    }
-
-    //IF THERE IS A PLATFORM SELECTED AND A SORT SELECTED
-    if (platformValue > 0 && sort !== "") {
-      filterPlatformsAndSortedGames(9, page, platformValue, sort).then(
+      fetchSortedGamesGenre(numberOfGamesPerPage, page, sort, genreValue).then(
         (data) => {
           setGames(data);
         }
@@ -134,17 +141,33 @@ const GameListPage = () => {
       return;
     }
 
-    //IF THERE IS A PLATFORM SELECTED
-    if (platformValue > 0) {
-      filterPlatformFetchGames(9, page, platformValue).then((data) => {
+    //IF THERE IS A PLATFORM SELECTED AND A SORT SELECTED
+    if (platformValue > 0 && sort !== "") {
+      filterPlatformsAndSortedGames(
+        numberOfGamesPerPage,
+        page,
+        platformValue,
+        sort
+      ).then((data) => {
         setGames(data);
       });
       setLoading(false);
       return;
     }
 
+    //IF THERE IS A PLATFORM SELECTED
+    if (platformValue > 0) {
+      filterPlatformFetchGames(numberOfGamesPerPage, page, platformValue).then(
+        (data) => {
+          setGames(data);
+        }
+      );
+      setLoading(false);
+      return;
+    }
+
     if (genreValue > 0) {
-      fetchByGenre(9, page, genreValue).then((data) => {
+      fetchByGenre(numberOfGamesPerPage, page, genreValue).then((data) => {
         setGames(data);
       });
       setLoading(false);
@@ -153,7 +176,7 @@ const GameListPage = () => {
 
     //IF THERE IS A SORT SELECTED
     if (sort !== "") {
-      sortedFetchGames(9, page, sort).then((data) => {
+      sortedFetchGames(numberOfGamesPerPage, page, sort).then((data) => {
         setGames(data);
       });
       setLoading(false);
@@ -161,7 +184,7 @@ const GameListPage = () => {
     }
 
     //IF THERE IS NO SORT AND FILTER OPTINS
-    fetchGamesByPage(9, page).then((data) => {
+    fetchGamesByPage(numberOfGamesPerPage, page).then((data) => {
       setGames(data);
       setLoading(false);
     });
@@ -174,52 +197,37 @@ const GameListPage = () => {
 
   if (games) {
     return (
-      <GameListPageContainer isOpen={isOpen}>
+      <GameListPageContainer>
         <ToastContainer />
         <GameListContentWrapper>
-          {!searchVal && !searchVal && (
-            <ListOptionContainer>
-              <ButtonContainer>
-                <PrimaryButton
-                  buttonText={"Options"}
-                  onClick={() => setIsOpen(!isOpen)}
-                />
-              </ButtonContainer>
-            </ListOptionContainer>
-          )}
-          {isOpen && (
-            <SearchOptionsContainer>
-              <SearchOption>
-                <Dropdown
-                  dropdownText={"Platforms"}
-                  defaultOption={platformValue}
-                  failsafe={"All Platforms"}
-                  options={platforms}
-                  state={platformValue}
-                  stateIdentifier={"platform"}
-                />
-              </SearchOption>
-              <SearchOption>
-                <Dropdown
-                  dropdownText={"Sort By"}
-                  defaultOption={sort}
-                  options={sortOptions}
-                  state={sort}
-                  stateIdentifier={"sort"}
-                />
-              </SearchOption>
-              <SearchOption>
-                <Dropdown
-                  dropdownText={"Genre"}
-                  defaultOption={genreValue}
-                  failsafe={"All Genres"}
-                  options={genres}
-                  state={genreValue}
-                  stateIdentifier={"genre"}
-                />
-              </SearchOption>
-            </SearchOptionsContainer>
-          )}
+          <SearchOptionsContainer>
+            <SearchOption>
+              <Dropdown
+                dropdownText={"Platforms"}
+                defaultOption={platformValue}
+                failsafe={"All Platforms"}
+                options={platforms}
+                stateIdentifier={"platform"}
+              />
+            </SearchOption>
+            <SearchOption>
+              <Dropdown
+                dropdownText={"Sort By"}
+                defaultOption={sort}
+                options={sortOptions}
+                stateIdentifier={"sort"}
+              />
+            </SearchOption>
+            <SearchOption>
+              <Dropdown
+                dropdownText={"Genre"}
+                defaultOption={genreValue}
+                failsafe={"All Genres"}
+                options={genres}
+                stateIdentifier={"genre"}
+              />
+            </SearchOption>
+          </SearchOptionsContainer>
           {loading ? (
             <LoadingDiv>
               <LoadingSpinner />
@@ -261,7 +269,7 @@ const GameListPage = () => {
               <h2>Page: {page}</h2>
             </PageNumberTextContainer>
             <PageButtonContainer>
-              {games.length < 9 ? (
+              {games.length < numberOfGamesPerPage ? (
                 <></>
               ) : (
                 <PrimaryButton
@@ -283,7 +291,7 @@ const GameListPage = () => {
     );
   } else {
     return (
-      <GameListPageContainer isOpen={isOpen}>
+      <GameListPageContainer>
         <GameListContentWrapper>
           <h2>LOADING</h2>
         </GameListContentWrapper>
