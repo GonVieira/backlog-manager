@@ -29,6 +29,16 @@ export const ProfileGameCardBody = styled.div<GameCardProps>`
       url(${(props) => props.backgroundImg});
     cursor: pointer;
   }
+
+  //Tablets
+  @media (max-width: 768px) {
+    padding: 0.5rem;
+  }
+
+  //Mobile
+  @media (max-width: 576px) {
+    padding: 0.4rem;
+  }
 `;
 
 export const ProfileGameImageContainer = styled.div`
@@ -78,6 +88,22 @@ export const ProfileGameNameContainer = styled.div`
     font-size: 1.8rem;
     color: #ffa500;
     font-weight: bolder;
+
+    //Laptops
+    @media (max-width: 992px) {
+      font-size: 1.4rem;
+    }
+
+    //Tablets
+    @media (max-width: 768px) {
+      font-size: 1.3rem;
+      padding-left: 1rem;
+    }
+
+    //Mobile
+    @media (max-width: 576px) {
+      font-size: 1rem;
+    }
   }
 `;
 
@@ -114,16 +140,26 @@ export const ProfileGameInfoBoxesContainer = styled.div`
   display: flex;
   justify-content: space-around;
   align-items: center;
-  width: 70%;
+  width: 75%;
   height: 60%;
+
+  //Tablets
+  @media (max-width: 768px) {
+    width: 80%;
+  }
+
+  //Mobile
+  @media (max-width: 576px) {
+    width: 85%;
+  }
 `;
 
 export const ProfileGameInfoBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 25%;
-  height: 70%;
+  width: 28%;
+  height: 75%;
   flex-direction: column;
   text-align: center;
   background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.4));
@@ -133,8 +169,23 @@ export const ProfileGameInfoBox = styled.div`
   h2 {
     color: white;
     height: 25%;
-    font-size: 1.2rem;
-    margin: 0.5rem;
+    font-size: 1rem;
+    margin: 0.8rem 0rem;
+
+    //Laptops
+    @media (max-width: 992px) {
+      font-size: 0.9rem;
+    }
+
+    //Tablets
+    @media (max-width: 768px) {
+      font-size: 0.8rem;
+    }
+
+    //Mobile
+    @media (max-width: 576px) {
+      font-size: 0.7rem;
+    }
   }
 `;
 
@@ -143,5 +194,26 @@ export const ProfileGameButtonContainer = styled.div`
   justify-content: center;
   align-items: center;
   width: 40%;
-  height: 22%;
+  height: 20%;
+  padding: 0.2rem;
+
+  //Big screens
+  @media (max-width: 1200px) {
+    width: 50%;
+  }
+
+  //Laptops
+  @media (max-width: 992px) {
+    width: 60%;
+  }
+
+  //Tablets
+  @media (max-width: 768px) {
+    width: 70%;
+  }
+
+  //Mobile
+  @media (max-width: 576px) {
+    width: 75%;
+  }
 `;

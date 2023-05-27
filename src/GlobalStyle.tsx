@@ -12,6 +12,7 @@ const GlobalStyle = createGlobalStyle`
   #root{
     height: 100vh;
     margin: 0 auto;
+    font-size: 16px;
   }
   ::-webkit-scrollbar {
     width: 0px;

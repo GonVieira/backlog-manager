@@ -13,10 +13,10 @@ export const PageContainer = styled.div`
 
 export const FormContainer = styled.div`
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
   width: 80%;
-  height: 90%;
+  height: 85%;
   flex-direction: column;
 
   //Tablets

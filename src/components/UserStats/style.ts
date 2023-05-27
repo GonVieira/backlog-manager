@@ -11,6 +11,7 @@ export const UserStatsContainer = styled.div<UserStatsContainerProps>`
   width: 100%;
   height: 100%;
   background-color: #2b2a33;
+  padding: 0.1rem;
   flex-direction: row;
   border-radius: 5px;
   border: ${(props) =>
@@ -32,12 +33,54 @@ export const TextDiv = styled.div`
 
 export const InfoText = styled.p`
   color: white;
-  font-size: 1.4rem;
+  font-size: 1.3rem;
   font-weight: bold;
+  text-align: center;
+
+  //Big screens
+  @media (max-width: 1200px) {
+    font-size: 1.3rem;
+  }
+
+  //Laptops
+  @media (max-width: 992px) {
+    font-size: 1.2rem;
+  }
+
+  //Tablets
+  @media (max-width: 768px) {
+    font-size: 1.1rem;
+  }
+
+  //Mobile
+  @media (max-width: 576px) {
+    font-size: 0.9rem;
+  }
 `;
 
 export const ValueText = styled.span`
   color: #287fc2;
-  font-size: 1.4rem;
+  font-size: 1.2rem;
   font-weight: bolder;
+  text-align: center;
+
+  //Big screens
+  @media (max-width: 1200px) {
+    font-size: 1.3rem;
+  }
+
+  //Laptops
+  @media (max-width: 992px) {
+    font-size: 1.2rem;
+  }
+
+  //Tablets
+  @media (max-width: 768px) {
+    font-size: 1.1rem;
+  }
+
+  //Mobile
+  @media (max-width: 576px) {
+    font-size: 0.9rem;
+  }
 `;

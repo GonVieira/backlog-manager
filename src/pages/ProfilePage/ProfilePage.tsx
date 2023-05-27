@@ -22,9 +22,8 @@ import {
   ProfilePageNumberTextContainer,
   ProfilePageSecondHalf,
   UserBioContainer,
-  UserNameContainer,
+  UserNameAndOptionsContainer,
   UserOptionsButtonContainer,
-  UserOptionsContainer,
   UserStatsInfoContainer,
 } from "./style";
 import {
@@ -81,7 +80,6 @@ const ProfilePage = () => {
     fetchUserUncompletedGames(user._id, loginToken).then((data) => {
       setUncompletedGames(data.data.data[0].games);
     });
-    
   }, [user._id, currentPage]);
 
   useEffect(() => {
@@ -132,24 +130,21 @@ const ProfilePage = () => {
             <ProfileImg src={user.profilePicture} />
           </ProfileImgContainer>
           <ProfileBasicInfoNameAndBioContainer>
-            <UserNameContainer>
+            <UserNameAndOptionsContainer>
               <h2>{user.username}</h2>
-            </UserNameContainer>
+              <UserOptionsButtonContainer>
+                <PrimaryButton
+                  icon={"gearIcon"}
+                  onClick={() => {
+                    setEditingOn(!editingOn);
+                  }}
+                />
+              </UserOptionsButtonContainer>
+            </UserNameAndOptionsContainer>
             <UserBioContainer>
               <p>{user.bio}</p>
             </UserBioContainer>
           </ProfileBasicInfoNameAndBioContainer>
-          <UserOptionsContainer>
-            <UserOptionsButtonContainer>
-              <PrimaryButton
-                buttonText={"Opt"}
-                onClick={() => {
-                  setEditingOn(!editingOn);
-                  console.log(user);
-                }}
-              />
-            </UserOptionsButtonContainer>
-          </UserOptionsContainer>
         </ProfileBasicInfoContainer>
         <UserStatsInfoContainer>
           {completedGames ? (

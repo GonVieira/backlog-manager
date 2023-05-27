@@ -1,9 +1,15 @@
 import React from "react";
-import { StyledBtnText, StyledButton } from "./style";
+import {
+  GearIcon,
+  IconStyledButton,
+  StyledBtnText,
+  StyledButton,
+} from "./style";
 
 interface ButtonInfoProp {
-  buttonText: string;
+  buttonText?: string;
   color?: string;
+  icon?: string;
   onClick?: () => void;
   onMouseEnter?: () => void;
   onMouseLeave?: () => void;
@@ -13,19 +19,33 @@ const PrimaryButton = ({
   buttonText,
   onClick,
   color,
+  icon,
   onMouseEnter,
   onMouseLeave,
 }: ButtonInfoProp) => {
-  return (
-    <StyledButton
-      color={color}
-      onClick={onClick}
-      onMouseEnter={onMouseEnter}
-      onMouseLeave={onMouseLeave}
-    >
-      <StyledBtnText>{buttonText}</StyledBtnText>
-    </StyledButton>
-  );
+  if (icon === "gearIcon") {
+    return (
+      <IconStyledButton
+        color={color}
+        onClick={onClick}
+        onMouseEnter={onMouseEnter}
+        onMouseLeave={onMouseLeave}
+      >
+        <GearIcon />
+      </IconStyledButton>
+    );
+  } else {
+    return (
+      <StyledButton
+        color={color}
+        onClick={onClick}
+        onMouseEnter={onMouseEnter}
+        onMouseLeave={onMouseLeave}
+      >
+        <StyledBtnText>{buttonText}</StyledBtnText>
+      </StyledButton>
+    );
+  }
 };
 
 export default PrimaryButton;

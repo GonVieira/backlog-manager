@@ -13,6 +13,23 @@ export const ProfileEditModalContainer = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 1006;
+
+  //Laptops
+  @media (max-width: 992px) {
+    width: 45%;
+  }
+
+  //Tablets
+  @media (max-width: 768px) {
+    width: 60%;
+  }
+
+  //Mobile
+  @media (max-width: 576px) {
+    width: 75%;
+    height: 80%;
+    top: 55%;
+  }
 `;
 
 export const ProfileEditModalWrapper = styled.div`
@@ -22,6 +39,11 @@ export const ProfileEditModalWrapper = styled.div`
   width: 85%;
   height: 95%;
   flex-direction: column;
+
+  //Tablets
+  @media (max-width: 768px) {
+    width: 90%;
+  }
 `;
 
 export const TitleAndCloseButtonContainer = styled.div`
@@ -35,6 +57,16 @@ export const TitleAndCloseButtonContainer = styled.div`
   h2 {
     color: #287fc2;
     font-size: 1.5rem;
+
+    //Tablets
+    @media (max-width: 768px) {
+      font-size: 1.2rem;
+    }
+
+    //Mobile
+    @media (max-width: 576px) {
+      font-size: 1rem;
+    }
   }
 `;
 
@@ -46,6 +78,17 @@ export const CloseButtonContainer = styled.div`
   height: 15%;
   position: absolute;
   right: 20px;
+
+  //Tablets
+  @media (max-width: 768px) {
+    right: 15px;
+    width: 20%;
+  }
+
+  //Mobile
+  @media (max-width: 576px) {
+    right: 10px;
+  }
 `;
 
 export const StyledCloseButton = styled.button`
@@ -92,6 +135,11 @@ export const FormDiv = styled.div`
   height: 20%;
   flex-direction: column;
   margin-bottom: 0.5rem;
+
+  //Mobile
+  @media (max-width: 576px) {
+    margin-bottom: 0.2rem;
+  }
 `;
 
 export const FormTitleContainer = styled.div`
@@ -106,6 +154,16 @@ export const FormTitleContainer = styled.div`
     font-weight: bolder;
     font-size: 1rem;
     margin: 0;
+
+    //Tablets
+    @media (max-width: 768px) {
+      font-size: 0.9rem;
+    }
+
+    //Mobile
+    @media (max-width: 576px) {
+      font-size: 0.8rem;
+    }
   }
 `;
 
@@ -120,6 +178,17 @@ export const StyledTextArea = styled.textarea`
   margin: 1rem;
   resize: none;
   border-radius: 4px;
+
+  //Tablets
+  @media (max-width: 768px) {
+    font-size: 1rem;
+  }
+
+  //Mobile
+  @media (max-width: 576px) {
+    font-size: 0.9rem;
+    margin: 0.5rem;
+  }
 
   &:focus {
     outline: none;

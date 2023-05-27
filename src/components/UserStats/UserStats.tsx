@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { InfoText, TextDiv, UserStatsContainer, ValueText } from "./style";
 import { useDispatch } from "react-redux";
 

@@ -17,7 +17,7 @@ export const ProfileBodyContainer = styled.div<ModalLogic>`
   width: 100%;
   flex-direction: column;
   padding-top: 100px;
-  position: ${(props) => props.modalIsOpen ? 'fixed' : 'relative'};
+  position: ${(props) => (props.modalIsOpen ? "fixed" : "relative")};
 `;
 
 export const ProfilePageFirstHalf = styled.div<BackgroundImg>`
@@ -50,14 +50,47 @@ export const ProfileBasicInfoContainer = styled.div`
   align-items: center;
   width: 70%;
   height: 60%;
+  margin: 2rem;
+
+  //Laptops
+  @media (max-width: 992px) {
+    width: 80%;
+  }
+
+  //Tablets
+  @media (max-width: 768px) {
+    width: 90%;
+  }
+
+  //Mobile
+  @media (max-width: 576px) {
+    width: 95%;
+  }
 `;
 
 export const ProfileImgContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 25%;
+  width: 290px;
   height: auto;
+  margin: 1rem;
+
+  //Laptops
+  @media (max-width: 992px) {
+    width: 250px;
+  }
+
+  //Tablets
+  @media (max-width: 768px) {
+    width: 225px;
+  }
+
+  //Mobile
+  @media (max-width: 576px) {
+    width: 175px;
+    margin: 0.2rem;
+  }
 `;
 
 export const ProfileImg = styled.img`
@@ -74,21 +107,38 @@ export const ProfileBasicInfoNameAndBioContainer = styled.div`
   flex-direction: column;
   width: 50%;
   height: 60%;
-  padding: 5rem;
+  margin: 1rem;
 `;
 
-export const UserNameContainer = styled.div`
+export const UserNameAndOptionsContainer = styled.div`
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: center;
   width: 100%;
   height: 30%;
   margin-bottom: 1rem;
+  flex-direction: row;
 
   h2 {
     font-size: 2.4rem;
     color: white;
     font-weight: 900;
+    text-align: center;
+
+    //Laptops
+    @media (max-width: 992px) {
+      font-size: 2.2rem;
+    }
+
+    //Tablets
+    @media (max-width: 768px) {
+      font-size: 1.9rem;
+    }
+
+    //Mobile
+    @media (max-width: 576px) {
+      font-size: 1.4rem;
+    }
   }
 `;
 
@@ -101,28 +151,36 @@ export const UserBioContainer = styled.div`
   border-radius: 6px;
   background-color: rgba(43, 42, 51, 0.5);
   padding: 0.5rem;
+  overflow: scroll;
 
   p {
     color: #fcebeb;
     font-size: 1.4rem;
-  }
-`;
+    margin: 0.2rem;
 
-export const UserOptionsContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  width: 10%;
-  height: 50%;
-  padding-top: 0.4rem;
+    //Laptops
+    @media (max-width: 992px) {
+      font-size: 1.3rem;
+    }
+
+    //Tablets
+    @media (max-width: 768px) {
+      font-size: 1.2rem;
+    }
+
+    //Mobile
+    @media (max-width: 576px) {
+      font-size: 1rem;
+    }
+  }
 `;
 
 export const UserOptionsButtonContainer = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
   align-items: center;
-  height: 20%;
-  width: 90%;
+  height: 70%;
+  width: 20%;
 `;
 
 export const UserStatsInfoContainer = styled.div`
@@ -132,6 +190,26 @@ export const UserStatsInfoContainer = styled.div`
   width: 70%;
   height: 10%;
   flex-direction: row;
+
+  //Big screens
+  @media (max-width: 1200px) {
+    width: 75%;
+  }
+
+  //Laptops
+  @media (max-width: 992px) {
+    width: 80%;
+  }
+
+  //Tablets
+  @media (max-width: 768px) {
+    width: 90%;
+  }
+
+  //Mobile
+  @media (max-width: 576px) {
+    width: 95%;
+  }
 `;
 
 export const InfoContainer = styled.div`
@@ -149,6 +227,21 @@ export const MyGamesContainer = styled.div`
   align-items: center;
   width: 70%;
   height: 90%;
+
+  //Laptops
+  @media (max-width: 992px) {
+    width: 75%;
+  }
+
+  //Tablets
+  @media (max-width: 768px) {
+    width: 85%;
+  }
+
+  //Mobile
+  @media (max-width: 576px) {
+    width: 100%;
+  }
 `;
 
 export const MyGamesTitleContainer = styled.div`
@@ -158,6 +251,12 @@ export const MyGamesTitleContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
+
+  //Mobile
+  @media (max-width: 576px) {
+    width: 90%;
+    height: 5%;
+  }
 
   h2 {
     font-size: 2rem;
@@ -199,16 +298,41 @@ export const ProfileGameContainer = styled.div`
 export const ProfileGamesPaginationContainer = styled.div`
   display: flex;
   justify-content: center;
-  width: 50%;
+  width: 60%;
   height: 10%;
+
+  //Laptops
+  @media (max-width: 992px) {
+    width: 75%;
+  }
+
+  //Tablets
+  @media (max-width: 768px) {
+    width: 80%;
+  }
+
+  //Mobile
+  @media (max-width: 576px) {
+    width: 100%;
+  }
 `;
 
 export const ProfilePageButtonContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 13%;
+  width: 15%;
   height: 100%;
+
+  //Tablets
+  @media (max-width: 768px) {
+    width: 18%;
+  }
+
+  //Mobile
+  @media (max-width: 576px) {
+    width: 25%;
+  }
 `;
 
 export const ProfilePageNumberTextContainer = styled.div`
@@ -220,6 +344,22 @@ export const ProfilePageNumberTextContainer = styled.div`
 
   h2 {
     color: white;
+    font-size: 1.5rem;
+
+    //Laptops
+    @media (max-width: 992px) {
+      font-size: 1.4rem;
+    }
+
+    //Tablets
+    @media (max-width: 768px) {
+      font-size: 1.2rem;
+    }
+
+    //Mobile
+    @media (max-width: 576px) {
+      font-size: 1rem;
+    }
   }
 `;
 
