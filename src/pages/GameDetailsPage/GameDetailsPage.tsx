@@ -173,7 +173,7 @@ const GameDetailsPage = () => {
                     {game.metacritic ? <h2>{game.metacritic}</h2> : <h2>NA</h2>}
                   </MetacriticBox>
                   <QualityInfoBox quality={game.metacritic / game.playtime}>
-                    <h2>Quality per hour</h2>
+                    <h2>Quality / hour</h2>
                     {game.playtime === 0 ? (
                       <h2>NA</h2>
                     ) : game.metacritic ? (

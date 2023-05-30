@@ -47,6 +47,21 @@ export const ProfileGameImageContainer = styled.div`
   align-items: center;
   width: 14%;
   height: 94%;
+
+  //Laptops
+  @media (max-width: 992px) {
+    width: 18%;
+  }
+
+  //Tablets
+  @media (max-width: 768px) {
+    width: 20%;
+  }
+
+  //Mobile
+  @media (max-width: 576px) {
+    width: 25%;
+  }
 `;
 
 export const ProfileGameImg = styled.img`

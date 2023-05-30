@@ -38,6 +38,21 @@ export const GameDetailsContentWrapper = styled.div`
   height: 100%;
   width: 70%;
   flex-direction: column;
+
+  //Laptops
+  @media (max-width: 992px) {
+    width: 75%;
+  }
+
+  //Tablets
+  @media (max-width: 768px) {
+    width: 80%;
+  }
+
+  //Mobile
+  @media (max-width: 576px) {
+    width: 90%;
+  }
 `;
 
 export const GameDetailsTop = styled.div<BackgroundImg>`
@@ -55,6 +70,16 @@ export const GameDetailsTop = styled.div<BackgroundImg>`
   background-size: cover;
   border-radius: 5px;
   padding: 2rem;
+
+  //Tablets
+  @media (max-width: 768px) {
+    padding: 1rem;
+  }
+
+  //Mobile
+  @media (max-width: 576px) {
+    padding: 0.5rem;
+  }
 `;
 
 export const GameDetailsImgContainer = styled.div`
@@ -63,6 +88,10 @@ export const GameDetailsImgContainer = styled.div`
   align-items: center;
   width: 28%;
   height: 80%;
+  //Tablets
+  @media (max-width: 768px) {
+    width: 35%;
+  }
 `;
 
 export const GameDetailsImg = styled.img`
@@ -91,7 +120,23 @@ export const GameNameContainer = styled.div`
   h1 {
     color: white;
     font-weight: bold;
+    text-align: center;
     font-size: 2.3rem;
+
+    //Laptops
+    @media (max-width: 992px) {
+      font-size: 2rem;
+    }
+
+    //Tablets
+    @media (max-width: 768px) {
+      font-size: 1.7rem;
+    }
+
+    //Mobile
+    @media (max-width: 576px) {
+      font-size: 1.5rem;
+    }
   }
 `;
 
@@ -102,20 +147,55 @@ export const GameDetailsInfoBoxesContainer = styled.div`
   flex-direction: row;
   width: 100%;
   height: 40%;
+
+  //Tablets
+  @media (max-width: 768px) {
+    justify-content: center;
+    flex-direction: column;
+    width: 90%;
+  }
 `;
 
 export const GameDetailsInfoBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 30%;
+  width: 28%;
   height: 80%;
   flex-direction: column;
   border-radius: 10px;
   background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.3));
+  padding: 0.4rem;
+
+  //Tablets
+  @media (max-width: 768px) {
+    flex-direction: row;
+    height: 30%;
+    width: 85%;
+    margin: 0.3rem;
+    justify-content: space-around;
+    padding: 0.2rem;
+  }
 
   h2 {
     color: white;
+    text-align: center;
+    font-size: 1.3rem;
+
+    //Laptops
+    @media (max-width: 992px) {
+      font-size: 1.2rem;
+    }
+
+    //Tablets
+    @media (max-width: 768px) {
+      font-size: 1.3rem;
+    }
+
+    //Mobile
+    @media (max-width: 576px) {
+      font-size: 1.1rem;
+    }
   }
 `;
 
@@ -147,7 +227,17 @@ export const ButtonContainer = styled.div`
   justify-content: center;
   align-items: center;
   height: 10%;
-  width: 40%;
+  width: 45%;
+
+  //Tablets
+  @media (max-width: 992px) {
+    width: 70%;
+  }
+
+  //Mobile
+  @media (max-width: 576px) {
+    width: 85%;
+  }
 `;
 
 export const SectionTitleContainer = styled.div`
@@ -160,6 +250,21 @@ export const SectionTitleContainer = styled.div`
   h2 {
     color: #287fc2;
     font-size: 2rem;
+
+    //Laptops
+    @media (max-width: 992px) {
+      font-size: 1.8rem;
+    }
+
+    //Tablets
+    @media (max-width: 768px) {
+      font-size: 1.7rem;
+    }
+
+    //Mobile
+    @media (max-width: 576px) {
+      font-size: 1.6rem;
+    }
   }
 `;
 
@@ -177,10 +282,31 @@ export const GameDescriptionContainer = styled.div`
     color: white;
     font-size: 1.5rem;
     margin-top: 0.9rem;
+
+    //Tablets
+    @media (max-width: 768px) {
+      font-size: 1.3rem;
+    }
+
+    //Mobile
+    @media (max-width: 576px) {
+      font-size: 1.2rem;
+    }
   }
 
   h3 {
     color: #287fc2;
+    font-size: 1.6rem;
+
+    //Tablets
+    @media (max-width: 768px) {
+      font-size: 1.4rem;
+    }
+
+    //Mobile
+    @media (max-width: 576px) {
+      font-size: 1.3rem;
+    }
   }
 `;
 
@@ -191,6 +317,11 @@ export const GameMinorInfoContainer = styled.div`
   grid-gap: 25px;
   width: 100%;
   height: 30%;
+
+  //Mobile
+  @media (max-width: 576px) {
+    grid-gap: 10px;
+  }
 `;
 
 export const GameMinorInfoBox = styled.div`
@@ -204,6 +335,21 @@ export const GameMinorInfoBox = styled.div`
   h1 {
     color: #287fc2;
     font-size: 1.4rem;
+
+    //Laptops
+    @media (max-width: 992px) {
+      font-size: 1.3rem;
+    }
+
+    //Tablets
+    @media (max-width: 768px) {
+      font-size: 1.2rem;
+    }
+
+    //Mobile
+    @media (max-width: 576px) {
+      font-size: 1.1rem;
+    }
   }
 `;
 
@@ -219,6 +365,16 @@ export const GameMinorInfoContent = styled.div`
     color: white;
     font-size: 1.2rem;
     margin-top: 0.5rem;
+
+    //Tablets
+    @media (max-width: 768px) {
+      font-size: 1.1rem;
+    }
+
+    //Mobile
+    @media (max-width: 576px) {
+      font-size: 1rem;
+    }
   }
 `;
 
@@ -227,17 +383,47 @@ export const GameReleaseDate = styled.div`
   justify-content: flex-start;
   align-items: center;
   flex-direction: row;
-  width: 100%;
+  width: 200%;
   height: 50%;
 
   h1 {
     color: #287fc2;
     font-size: 1.5rem;
+
+    //Laptops
+    @media (max-width: 992px) {
+      font-size: 1.4rem;
+    }
+
+    //Tablets
+    @media (max-width: 768px) {
+      font-size: 1.3rem;
+    }
+
+    //Mobile
+    @media (max-width: 576px) {
+      font-size: 1.2rem;
+    }
   }
 
   h2 {
     color: white;
     font-size: 1.5rem;
+
+    //Laptops
+    @media (max-width: 992px) {
+      font-size: 1.4rem;
+    }
+
+    //Tablets
+    @media (max-width: 768px) {
+      font-size: 1.3rem;
+    }
+
+    //Mobile
+    @media (max-width: 576px) {
+      font-size: 1.2rem;
+    }
   }
 `;
 
@@ -247,6 +433,13 @@ export const GameRequirements = styled.div`
   align-items: flex-start;
   height: 20%;
   width: 100%;
+  flex-direction: row;
+
+  //Tablets
+  @media (max-width: 768px) {
+    flex-direction: column;
+    justify-content: space-around;
+  }
 `;
 
 export const GameRequirementColumn = styled.div`
@@ -256,12 +449,29 @@ export const GameRequirementColumn = styled.div`
   width: 45%;
   max-height: 80%;
   flex-direction: column;
-  overflow: scroll;
+  overflow-y: scroll;
+  overflow-x: hidden;
+
+  //Tablets
+  @media (max-width: 768px) {
+    width: 100%;
+    max-height: 45%;
+  }
 
   p {
-    white-space: pre-wrap;
+    white-space: pre-line;
     color: white;
-    font-size: 1.4rem;
+    font-size: 1.3rem;
+
+    //Tablets
+    @media (max-width: 768px) {
+      font-size: 1.2rem;
+    }
+
+    //Mobile
+    @media (max-width: 576px) {
+      font-size: 1.1rem;
+    }
   }
 `;
 
@@ -276,6 +486,21 @@ export const NotFoundMessageContainer = styled.div`
   h2 {
     color: white;
     font-size: 4rem;
+
+    //Laptops
+    @media (max-width: 992px) {
+      font-size: 3.8rem;
+    }
+
+    //Tablets
+    @media (max-width: 768px) {
+      font-size: 3.6rem;
+    }
+
+    //Mobile
+    @media (max-width: 576px) {
+      font-size: 3.2rem;
+    }
   }
 `;
 
@@ -288,8 +513,18 @@ export const GoBackButtonContainer = styled.div`
   height: 5%;
   left: 30px;
   top: 120px;
+
+  //Laptops
+  @media (max-width: 992px) {
+    left: 15px;
+  }
+
+  //Tablets
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;
 
 export const GoBackButton = styled.div`
-  width: 4%;
+  width: 5%;
 `;
