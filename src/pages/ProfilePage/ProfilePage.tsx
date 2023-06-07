@@ -80,6 +80,7 @@ const ProfilePage = () => {
     fetchUserUncompletedGames(user._id, loginToken).then((data) => {
       setUncompletedGames(data.data.data[0].games);
     });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user._id, currentPage]);
 
   useEffect(() => {
@@ -110,6 +111,7 @@ const ProfilePage = () => {
         setLastPage(lastPageIndex);
       }
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [games, currentPage, completedFilter]);
 
   useEffect(() => {

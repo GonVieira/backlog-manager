@@ -20,7 +20,7 @@ import {
 } from "../../api/userFetch";
 import { useSelector } from "react-redux";
 
-interface GameCardSimpleProps {
+export interface GameCardSimpleProps {
   slug: string;
   image: string;
   backgroundImage: string;

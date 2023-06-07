@@ -17,7 +17,7 @@ const initialState = {
   profileCompletedFilter: "all",
 };
 
-const reducer = (
+export const reducer = (
   state = initialState,
   action: { type: string; payload: any }
 ): any => {

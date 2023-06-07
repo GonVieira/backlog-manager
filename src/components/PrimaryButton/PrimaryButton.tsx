@@ -6,7 +6,7 @@ import {
   StyledButton,
 } from "./style";
 
-interface ButtonInfoProp {
+export interface ButtonInfoProp {
   buttonText?: string;
   color?: string;
   icon?: string;

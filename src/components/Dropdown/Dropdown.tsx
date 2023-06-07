@@ -12,14 +12,13 @@ import {
 } from "./style";
 import { useDispatch } from "react-redux";
 
-interface DropdownProps {
+export interface DropdownProps {
   dropdownText: string;
   defaultOption: string | number;
   options: any[];
   stateIdentifier: string;
   color?: string;
   failsafe?: string;
-  onClick?: () => void;
 }
 
 const Dropdown = ({
@@ -28,7 +27,6 @@ const Dropdown = ({
   failsafe,
   color,
   stateIdentifier,
-  onClick,
   options,
 }: DropdownProps) => {
   let optionVal;
@@ -82,6 +80,7 @@ const Dropdown = ({
         // UNBIND EVENT LISTENER ON CLEANUP
         document.removeEventListener("mousedown", handler);
       };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [ref, dropdownIsOpen]);
   };
 
