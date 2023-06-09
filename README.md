@@ -2,6 +2,10 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Warning ⚠️
+
+The first API call may take some time since its deployed on a free server. Please be patient.
+
 ## API KEY
 
 For the project to work in your machine you must have an RAWG Api key and set it as an environment variable.
