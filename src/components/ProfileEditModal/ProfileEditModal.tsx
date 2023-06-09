@@ -66,7 +66,6 @@ const ProfileEditModal = ({ setIsOpen }: ProfileEditModalProps) => {
   };
 
   const updateUserValues = () => {
-    console.log(userValues);
     updateUser(user._id, loginToken, userValues)
       .then((data) => {
         if (data.status === 200) {
@@ -81,8 +80,6 @@ const ProfileEditModal = ({ setIsOpen }: ProfileEditModalProps) => {
       .catch((error) => {
         toast.error(error.response.data);
       });
-
-    console.log(user);
     setIsOpen(false);
   };
 
