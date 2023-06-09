@@ -14,12 +14,7 @@ import {
 import PrimaryButton from "../PrimaryButton/PrimaryButton";
 import PrimaryInput from "../PrimaryInput/PrimaryInput";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  updateUserBackgroundImage,
-  updateUserBio,
-  updateUserProfileImage,
-  updateUsername,
-} from "../../api/userFetch";
+import { updateUser } from "../../api/userFetch";
 import { toast } from "react-toastify";
 import { getCookie } from "../../utils/cookies";
 
@@ -71,76 +66,22 @@ const ProfileEditModal = ({ setIsOpen }: ProfileEditModalProps) => {
   };
 
   const updateUserValues = () => {
-    if (user.profilePicture !== userValues.profilePicture) {
-      updateUserProfileImage(user._id, loginToken, userValues.profilePicture)
-        .then((data) => {
-          if (data.status === 200) {
-            toast.success(data.data.message);
+    console.log(userValues);
+    updateUser(user._id, loginToken, userValues)
+      .then((data) => {
+        if (data.status === 200) {
+          toast.success(data.data.message);
 
-            dispatch({
-              type: "SET_USER",
-              payload: data.data.result,
-            });
-          }
-        })
-        .catch((error) => {
-          toast.error(error.response.data);
-        });
-    }
-    if (user.backgroundImage !== userValues.backgroundImage) {
-      updateUserBackgroundImage(
-        user._id,
-        loginToken,
-        userValues.backgroundImage
-      )
-        .then((data) => {
-          if (data.status === 200) {
-            toast.success(data.data.message);
+          dispatch({
+            type: "SET_USER",
+            payload: data.data.result,
+          });
+        }
+      })
+      .catch((error) => {
+        toast.error(error.response.data);
+      });
 
-            dispatch({
-              type: "SET_USER",
-              payload: data.data.result,
-            });
-          }
-        })
-        .catch((error) => {
-          toast.error(error.response.data);
-        });
-    }
-
-    if (user.username !== userValues.userName) {
-      updateUsername(user._id, loginToken, userValues.userName)
-        .then((data) => {
-          if (data.status === 200) {
-            toast.success(data.data.message);
-
-            dispatch({
-              type: "SET_USER",
-              payload: data.data.result,
-            });
-          }
-        })
-        .catch((error) => {
-          toast.error(error.response.data);
-        });
-    }
-
-    if (user.bio !== userValues.bio) {
-      updateUserBio(user._id, loginToken, userValues.bio)
-        .then((data) => {
-          if (data.status === 200) {
-            toast.success(data.data.message);
-
-            dispatch({
-              type: "SET_USER",
-              payload: data.data.result,
-            });
-          }
-        })
-        .catch((error) => {
-          toast.error(error.response.data);
-        });
-    }
     console.log(user);
     setIsOpen(false);
   };

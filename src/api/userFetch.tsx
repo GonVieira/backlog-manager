@@ -130,88 +130,19 @@ export const fetchUserUncompletedGames = async (
   }
 };
 
-export const updateUserProfileImage = async (
+export const updateUser = async (
   userId: string,
   jwt: string,
-  picture: string
+  updatedUser: object
 ) => {
   const body = {
-    picture: picture,
+    updatedUser: updatedUser,
   };
 
   try {
-    const response = await axios.patch(
-      `${url}/user/profilePicture/${userId}`,
-      body,
-      {
-        headers: { Authorization: `Bearer ${jwt}` },
-      }
-    );
-    return response;
-  } catch (err) {
-    throw err;
-  }
-};
-
-export const updateUserBackgroundImage = async (
-  userId: string,
-  jwt: string,
-  backgroundImage: string
-) => {
-  const body = {
-    backgroundImage: backgroundImage,
-  };
-
-  try {
-    const response = await axios.patch(
-      `${url}/user/backgroundImage/${userId}`,
-      body,
-      {
-        headers: { Authorization: `Bearer ${jwt}` },
-      }
-    );
-    return response;
-  } catch (err) {
-    throw err;
-  }
-};
-
-export const updateUsername = async (
-  userId: string,
-  jwt: string,
-  username: string
-) => {
-  const body = {
-    username: username,
-  };
-
-  try {
-    const response = await axios.patch(`${url}/user/username/${userId}`, body, {
+    const response = await axios.patch(`${url}/user/update/${userId}`, body, {
       headers: { Authorization: `Bearer ${jwt}` },
     });
-    return response;
-  } catch (err) {
-    throw err;
-  }
-};
-
-export const updateUserBio = async (
-  userId: string,
-  jwt: string,
-  biography: string
-) => {
-  const body = {
-    biography: biography,
-  };
-
-  try {
-    const response = await axios.patch(
-      `${url}/user/biography/${userId}`,
-      body,
-      {
-        headers: { Authorization: `Bearer ${jwt}` },
-      }
-    );
     return response;
   } catch (err) {
     throw err;
