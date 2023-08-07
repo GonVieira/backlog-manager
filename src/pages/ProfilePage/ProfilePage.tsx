@@ -80,7 +80,7 @@ const ProfilePage = () => {
     fetchUserUncompletedGames(user._id, loginToken).then((data) => {
       setUncompletedGames(data.data.data[0].games);
     });
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user._id, currentPage]);
 
   useEffect(() => {
@@ -111,7 +111,7 @@ const ProfilePage = () => {
         setLastPage(lastPageIndex);
       }
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [games, currentPage, completedFilter]);
 
   useEffect(() => {
@@ -217,8 +217,8 @@ const ProfilePage = () => {
            */}
             {gamesToDisplay.length > 0 ? (
               <MyGamesContentContainer>
-                {gamesToDisplay?.map((game) => (
-                  <ProfileGameContainer>
+                {gamesToDisplay?.map((game, index) => (
+                  <ProfileGameContainer key={game.name + index}>
                     <ProfileGameCard
                       userId={user._id}
                       token={loginToken}

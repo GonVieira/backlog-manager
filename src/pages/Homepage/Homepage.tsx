@@ -106,24 +106,22 @@ const Homepage = () => {
         {popularGames.length > 0 ? (
           <PopularGamesContainer>
             <Suspense fallback={<h2>Loading..</h2>}>
-              {popularGames.map((game: any) => {
-                return (
-                  <PopularGameContainer>
-                    <GameCardSimple
-                      slug={game.slug}
-                      image={game.background_image}
-                      backgroundImage={game.background_image}
-                      name={game.name}
-                      hours={game.playtime}
-                      rating={game.metacritic}
-                      id={user._id}
-                      token={loginToken}
-                      platforms={game.platforms}
-                      toast={toast}
-                    ></GameCardSimple>
-                  </PopularGameContainer>
-                );
-              })}
+              {popularGames.map((game: any, index: number) => (
+                <PopularGameContainer key={game.name + index}>
+                  <GameCardSimple
+                    slug={game.slug}
+                    image={game.background_image}
+                    backgroundImage={game.background_image}
+                    name={game.name}
+                    hours={game.playtime}
+                    rating={game.metacritic}
+                    id={user._id}
+                    token={loginToken}
+                    platforms={game.platforms}
+                    toast={toast}
+                  ></GameCardSimple>
+                </PopularGameContainer>
+              ))}
             </Suspense>
           </PopularGamesContainer>
         ) : (

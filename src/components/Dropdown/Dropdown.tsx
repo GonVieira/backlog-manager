@@ -80,7 +80,7 @@ const Dropdown = ({
         // UNBIND EVENT LISTENER ON CLEANUP
         document.removeEventListener("mousedown", handler);
       };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [ref, dropdownIsOpen]);
   };
 
@@ -99,7 +99,7 @@ const Dropdown = ({
   };
 
   useOutsideAlerter(wrapperRef);
-  
+
   return (
     <DropdownAndTextContainer>
       <TextContainer>
@@ -126,10 +126,11 @@ const Dropdown = ({
         </StyledDropdown>
         {dropdownIsOpen && (
           <DropdownContentContainer>
-            {options.map((option) => (
+            {options.map((option, index) => (
               <DropdownContentOption
                 onClick={() => handleClick(option, stateIdentifier)}
                 active={optionSelected === option.name}
+                key={option.name + index}
               >
                 {option.name}
               </DropdownContentOption>

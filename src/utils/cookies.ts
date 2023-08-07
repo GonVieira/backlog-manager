@@ -22,7 +22,9 @@ export function setCookie(cname: string, cvalue: string, exdays: number) {
 }
 
 export function deleteCookie(cname: string) {
+  /** 
   const d = new Date(0).toUTCString;
   let expires = "expires=" + d;
-  document.cookie = cname + "=" + expires + ";path=/";
+  */
+  document.cookie = cname + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
 }

@@ -52,7 +52,6 @@ const GameListPage = () => {
   }
 
   const [numberOfGamesPerPage] = useState<number>(gamesPerPage);
-
   const user = useSelector((state: any) => state.user);
   const platformValue = useSelector((state: any) => state.platformVal);
   const genreValue = useSelector((state: any) => state.genreVal);
@@ -64,7 +63,6 @@ const GameListPage = () => {
   const [genres, setGenres] = useState([]);
   const [page, setPage] = useState(pageValStorage);
   const { searchVal } = useParams();
-  console.log(genreValue);
 
   const sortOptions = [
     { name: "Most Popular", id: "" },
@@ -75,8 +73,6 @@ const GameListPage = () => {
   const loginToken = getCookie("token");
 
   useLayoutEffect(() => {
-    setLoading(true);
-
     //GET PLATFORMS
     if (platforms.length === 0) {
       fetchPlatforms().then((data) => {
@@ -89,6 +85,10 @@ const GameListPage = () => {
         setGenres(data);
       });
     }
+  }, []);
+
+  useLayoutEffect(() => {
+    setLoading(true);
 
     //GET GAMES
     //IF THERE IS A SEARCH PARAMETER
@@ -195,6 +195,12 @@ const GameListPage = () => {
     sessionStorage.setItem("pageVal", JSON.stringify(page));
   }, [page]);
 
+  // Page reset on filter change
+  useEffect(() => {
+    setPage(1);
+    sessionStorage.setItem("pageVal", JSON.stringify(1));
+  }, [genreValue, searchVal, platformValue, sort]);
+
   if (games) {
     return (
       <GameListPageContainer>
@@ -234,9 +240,9 @@ const GameListPage = () => {
             </LoadingDiv>
           ) : (
             <ListOfGames>
-              {games.map((game: any) => {
+              {games.map((game: any, index: number) => {
                 return (
-                  <GameContainer>
+                  <GameContainer key={game.name + index}>
                     <GameCardSimple
                       slug={game.slug}
                       image={game.background_image}
@@ -261,7 +267,14 @@ const GameListPage = () => {
               ) : (
                 <PrimaryButton
                   buttonText={"Previous"}
-                  onClick={() => setPage((page) => page - 1)}
+                  onClick={() => {
+                    setPage((page) => page - 1);
+                    window.scrollTo({
+                      top: 0,
+                      left: 0,
+                      behavior: "smooth",
+                    });
+                  }}
                 />
               )}
             </PageButtonContainer>

@@ -17,6 +17,12 @@ const SearchBar = () => {
         type="text"
         value={searchInput}
         onChange={(e) => setSearchInput(e.target.value)}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            navigate(`/games/${searchInput}`);
+            sessionStorage.clear();
+          }
+        }}
         placeholder="Elden Ring"
       />
       <SearchButton

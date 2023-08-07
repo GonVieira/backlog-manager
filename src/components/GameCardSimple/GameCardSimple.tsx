@@ -61,14 +61,18 @@ const GameCardSimple = ({
 
   useEffect(() => {
     if (id !== null) {
-      checkIfGameExistsInLibrary(id, token, slug).then((data) => {
-        if (data.status === 200) {
-          setIsOnBacklog(true);
-        }
-        if (data.status === 404) {
-          setIsOnBacklog(false);
-        }
-      });
+      checkIfGameExistsInLibrary(id, token, slug)
+        .then((data) => {
+          if (data.status === 200) {
+            setIsOnBacklog(true);
+          }
+          if (data.status === 404) {
+            setIsOnBacklog(false);
+          }
+        })
+        .catch((error) => {
+          console.log(error.response.data.message);
+        });
     } else {
       setIsOnBacklog(false);
     }

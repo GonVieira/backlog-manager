@@ -247,33 +247,45 @@ const GameDetailsPage = () => {
               <GameMinorInfoBox>
                 <h1>Platforms:&nbsp;</h1>
                 <GameMinorInfoContent>
-                  {game.parent_platforms.map((platform: any) => {
-                    return <h2> {platform.platform.name}&nbsp; </h2>;
-                  })}
+                  {game.parent_platforms.map((platform: any, index: number) => (
+                    <h2 key={"platforms" + platform.name + index}>
+                      {" "}
+                      {platform.platform.name}&nbsp;{" "}
+                    </h2>
+                  ))}
                 </GameMinorInfoContent>
               </GameMinorInfoBox>
               <GameMinorInfoBox>
                 <h1>Genres:&nbsp;</h1>
                 <GameMinorInfoContent>
-                  {game.genres.map((genre: any) => {
-                    return <h2> {genre.name}&nbsp; </h2>;
-                  })}
+                  {game.genres.map((genre: any, index: number) => (
+                    <h2 key={"genre" + genre.name + index}>
+                      {" "}
+                      {genre.name}&nbsp;{" "}
+                    </h2>
+                  ))}
                 </GameMinorInfoContent>
               </GameMinorInfoBox>
               <GameMinorInfoBox>
                 <h1>Developers:&nbsp;</h1>
                 <GameMinorInfoContent>
-                  {game.developers.map((developer: any) => {
-                    return <h2> {developer.name}&nbsp; </h2>;
-                  })}
+                  {game.developers.map((developer: any, index: number) => (
+                    <h2 key={"devs" + developer.name + index}>
+                      {" "}
+                      {developer.name}&nbsp;{" "}
+                    </h2>
+                  ))}
                 </GameMinorInfoContent>
               </GameMinorInfoBox>
               <GameMinorInfoBox>
                 <h1>Publishers:&nbsp;</h1>
                 <GameMinorInfoContent>
-                  {game.publishers.map((publisher: any) => {
-                    return <h2> {publisher.name}&nbsp; </h2>;
-                  })}
+                  {game.publishers.map((publisher: any, index: number) => (
+                    <h2 key={"publisher" + publisher.name + index}>
+                      {" "}
+                      {publisher.name}&nbsp;{" "}
+                    </h2>
+                  ))}
                 </GameMinorInfoContent>
               </GameMinorInfoBox>
               <GameReleaseDate>
