@@ -76,6 +76,7 @@ const GameCardSimple = ({
     } else {
       setIsOnBacklog(false);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
   const getGamePlatforms = () => {

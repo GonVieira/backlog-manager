@@ -1,16 +1,6 @@
 import React, { useEffect, useLayoutEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import {
-  fetchByGenre,
-  fetchGamesByPage,
-  fetchGamesByPlatGenre,
-  fetchGamesBySearch,
-  fetchSortedGamesByPlatGenre,
-  fetchSortedGamesGenre,
-  filterPlatformFetchGames,
-  filterPlatformsAndSortedGames,
-  sortedFetchGames,
-} from "../../api/gameFetch";
+import { fetchGames, fetchGamesBySearch } from "../../api/gameFetch";
 import { fetchGenres } from "../../api/genreFetch";
 import { fetchPlatforms } from "../../api/platformFetch";
 import Dropdown from "../../components/Dropdown/Dropdown";
@@ -85,13 +75,19 @@ const GameListPage = () => {
         setGenres(data);
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  useLayoutEffect(() => {
+  // Page reset on filter change
+  useEffect(() => {
+    setPage(1);
+    sessionStorage.setItem("pageVal", JSON.stringify(1));
+  }, [genreValue, searchVal, platformValue, sort, genreValue]);
+
+  useEffect(() => {
     setLoading(true);
 
     //GET GAMES
-    //IF THERE IS A SEARCH PARAMETER
     if (searchVal) {
       fetchGamesBySearch(numberOfGamesPerPage, page, searchVal).then((data) => {
         setGames(data);
@@ -103,103 +99,27 @@ const GameListPage = () => {
       return;
     }
 
-    //IF THERE IS A PLATFORM, SORT AND GENRE SELECTED
-    if (platformValue > 0 && sort !== "" && genreValue > 0) {
-      fetchSortedGamesByPlatGenre(
-        numberOfGamesPerPage,
-        page,
-        platformValue,
-        sort,
-        genreValue
-      ).then((data) => {
-        setGames(data);
-      });
-      setLoading(false);
-      return;
-    }
-
-    if (platformValue > 0 && genreValue > 0) {
-      fetchGamesByPlatGenre(
-        numberOfGamesPerPage,
-        page,
-        platformValue,
-        genreValue
-      ).then((data) => {
-        setGames(data);
-      });
-      setLoading(false);
-      return;
-    }
-
-    if (sort !== "" && genreValue > 0) {
-      fetchSortedGamesGenre(numberOfGamesPerPage, page, sort, genreValue).then(
-        (data) => {
-          setGames(data);
-        }
-      );
-      setLoading(false);
-      return;
-    }
-
-    //IF THERE IS A PLATFORM SELECTED AND A SORT SELECTED
-    if (platformValue > 0 && sort !== "") {
-      filterPlatformsAndSortedGames(
-        numberOfGamesPerPage,
-        page,
-        platformValue,
-        sort
-      ).then((data) => {
-        setGames(data);
-      });
-      setLoading(false);
-      return;
-    }
-
-    //IF THERE IS A PLATFORM SELECTED
-    if (platformValue > 0) {
-      filterPlatformFetchGames(numberOfGamesPerPage, page, platformValue).then(
-        (data) => {
-          setGames(data);
-        }
-      );
-      setLoading(false);
-      return;
-    }
-
-    if (genreValue > 0) {
-      fetchByGenre(numberOfGamesPerPage, page, genreValue).then((data) => {
-        setGames(data);
-      });
-      setLoading(false);
-      return;
-    }
-
-    //IF THERE IS A SORT SELECTED
-    if (sort !== "") {
-      sortedFetchGames(numberOfGamesPerPage, page, sort).then((data) => {
-        setGames(data);
-      });
-      setLoading(false);
-      return;
-    }
-
-    //IF THERE IS NO SORT AND FILTER OPTINS
-    fetchGamesByPage(numberOfGamesPerPage, page).then((data) => {
+    fetchGames(
+      numberOfGamesPerPage,
+      page,
+      platformValue,
+      sort,
+      genreValue
+    ).then((data) => {
       setGames(data);
-      setLoading(false);
+    }).catch((error) => {
+      console.error(error);
     });
+
+    setLoading(false);
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, searchVal, platformValue, sort, genreValue]);
 
   //SAVE PAGE VALUE EACH TIME PAGE STATE CHANGES
   useEffect(() => {
     sessionStorage.setItem("pageVal", JSON.stringify(page));
   }, [page]);
-
-  // Page reset on filter change
-  useEffect(() => {
-    setPage(1);
-    sessionStorage.setItem("pageVal", JSON.stringify(1));
-  }, [genreValue, searchVal, platformValue, sort]);
 
   if (games) {
     return (
