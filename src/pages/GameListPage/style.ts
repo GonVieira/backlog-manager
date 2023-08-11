@@ -44,7 +44,7 @@ export const ListOfGames = styled.div`
   //deskops
   @media (max-width: 1200px) {
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
   }
 
   //Tablets
@@ -189,5 +189,17 @@ export const SearchOption = styled.div`
   @media (max-width: 768px) {
     width: 28%;
     height: 75%;
+  }
+`;
+
+export const NotFoundErrorMessage = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  height: 50%;
+
+  h2 {
+    font-size: 2rem;
+    color: #ff3333;
   }
 `;

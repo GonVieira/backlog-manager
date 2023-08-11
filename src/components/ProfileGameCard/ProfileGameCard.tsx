@@ -50,6 +50,7 @@ const ProfileGameCard = ({
 
   useEffect(() => {
     setIsCompleted(completed);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [name]);
 
   return (
@@ -63,7 +64,7 @@ const ProfileGameCard = ({
       }}
     >
       <ProfileGameImageContainer>
-        <ProfileGameImg src={image} />
+        <ProfileGameImg loading="lazy" src={image} alt={"Image of " + name} />
       </ProfileGameImageContainer>
       <ProfileGameInformationsContainer>
         <ProfileGameTopInfoContainer>

@@ -1,4 +1,4 @@
-import React, { Suspense, useLayoutEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { fetchGameBySlug } from "../../api/gameFetch";
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
@@ -56,7 +56,7 @@ const GameDetailsPage = () => {
   };
   const loginToken = getCookie("token");
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     window.scrollTo(0, 0);
     setLoading(true);
     if (slug) {
@@ -153,7 +153,11 @@ const GameDetailsPage = () => {
           <GameDetailsContentWrapper>
             <GameDetailsTop backgroundImg={game.background_image}>
               <GameDetailsImgContainer>
-                <GameDetailsImg src={game.background_image} />
+                <GameDetailsImg
+                  loading="lazy"
+                  src={game.background_image}
+                  alt={"Image of " + game.name}
+                />
               </GameDetailsImgContainer>
               <GameDetailsInfoContainer>
                 <GameNameContainer>

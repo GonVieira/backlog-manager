@@ -129,7 +129,11 @@ const ProfilePage = () => {
       <ProfilePageFirstHalf backgroundImg={user.backgroundImage}>
         <ProfileBasicInfoContainer>
           <ProfileImgContainer>
-            <ProfileImg src={user.profilePicture} />
+            <ProfileImg
+              loading="lazy"
+              src={user.profilePicture}
+              alt="User profile picture"
+            />
           </ProfileImgContainer>
           <ProfileBasicInfoNameAndBioContainer>
             <UserNameAndOptionsContainer>

@@ -21,26 +21,32 @@ export const fetchGames = async (
   page: number,
   platform: number,
   sortVal: string,
-  genre: number
+  genre: number,
+  query?: string
 ) => {
-  let str: string = "";
+  const queryParams = [];
 
   if (platform > 0) {
-    str = str + "&platforms=" + platform;
+    queryParams.push(`platforms=${platform}`);
   }
 
   if (sortVal !== "") {
-    str = str + "&ordering=" + sortVal;
+    queryParams.push(`ordering=${sortVal}`);
   }
 
   if (genre > 0) {
-    str = str + "&genres=" + genre;
+    queryParams.push(`genres=${genre}`);
   }
+
+  if (query) {
+    queryParams.push(`search=${query}`);
+  }
+
+  const queryString = queryParams.length > 0 ? `&${queryParams.join("&")}` : "";
 
   try {
     const response = await axios.get(
-      `${url}?page=${page}&page_size=${limit}&key=${process.env.REACT_APP_RAWG_API_KEY}` +
-        str,
+      `${url}?page=${page}&page_size=${limit}&key=${process.env.REACT_APP_RAWG_API_KEY}${queryString}`,
       config
     );
 

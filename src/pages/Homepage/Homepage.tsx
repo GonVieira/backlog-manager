@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useState, Suspense } from "react";
+import React, { useState, Suspense, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { fetchGamesByPopularity } from "../../api/gameFetch";
 import GameCardSimple from "../../components/GameCardSimple/GameCardSimple";
@@ -40,7 +40,7 @@ const Homepage = () => {
     "https://cdn.discordapp.com/attachments/1070077755120701540/1071149795395252335/1702187.png",
   ];
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const rndInt = Math.floor(Math.random() * imgBackgroundArray.length);
 
     setChosenWallpaper(imgBackgroundArray[rndInt]);

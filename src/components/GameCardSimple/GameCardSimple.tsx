@@ -76,7 +76,7 @@ const GameCardSimple = ({
     } else {
       setIsOnBacklog(false);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
   const getGamePlatforms = () => {
@@ -96,7 +96,7 @@ const GameCardSimple = ({
         backgroundImg={backgroundImage}
       >
         <GameImgContainer>
-          <GameImg src={image} alt={name} />
+          <GameImg loading="lazy" src={image} alt={"Image of " + name} />
         </GameImgContainer>
         <InfoContainer>
           <GameNameContainer>
