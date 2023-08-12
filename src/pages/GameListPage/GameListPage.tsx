@@ -37,12 +37,12 @@ const GameListPage = () => {
     gamesPerPage = 9;
   }
 
+  const [searchParams, setSearchParams] = useSearchParams();
   const [numberOfGamesPerPage] = useState<number>(gamesPerPage);
   const user = useSelector((state: any) => state.user);
   const platformValue = useSelector((state: any) => state.platformVal);
   const genreValue = useSelector((state: any) => state.genreVal);
   const sort = useSelector((state: any) => state.sortVal);
-  const [searchParams, setSearchParams] = useSearchParams();
   const [games, setGames] = useState([]);
   const [loading, setLoading] = useState(true);
   const [platforms, setPlatforms] = useState([]);
@@ -54,6 +54,7 @@ const GameListPage = () => {
   if (pageParamVal === null) {
     pageParamVal = "1";
   }
+
   const [page, setPage] = useState<number>(parseInt(pageParamVal));
 
   const sortOptions = [
@@ -63,6 +64,13 @@ const GameListPage = () => {
     { name: "Metacritic", id: "-metacritic" },
   ];
   const loginToken = getCookie("token");
+
+  //Force window relocation every render
+  window.scrollTo({
+    top: 0,
+    left: 0,
+    behavior: "smooth",
+  });
 
   useEffect(() => {
     //GET PLATFORMS
@@ -83,19 +91,30 @@ const GameListPage = () => {
   useEffect(() => {
     setLoading(true);
 
-    fetchGames(
-      numberOfGamesPerPage,
-      page,
-      platformValue,
-      sort,
-      genreValue,
-      searchVal
-    ).then((data) => {
-      setGames(data);
-    });
-
-    setLoading(false);
+    setTimeout(() => {
+      fetchGames(
+        numberOfGamesPerPage,
+        page,
+        platformValue,
+        sort,
+        genreValue,
+        searchVal
+      )
+        .then((data) => {
+          setGames(data);
+          setLoading(false);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }, 1000);
   }, [page, searchVal, platformValue, sort, genreValue, numberOfGamesPerPage]);
+
+  useEffect(() => {
+    if (pageParamVal) {
+      setPage(parseInt(pageParamVal));
+    }
+  }, [pageParamVal]);
 
   return (
     <GameListPageContainer>
@@ -131,7 +150,9 @@ const GameListPage = () => {
         </SearchOptionsContainer>
         {loading ? (
           <LoadingDiv>
-            <LoadingSpinner />
+            <div>
+              <LoadingSpinner />
+            </div>
           </LoadingDiv>
         ) : !games ? (
           <NotFoundErrorMessage>
@@ -170,11 +191,6 @@ const GameListPage = () => {
                   onClick={() => {
                     setPage((page) => page - 1);
                     setSearchParams({ page: (page - 1).toString() });
-                    window.scrollTo({
-                      top: 0,
-                      left: 0,
-                      behavior: "smooth",
-                    });
                   }}
                 />
               )}
@@ -191,11 +207,6 @@ const GameListPage = () => {
                   onClick={() => {
                     setPage((page) => page + 1);
                     setSearchParams({ page: (page + 1).toString() });
-                    window.scrollTo({
-                      top: 0,
-                      left: 0,
-                      behavior: "smooth",
-                    });
                   }}
                 />
               )}

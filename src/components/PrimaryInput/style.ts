@@ -1,11 +1,14 @@
 import styled from "styled-components";
 
-export const StyledInput = styled.input`
+export const StyledInput = styled("input")<{ error: boolean }>`
   background-color: transparent;
   border: none;
   padding: 10px 5px;
   color: white;
-  border-bottom: 1px solid #169;
+  //${(props) => (props.color ? props.color : "#287fc2")}
+  //border-bottom: 1px solid #169;
+  border-bottom: ${(props) =>
+    props.error ? "1px solid #169" : "1px solid #ff3333"};
   font-size: 1.6rem;
   margin: 1rem;
   width: 100%;

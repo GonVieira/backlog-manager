@@ -40,6 +40,13 @@ const Homepage = () => {
     "https://cdn.discordapp.com/attachments/1070077755120701540/1071149795395252335/1702187.png",
   ];
 
+  //Force window relocation every render
+  window.scrollTo({
+    top: 0,
+    left: 0,
+    behavior: "smooth",
+  });
+
   useEffect(() => {
     const rndInt = Math.floor(Math.random() * imgBackgroundArray.length);
 

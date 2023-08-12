@@ -1,13 +1,8 @@
 import React from "react";
-import { LoadingSpinnerContainer } from "./style";
-import loadingGif from "../../assets/Rolling-1s-200px.gif";
+import { Spinner } from "./style";
 
 const LoadingSpinner = () => {
-  return (
-    <LoadingSpinnerContainer>
-      <img src={loadingGif} alt="loading gif"></img>
-    </LoadingSpinnerContainer>
-  );
+  return <Spinner />;
 };
 
 export default LoadingSpinner;

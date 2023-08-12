@@ -10,8 +10,7 @@ import {
 } from "./style";
 import { useNavigate } from "react-router-dom";
 import SearchBar from "../SearchBar/SearchBar";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const Navbar = () => {
   const navigate = useNavigate();

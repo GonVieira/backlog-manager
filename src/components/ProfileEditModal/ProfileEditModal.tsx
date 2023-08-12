@@ -104,10 +104,12 @@ const ProfileEditModal = ({ setIsOpen }: ProfileEditModalProps) => {
             <PrimaryInput
               type="text"
               placeholder="Profile image"
+              label="profileImage"
               value={userValues.profilePicture}
               name="profilePicture"
               onChange={onInputChange}
               required={false}
+              error={true}
             />
           </FormDiv>
           <FormDiv>
@@ -117,10 +119,12 @@ const ProfileEditModal = ({ setIsOpen }: ProfileEditModalProps) => {
             <PrimaryInput
               type="text"
               placeholder="Background image"
+              label="backgroundImage"
               value={userValues.backgroundImage}
               name="backgroundImage"
               onChange={onInputChange}
               required={false}
+              error={true}
             />
           </FormDiv>
           <FormDiv>
@@ -130,10 +134,12 @@ const ProfileEditModal = ({ setIsOpen }: ProfileEditModalProps) => {
             <PrimaryInput
               type="text"
               placeholder="UserName"
+              label="username"
               value={userValues.userName}
               name="userName"
               onChange={onInputChange}
               required={false}
+              error={true}
             />
           </FormDiv>
           <FormDiv>

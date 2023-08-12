@@ -475,7 +475,7 @@ export const GameRequirementColumn = styled.div`
   }
 `;
 
-export const NotFoundMessageContainer = styled.div`
+export const LoadingOrNotFoundContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;

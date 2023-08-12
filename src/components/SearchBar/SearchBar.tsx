@@ -19,7 +19,7 @@ const SearchBar = () => {
         onChange={(e) => setSearchInput(e.target.value)}
         onKeyDown={(e) => {
           if (e.key === "Enter") {
-            navigate(`/games/${searchInput}`);
+            navigate(`/games/${searchInput}?page=1`);
             sessionStorage.clear();
           }
         }}

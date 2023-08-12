@@ -18,8 +18,8 @@ export const StyledButton = styled.button`
   z-index: 81;
   @media (hover: hover) and (pointer: fine) {
     :hover {
-      padding-right: 0.2rem;
-      background-color: ${(props) => (props.color ? props.color : "#287fc2")};
+      filter: brightness(120%);
+      border-radius: 8px;
     }
   }
   //Tablets
@@ -37,17 +37,6 @@ export const StyledButton = styled.button`
 export const StyledBtnText = styled.span`
   color: white;
   font-weight: bold;
-  @media (hover: hover) and (pointer: fine) {
-    :after {
-      position: relative;
-      opacity: 0;
-      right: -0.3rem;
-      transition: 0.5s;
-      ${StyledButton}:hover & {
-        opacity: 1;
-      }
-    }
-  }
 `;
 
 export const IconStyledButton = styled.button`

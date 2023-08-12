@@ -1,3 +1,4 @@
+import { HoursInfoBox } from "./../GameDetailsPage/style";
 import styled from "styled-components";
 
 export const PageContainer = styled.div`
@@ -27,6 +28,20 @@ export const FormContainer = styled.div`
   //Mobile
   @media (max-width: 576px) {
     height: 100%;
+  }
+`;
+
+export const LoadingContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  height: 50%;
+  flex-direction: column;
+
+  h2 {
+    font-size: 1.5rem;
+    color: #fff;
   }
 `;
 

@@ -24,8 +24,8 @@ import {
   GoBackButtonContainer,
   HoursInfoBox,
   MetacriticBox,
-  NotFoundMessageContainer,
   QualityInfoBox,
+  LoadingOrNotFoundContainer,
   SectionTitleContainer,
 } from "./style";
 import {
@@ -57,7 +57,12 @@ const GameDetailsPage = () => {
   const loginToken = getCookie("token");
 
   useEffect(() => {
-    window.scrollTo(0, 0);
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
+    });
+    
     setLoading(true);
     if (slug) {
       fetchGameBySlug(slug).then((data) => {
@@ -83,9 +88,9 @@ const GameDetailsPage = () => {
 
   if (loading) {
     return (
-      <NotFoundMessageContainer>
+      <LoadingOrNotFoundContainer>
         <LoadingSpinner />
-      </NotFoundMessageContainer>
+      </LoadingOrNotFoundContainer>
     );
   }
 
@@ -319,9 +324,9 @@ const GameDetailsPage = () => {
     );
   } else {
     return (
-      <NotFoundMessageContainer>
+      <LoadingOrNotFoundContainer>
         <h2>Game Not Found</h2>
-      </NotFoundMessageContainer>
+      </LoadingOrNotFoundContainer>
     );
   }
 };
